@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers\Maintenance;
 
+use Validator;
+use App\Service;
+use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class CategoriesController extends Controller
 {
+
+    public $viewBasePath = 'admin.maintenance';
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +19,10 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::all();
+
+        return view( $this->viewBasePath . '.category.index')
+                ->with('categories', $categories);
     }
 
     /**
@@ -24,7 +32,6 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -35,7 +42,6 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**

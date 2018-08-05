@@ -1,19 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('page-specific-head-content')
-<meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-@endsection
 @section('content')
-
-
-
-
-
 <body class="hold-transition sidebar-mini">
 <!-- Content Wrapper. Contains page content -->
 <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -37,7 +24,7 @@
                       
                             
                                 <div class = "row">
-                                   {!! Form::open(['action' => 'MaintenanceController@AddCategory', 'method' => 'POST']) !!}
+                                   {!! Form::open([ 'method' => 'POST', 'url' => url('category') ]) !!}
                                     <div class = "col-sm-12">
                                         <div class="form">
                                             {!! Form::label('Category Name', 'Category Name') !!}<span>*</span>
@@ -129,7 +116,7 @@
                 </tr>
             </tfoot>
             <tbody>
-              @forelse($service_categories as $service_cat)
+              @forelse($categories as $service_cat)
                 <tr>
                  
                   <td>{{ $service_cat->strCategoryName }}</td>

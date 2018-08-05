@@ -18,48 +18,6 @@ use Illuminate\Validation\Rule;
 
 class MaintenanceController extends Controller
 {
-    public function maintainServices()
-    { 
-      $services = Service::join('service_categories', 
-          'service_categories.CategoryId', '=', 'services.CategoryId')
-          ->select('strServiceName', 'strCategoryName', 'strServiceDescription', 'fltPrice')
-          ->orderBy('ServiceId', 'desc')
-          ->get();
-      $specializations = service_category::all();
-      return view('admin.maintenance.service.index-service', ['services' => $services, 
-                'specializations' => $specializations]);;
-
-
-
-    }
-
-    public function createService(){
-      $specializations = service_category::all();
-      return view('admin.maintenance.service.create-service', ['specializations' => $specializations]);
-
-    }
-
-    public function addService(Request $request){
-      $this->validate($request, [
-          'strServiceName' => 'required',
-          'strServiceDescription' => 'nullable',
-          'fltPrice' => 'required',
-          'idSpec' => 'required',
-          'strValidity' => 'required',
-      ]);
-
-      // Save to database
-      $services = new Service;
-      $services->strServiceName = $request->input('strServiceName');
-      $services->strServiceDescription = $request->input('strDescription');
-      $services->strfltPrice = $request->input('strYearMade');
-      $services->CategoryId = $request->input('idSpec');
-      $services->strValidity = $request->input('strValidity');
-
-      if ($services->save()) {
-        return redirect('admin.maintenance.service.index-service')->with('success', 'Vehicle added!');
-      }
-    }
 
     public function maintainParts()
     { 

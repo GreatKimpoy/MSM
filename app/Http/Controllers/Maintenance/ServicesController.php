@@ -8,13 +8,20 @@ use App\Http\Controllers\Controller;
 class ServicesController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resource.   
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        $services = Service::join('service_categories', 
+            'service_categories.CategoryId', '=', 'services.CategoryId')
+            ->select('strServiceName', 'strCategoryName', 'strServiceDescription', 'fltPrice')
+            ->orderBy('ServiceId', 'desc')
+            ->get();
+        $specializations = Category::all();
+        return view('admin.maintenance.service.index-service', ['services' => $services, 
+                  'specializations' => $specializations]);;
     }
 
     /**
@@ -24,7 +31,8 @@ class ServicesController extends Controller
      */
     public function create()
     {
-        //
+        $specializations = service_category::all();
+        return view('admin.maintenance.service.create-service', ['specializations' => $specializations]);
     }
 
     /**
@@ -35,7 +43,25 @@ class ServicesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'strServiceName' => 'required',
+            'strServiceDescription' => 'nullable',
+            'fltPrice' => 'required',
+            'idSpec' => 'required',
+            'strValidity' => 'required',
+        ]);
+  
+        // Save to database
+        $services = new Service;
+        $services->strServiceName = $request->input('strServiceName');
+        $services->strServiceDescription = $request->input('strDescription');
+        $services->strfltPrice = $request->input('strYearMade');
+        $services->CategoryId = $request->input('idSpec');
+        $services->strValidity = $request->input('strValidity');
+  
+        if ($services->save()) {
+          return redirect('admin.maintenance.service.index-service')->with('success', 'Vehicle added!');
+        }
     }
 
     /**
