@@ -17,9 +17,8 @@
   	}
 </style>
 @endsection
+
 @section('content')
-
-
 <body class="hold-transition sidebar-mini">
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -53,8 +52,11 @@
             	<div class="row">
             		<div class="col-md-12">
 	            		<div class="row">
+	  						<div class="col-md-12">
+	  						@include('errors.alert')
+							</div>
 		            		<div class="col-md-3">
-		            			 {!! Form::open(['action' => 'MaintenanceController@addMechanicForm', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+		            			 {!! Form::open(['method' => 'POST', 'url' => url('mechanic'), 'enctype' => 'multipart/form-data']) !!}
 		            			<div class="form-group">
 		            				<label for="Fname"> First Name<span class="asterisks">*</span></label>
 		            				 {{Form::text('strFirstName', '',
@@ -209,13 +211,11 @@
             </div>
             <div class="card-footer">
             	
-            	{!! Form::submit('SUBMIT', ['class' => 'btn btn-sm  btn-block btn-flat bg-success pull-right']) !!}
+			{!! Form::submit('SUBMIT', ['class' => 'btn btn-sm  btn-block btn-flat bg-success pull-right']) !!}
             {!! Form::close() !!}
             	
             </div>
           </div>
-            }
-            }
       	</div>
       	<!-- /.card -->
   	</div>

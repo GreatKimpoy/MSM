@@ -2,6 +2,7 @@
 
 @section('page-specific-head-content')
 @endsection
+
 @section('content')
 
 <body class="hold-transition sidebar-mini">
@@ -31,7 +32,7 @@
           <div class="card">
             <div class="card-header">
               <div class="col-sm-3 pull-right">
-                <a href="/admin/maintenance/mechanic/create-mechanic"type="button" class="btn btn-block btn-outline-success btn-sm"><i class="fa fa-plus" > TECHNICIAN</i></a>
+                <a href="{{ url('mechanic/create') }}"type="button" class="btn btn-block btn-outline-success btn-sm"><i class="fa fa-plus" > TECHNICIAN</i></a>
               </div>
                 <h3 class="card-title">TECHNICIAN TABLE</h3>
             </div>
@@ -66,7 +67,7 @@
                   <td>{{ $mechanic->strFirstName }} {{ $mechanic->strMiddleName }} {{ $mechanic->strLastName }}</td>
                   <td>{{ $mechanic->strCategoryName }}</td>
                   <td>{{ $mechanic->strContact }}</td>
-                  <td><a href="/admin/maintenance/mechanic/{{ $mechanic->MechanicId }}" class="btn btn-primary">View</a></td>
+                  <td><a href="{{ url("mechanic/$mechanic->mechanicId") }}" class="btn btn-primary">View</a></td>
                 </tr>
               @empty
                 <tr>

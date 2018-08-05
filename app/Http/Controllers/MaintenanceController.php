@@ -14,29 +14,10 @@ use Validator;
 use Redirect;
 use Session;
 use DB;
-use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rule; 
 
 class MaintenanceController extends Controller
 {
-    //
-    public function maintainMechanics()
-   	{	
-   		$mechanics = Mechanic::join('service_categories', 
-          'service_categories.CategoryId', '=', 'mechanics.CategoryId')
-          ->select('MechanicId', 'strFirstName', 'strMiddleName', 'strLastName', 'strCategoryName', 'strContact')
-          ->orderBy('MechanicId', 'desc')
-          ->get();
-      $specializations = service_category::all();
-      return view('admin.maintenance.mechanic.index-mechanic', ['mechanics' => $mechanics, 
-                'specializations' => $specializations]);;
-
-   	}
-
-
-
-
-
-
     public function maintainServices()
     { 
       $services = Service::join('service_categories', 
@@ -94,12 +75,6 @@ class MaintenanceController extends Controller
 
 
     }
-    public function createTechnician(){    
-      
-      $specializations = service_category::all();
-      return view('admin.maintenance.mechanic.create-mechanic', ['specializations' => $specializations]);
-     
-    }
 
     public function addMechanicForm(Request $request)
     {
@@ -155,88 +130,6 @@ class MaintenanceController extends Controller
       $mechanic = Mechanic::findOrFail($id);
       return view('admin.maintenance.mechanic.view-mechanic', ['mechanic' => $mechanic]);
     }
-    public function addMechanic(Request $request)
-    {
-        $rules = [
-            'image' => 'image|mimes:jpeg,png,jpg,svg',
-            'strFirstName' => ['required','max:45'],
-            'strMiddleName' => ['nullable','max:45'],
-            'strLastName' => ['required','max:45'],
-            'txtStreet' => 'required|max:140',
-            'txtBrgy' => 'required|max:140',
-            'txtCity' => 'required|max:140',
-            'strContact' => ['required','max:30','regex:/^[^_]+$/'],
-            'strEmail' => 'nullable|email|unique:mechanics|max:100',
-            'idSpec' => 'required'
-        ];
-        $messages = [
-            'strFirstName.unique' => 'Name is already taken',
-            'required' => 'The :attribute field is required.',
-            'max' => 'The :attribute field must be no longer than :max characters.',
-            'regex' => 'The :attribute must not contain special characters.'                
-        ];
-        $niceNames = [
-            'image' => 'Technician Photo',
-            'strFirstName' => 'First Name',
-            'strMiddleName' => 'Middle Name',
-            'strLastName' => 'Last Name',
-            'txtStreet' => 'No. & St./Bldg.',
-            'txtBrgy' => 'Brgy./Subd.',
-            'txtCity' => 'City/Municipality',
-            'strContact' => 'Contact No.',
-            'strEmail' => 'Email Address',
-            'idSpec' => 'Technician Skill(s)'
-        ];
-
-        $validator = Validator::make($request->all(),$rules,$messages);
-        $validator->setAttributeNames($niceNames); 
-        if ($validator->fails()) {
-            return Redirect::back()->withErrors($validator)->withInput($request->except('image'));
-        }
-        else{
-            try{
-                DB::beginTransaction();
-                $file = $request->file('image');
-                $techPic = "";
-                if($file == '' || $file == null){
-                    $techPic = "pics/steve.jpg";
-                }else{
-                    $date = date("Ymdhis");
-                    $extension = $request->file('image')->getClientOriginalExtension();
-                    $techPic = "pics/".$date.'.'.$extension;
-                    $request->file('image')->move("pics",$techPic);    
-                }
-                $dtmBirthdate = explode('/',$request->dtmBirthdate); // MM[0] DD[1] YYYY[2] 
-                $finalBirthDate = "$dtmBirthdate[2]-$dtmBirthdate[0]-$dtmBirthdate[1]";
-                $tech = Mechanic::create([
-                    'strFirstName' => trim($request->strFirstName),
-                    'strMiddleName' => trim($request->strMiddleName),
-                    'strLastName' => trim($request->strLastName),
-                    'txtStreet' => trim($request->txtStreet),
-                    'txtBarangay' => trim($request->txtBrgy),
-                    'txtCity' => trim($request->txtCity),
-                    'dtmBirthdate' => $finalBirthDate,
-                    'strContact' => trim($request->strContact),
-                    'strEmail' => trim($request->strEmail),
-                    'image' => $techPic,
-                    'idSpec' => ($request->CategoryId),
-                ]);
-                 
-                
-                
-                DB::commit();
-            }catch(\Illuminate\Database\QueryException $e){
-                DB::rollBack();
-                $errMess = $e->getMessage();
-                return Redirect::back()->withErrors($errMess);
-            }
-
-
-            $request->session()->flash('success', 'Successfully added.');  
-            return Redirect('/admin/maintenance/mechanic/mechanics');
-        }
-    }
-  
 
     //VEHICLES
    	public function maintainVehicles()

@@ -24,14 +24,10 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
  
-
    <!-- Select2 -->
   <link rel="stylesheet" href="{{asset('material/plugins/select2/select2.min.css')}}">
-
   <!-- iCheck for checkboxes and radio inputs -->
   <link rel="stylesheet" href="{{asset('material/plugins/iCheck/all.css')}}">
-
   <link rel="stylesheet" href="{{asset('material/plugins/colorpicker/bootstrap-colorpicker.min.css')}}">
-
    <!-- DataTables -->
   <link rel="stylesheet" href="{{asset('material/plugins/datatables/dataTables.bootstrap4.css')}}">
