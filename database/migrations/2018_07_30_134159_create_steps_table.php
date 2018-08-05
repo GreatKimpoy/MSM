@@ -14,18 +14,17 @@ class CreateStepsTable extends Migration
     public function up()
     {
         Schema::create('steps', function (Blueprint $table) {
-            $table->increments('StepId');
-            $table->unsignedInteger('ServiceId');
-            $table->mediumText('txtDescription');
+            $table->increments('id');
+            $table->unsignedInteger('service_id');
+            $table->integer('sequence');
+            $table->mediumText('description');
 
-         if(Schema::hasTable('services')){
-                $table->foreign('ServiceId')
-                  ->references('ServiceId')
+ 
+                $table->foreign('service_id')
+                  ->references('id')
                   ->on('services')
                   ->onUpdate('cascade')
-                  ->onDelete('restrict');
-            }
-            
+                  ->onDelete('restrict');    
         });
     }
 

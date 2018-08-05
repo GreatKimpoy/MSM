@@ -14,20 +14,20 @@ class CreatePartsTable extends Migration
     public function up()
     {
         Schema::create('parts', function (Blueprint $table) {
-            $table->increments('PartId');
-            $table->string('strPartNo');
-            $table->unsignedInteger('VehicleId');
-            $table->string('strPartLocation');
-            $table->string('strPartDescription');
-            $table->float('fltPartPrice', 8,2);
+            $table->increments('id');
+            $table->string('part_number');
+            $table->integer('vehicle_id')->unsigned();
+            $table->string('part_location');
+            $table->string('description');
+            $table->double('price', 8,2);
 
-            if(Schema::hasTable('vehicle_types')){
-                $table->foreign('VehicleId')
-                  ->references('VehicleId')
-                  ->on('vehicle_types')
+        
+                $table->foreign('vehicle_id')
+                  ->references('id')
+                  ->on('vehicles')
                   ->onUpdate('cascade')
                   ->onDelete('restrict');
-            }
+            
             
         });
     }
