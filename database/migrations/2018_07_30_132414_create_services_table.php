@@ -14,22 +14,21 @@ class CreateServicesTable extends Migration
     public function up()
     {
         Schema::create('services', function (Blueprint $table) {
-            $table->increments('ServiceId');
-            $table->unsignedInteger('CategoryId');
-            $table->string('strServiceName');
-            $table->string('strValidity');
-            $table->text('strServiceDescription');
-            $table->float('fltPrice', 8,2);
-            $table->string('dtmEstimateTime');
-            $table->string('dtmActualTime');
+            $table->increments('id');
+            $table->unsignedInteger('category_id');
+            $table->string('service_name');
+            $table->date('warranty');
+            $table->text('description');
+            $table->double('price', 8,2);
 
-           if (Schema::hasTable('service_categories')){
-                $table->foreign('CategoryId')
-                  ->references('CategoryId')
-                  ->on('service_categories')
+
+           
+                $table->foreign('category_id')
+                  ->references('id')
+                  ->on('categories')
                   ->onUpdate('cascade')
                   ->onDelete('restrict');
-           }
+           
 
         });
     }
