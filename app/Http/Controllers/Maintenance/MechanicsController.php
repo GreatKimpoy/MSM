@@ -3,31 +3,26 @@
 namespace App\Http\Controllers\Maintenance;
 
 use Validator;
-use App\Category;
-use App\Mechanic;
-use Carbon\Carbon;
+use App\Person;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class MechanicsController extends Controller
+class CategoriesController extends Controller
 {
+
+    public $viewBasePath = 'admin.maintenance';
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        
-   		$mechanics = Mechanic::join('service_categories', 'service_categories.CategoryId', '=', 'mechanics.CategoryId')
-           ->select('MechanicId', 'strFirstName', 'strMiddleName', 'strLastName', 'strCategoryName', 'strContact')
-           ->orderBy('MechanicId', 'desc')
-           ->get();
-
-       $specializations = Category::all();
-       return view('admin.maintenance.mechanic.index')
-                 ->with('mechanics', $mechanics)
-                 ->with('specializations', $specializations);
+        if( $request->ajax() ) {
+            $categories = Person::mechanic()->get();
+            return datatables($categories)->toJson();
+        }
+        return view( $this->viewBasePath . '.mechanic.index');
     }
 
     /**
@@ -37,9 +32,7 @@ class MechanicsController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
-        return view('admin.maintenance.mechanic.create')
-                ->with('specializations', $categories);
+        return view( $this->viewBasePath . '.category.create');
     }
 
     /**
@@ -48,70 +41,28 @@ class MechanicsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Category $category)
     {
-        $file = $request->file('image');
-        $imageUploaded = "";
-        $firstname = trim($request->strFirstName);
-        $middlename = trim($request->strMiddleName);
-        $lastname = trim($request->strLastName);
-        $street = trim($request->txtStreet);
-        $barangay = trim($request->txtBrgy);
-        $city = trim($request->txtCity);
-        $birthdate = Carbon::parse( $request->get('dtmBirthdate') );
-        $categoryId = filter_var( $request->CategoryId, FILTER_VALIDATE_INT);
-        $contact = trim($request->strContact);
-        $email = trim($request->strEmail);
+        $name = filter_var($request->get('name'), FILTER_SANITIZE_STRING);
+        $description = filter_var($request->get('description'), FILTER_SANITIZE_STRING);
 
-
-        $validator = Validator::make(
-            $request->all(), 
-            Mechanic::rules(), 
-            Mechanic::messages()
-        );
-
-        $validator->setAttributeNames( Mechanic::attributeName() ); 
-
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput($request->except('image'));
+        $validator = Validator::make( $request->all(), $category->rules());
+        if($validator->fails()) {
+            return back()->withInput()->withErrors($validator);
         }
 
-        try{
-            DB::beginTransaction();
+        $category = new Category;
+        $category->name = $name;
+        $category->description = $description;
+        $category->save();
 
-            if($file == '' || $file == null) {
-                $imageUploaded = "pics/steve.jpg";
-            }else {
-                $date = date("Ymdhis");
-                $extension = $request->file('image')->getClientOriginalExtension();
-                $imageUploaded = "pics/$date.$extension";
-                $request->file('image')->move("pics", $imageUploaded);    
-            }
+		session()->flash('notification', [
+            'title' => 'Success!',
+            'message' => 'You have created your category',
+            'type' => 'success'
+        ]);
 
-            $mechanic = new Mechanic;
-            $mechanic->strFirstName = $firstname;
-            $mechanic->strMiddleName = $strMiddleName;
-            $mechanic->strLastName = $lastname;
-            $mechanic->txtStreet = $street;
-            $mechanic->txtBarangay = $barangay;
-            $mechanic->txtCity = $city;
-            $mechanic->dtmBirthdate = $birthdate;
-            $mechanic->strContact = $contact;
-            $mechanic->strEmail = $email;
-            $mechanic->image = $imageUploaded;
-            $mechanic->idSpec = $categoryId;
-            $mechanic->save();
-                
-            DB::commit();
-        } catch( \Illuminate\Database\QueryException $e ) {
-            DB::rollback();
-            $errMess = $e->getMessage();
-            return Redirect::back()->withErrors($errMess);
-        }
-
-
-        $request->session()->flash('success', 'Technician successfully added');  
-        return Redirect('/admin/maintenance/mechanic/mechanics');
+        return redirect('category');
     }
 
     /**
@@ -122,7 +73,11 @@ class MechanicsController extends Controller
      */
     public function show($id)
     {
-        //
+        $id = filter_var( $id, FILTER_VALIDATE_INT);
+        $category = Category::where('id', '=', $id)->first();
+
+        return view( $this->viewBasePath . '.category.show')
+                ->with('category', $category);
     }
 
     /**
@@ -133,7 +88,11 @@ class MechanicsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $id = filter_var( $id, FILTER_VALIDATE_INT);
+        $category = Category::where('id', '=', $id)->first();
+
+        return view( $this->viewBasePath . '.category.edit')
+                ->with('category', $category);
     }
 
     /**
@@ -145,7 +104,35 @@ class MechanicsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $id = filter_var( $id, FILTER_VALIDATE_INT);
+        $name = filter_var($request->get('name'), FILTER_SANITIZE_STRING);
+        $description = filter_var($request->get('description'), FILTER_SANITIZE_STRING);
+        $category = new Category;
+
+        $category->name = $name;
+
+        $validator = Validator::make([
+            'name' => $name,
+            'description' => $description,
+            'category' => $id
+        ], $category->updateRules());
+
+        if($validator->fails()) {
+            return back()->withInput()->withErrors($validator);
+        }
+
+        $category = Category::find($id);
+        $category->name = $name;
+        $category->description = $description;
+        $category->save();
+
+		session()->flash('notification', [
+            'title' => 'Success!',
+            'message' => 'You have successfully updated a category',
+            'type' => 'success'
+        ]);
+
+        return redirect('category');
     }
 
     /**
@@ -154,8 +141,42 @@ class MechanicsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $name = filter_var($request->get('name'), FILTER_SANITIZE_STRING);
+        $description = filter_var($request->get('description'), FILTER_SANITIZE_STRING);
+        $category = new Category;
+
+        $validator = Validator::make([
+            'category' => $id
+        ], $category->checkIfCategoryExists());
+
+        if($validator->fails()) {
+            
+            if( $request->ajax() ) {
+                return response()->json([
+                    'title' => 'Error',
+                    'message' => 'Error occured while updating a category',
+                    'status' => 'ok',
+                    'others' => '',
+                ], 500);
+            }
+            return back()->withInput()->withErrors($validator);
+        }
+
+        $category = Category::find($id);
+        $category->delete();
+
+        if( $request->ajax() ) {
+            return response()->json([
+                'title' => 'Success',
+                'message' => 'Category successfully removed',
+                'status' => 'ok',
+                'others' => '',
+            ], 200);
+        }
+
+        session()->flush('success', 'Category successfully removed');
+        return redirect('category');
     }
 }

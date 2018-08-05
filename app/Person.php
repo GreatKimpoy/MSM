@@ -4,11 +4,16 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Person extends Model
 {
-    protected $table = 'categories';
+    protected $table = 'persons';
 	public $primaryKey = 'id';
     public $timestamps = false;
+
+    public function scopeMechanic( $query )
+    {
+        return $query->where('type', '=', 'mechanic');
+    }
     
     public function rules()
     {
@@ -33,10 +38,5 @@ class Category extends Model
         return [
             'category' => "required|exists:$this->table,id"
         ];
-    }
-
-    public function services()
-    {
-        return $this->hasMany('App\Service', 'category_id', 'id');
     }
 }

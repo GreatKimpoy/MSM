@@ -23,6 +23,7 @@ class CategoriesController extends Controller
             $categories = Category::all();
             return datatables($categories)->toJson();
         }
+        
         return view( $this->viewBasePath . '.category.index');
     }
 
