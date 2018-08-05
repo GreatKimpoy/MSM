@@ -1,5 +1,4 @@
- 
-<footer class="main-footer" >
+ <footer class="main-footer" >
   <strong>Copyright &copy; 2014-2018 <a href="http://adminlte.io">Midsouth Technical Services Corporation</a>.</strong>
   All rights reserved.
   <div class="float-right d-none d-sm-inline-block">

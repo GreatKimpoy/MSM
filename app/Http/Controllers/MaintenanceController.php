@@ -28,10 +28,7 @@ class MaintenanceController extends Controller
           ->get();
       $vehicletypes = vehicleType::all();
       return view('admin.maintenance.part.index-part', ['parts' => $parts, 
-                'vehicletypes' => $vehicletypes]);;
-
-
-
+                'vehicletypes' => $vehicletypes]);
     }
 
     public function addMechanicForm(Request $request)
@@ -148,19 +145,6 @@ class MaintenanceController extends Controller
     
      public function AddCategory(Request $request)
     {
-      $this->validate($request, [
-          'strCategoryName' => 'required',
-          'strDescription' => 'nullable',
-       
-      ]);
-
-      // Save to database
-      $service_categories = new service_category;
-      $service_categories->strCategoryName = $request->input('strCategoryName');
-      $service_categories->strDescription = $request->input('strDescription');
-      if ($service_categories->save()) {
-        return redirect('admin/maintenance/category/categories')->with('success', 'Mechanic added!');
-      }
     }
 
 

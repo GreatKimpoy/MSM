@@ -1,141 +1,125 @@
 @extends('admin.layouts.app')
 
-@section('content')
-<body class="hold-transition sidebar-mini">
-<!-- Content Wrapper. Contains page content -->
-<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-                <h1 class="modal-title align-center" id="defaultModalLabel"></h1>
-            </div>
-      
-            <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">ADD SERVICE CATEGORY</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-        
-        
-        <!-- Modal body -->
-        <div class="modal-body">
-         <div class="row clearfix">
-                    <div class="col-lg-24 col-md-24 col-sm-12 col-xs-12">
-                      
-                            
-                                <div class = "row">
-                                   {!! Form::open([ 'method' => 'POST', 'url' => url('category') ]) !!}
-                                    <div class = "col-sm-12">
-                                        <div class="form">
-                                            {!! Form::label('Category Name', 'Category Name') !!}<span>*</span>
-                                          {{Form::text('strCategoryName', '',
-                                             ['class' => 'form-control align-center', 
-                                             'placeholder' => 'CATEGORY NAME',
-                                             'maxlength' =>'50',
-                                             'required'])
-                                            }}
-                                          
-                                        </div>
-                                        <div class = "form">
-                                          {!! Form::label('Category Description', 'Category Description') !!}<span>*</span>
-                                          {{Form::textarea('strDescription', '',
-                                              ['class' => 'form-control align-center',
-                                              'placeholder' => 'Description',
-                                              'maxlength' => '100',
-                                              'required'])
-                                            }}
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                          
-                         
-                        </div>
-                      </div>
+@section('content-header')
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+      <h1 class="float-left">Service Category Maintenance</h1>
+      <ol class="breadcrumb float-right">
+        <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">Home</a></li>
+        <li class="breadcrumb-item active">Service Category</li>
+      </ol>
+  </div><!-- /.container-fluid -->
+</section>
+@endsection
 
-        </div>
-        
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          {!! Form::submit('Save', ['class'=>'btn btn-primary']) !!}
-          {!! Form::close() !!}
-        </div>
-        
+@section('content-body')
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="card col-sm-12 mt-3">
+      <div class="card-block pt-3">
+        @include('notification.alert')
+        <table id="categoriesTable" class="table table-bordered table-hover">
+          <thead>
+            <tr> 
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th></th>
+            </tr>
+          </thead>
+        </table>
       </div>
     </div>
   </div>
-
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>SERVICE CATEGORY MAINTENANCE</h1>
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="/admin/dashboard">Home</a></li>
-              <li class="breadcrumb-item active">SERVICE CATEGORY MAINTENANCE</li>
-            </ol>
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
-
-
-
-    <!-- Main content -->
-    <section class="content">
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-header">
-              <div class="col-sm-3 pull-right">
-                <a data-toggle="modal" data-target="#myModal" type="button" class="btn btn-block btn-outline-success btn-sm"><i class="fa fa-plus" > CATEGORIES</i></a>
-              </div>
-                <h3 class="card-title">SERVICE CATEGORY TABLE</h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-              <table id="example2" class="table table-bordered table-hover">
-                <thead>
-                <tr> 
-                    
-                    <th>CATEGORY NAME</th>
-                    <th>CATEGORY DESCRIPTION</th>
-                    <th>ACTION</th>
-                </tr>
-            </thead>
-            <tfoot>
-                 <tr> 
-                    
-                    <th>CATEGORY NAME</th>
-                    <th>CATEGORY DESCRIPTION</th>
-                    <th>ACTION</th>
-                </tr>
-            </tfoot>
-            <tbody>
-              @forelse($categories as $service_cat)
-                <tr>
-                 
-                  <td>{{ $service_cat->strCategoryName }}</td>
-                  <td>{{ $service_cat->strDescription }}</td>
-                  <td><a href="/admin/maintenance/category/categories/{{ $service_cat->CategoryId }}" class="btn btn-primary">View</a></td>
-                </tr>
-              @empty
-                <tr>
-                  <td class="text text-warning">Empty</td>
-                </tr>
-              @endforelse
-                
-              
-              </table>
-            </div>
-            <!-- /.card-body -->
-          </div>
-          <!-- /.card -->
-        </body>
-
+</section>
 @endsection
 
+@section('scripts-include')
+<script type="text/javascript">
+	$(document).ready(function() {
+		var table = $('#categoriesTable').DataTable( {
+	  		select: {
+	  			style: 'single'
+	  		},
+		    language: {
+		        searchPlaceholder: "Search..."
+		    },
+	    	columnDefs:[
+				{ targets: 'no-sort', orderable: false },
+	    	],
+	    	"dom": "<'row'<'col-sm-3'l><'col-sm-6'<'toolbar'>><'col-sm-3'f>>" +
+						    "<'row'<'col-sm-12'tr>>" +
+						    "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+			"processing": true,
+      serverSide: true,
+      ajax: "{{ url('category') }}",
+      columns: [
+          { data: "id" },
+          { data: "name" },
+          { data: "description" },
+          { data: function(callback){
+            return `
+              <a href="{{ url("category") }}` + '/' + callback.id + `" class="btn btn-secondary">View</a>
+              <a href="{{ url("category") }}` + '/' + callback.id + `/edit" class="btn btn-warning">Edit</a>
+              <button type="button" data-id='` + callback.id + `"' class="btn-remove btn btn-danger">Remove</button>
+            `
+          } },
+      ],
+    } );
+
+	 	$("div.toolbar").html(`
+ 			<a type="button" id="new" href="{{ url('category/create') }}"  class="btn btn-primary btn-sm">
+        <span class="glyphicon glyphicon-plus"></span>  Create
+      </a>
+		`);
+
+    $('#categoriesTable').on('click', '.btn-remove', function(){
+				id = $(this).data('id');
+        var $this = $(this);
+        var loadingText = '<i class="fa fa-circle-o-notch fa-spin"></i> Loading...';
+        if ($(this).html() !== loadingText) {
+          $this.data('original-text', $(this).html());
+          $this.html(loadingText);
+        }
+
+        swal({
+          title: "Are you sure?",
+          text: "This category will be removed from database?",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            $.ajax({
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              },
+              type: 'delete',
+              url: '{{ url("category/") }}' + "/" + id,
+              data: {
+                'id': id
+              },
+              dataType: 'json',
+              success: function(response){
+                swal('Operation Successful','Room removed from database','success')
+              },
+              error: function(){
+                swal('Operation Unsuccessful','Error occurred while deleting a record','error')
+              },
+              complete: function(){
+                $this.html($this.data('original-text'));
+                table.ajax.reload();
+              }
+            });
+          } else {
+            $this.html($this.data('original-text'));
+            swal("Cancelled", "Operation Cancelled", "error");
+          }
+        });
+	    });
+
+  });
+</script>
+@endsection
