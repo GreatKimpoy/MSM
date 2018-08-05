@@ -34,4 +34,9 @@ class Category extends Model
             'category' => "required|exists:$this->table,id"
         ];
     }
+
+    public function services()
+    {
+        return $this->hasMany('App\Service', 'category_id', 'id');
+    }
 }
