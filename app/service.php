@@ -9,7 +9,6 @@ class Service extends Model
     //
      protected $table = 'services';
     //Primary Key
-	public $primaryKey = 'ServiceId';
-    // Timestamps
+	public $primaryKey = 'id';
 	public $timestamps = false;
 }
