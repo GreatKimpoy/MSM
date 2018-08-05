@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		@include('admin.includes.head-content')
+		@include('admin.includes.head')
 		@yield('page-specific-head-content')
 	</head>
 	<body>

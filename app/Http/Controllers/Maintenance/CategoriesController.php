@@ -42,6 +42,19 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required',
+            'strDescription' => 'nullable',
+         
+        ]);
+  
+        // Save to database
+        $service_categories = new service_category;
+        $service_categories->strCategoryName = $request->input('strCategoryName');
+        $service_categories->strDescription = $request->input('strDescription');
+        if ($service_categories->save()) {
+          return redirect('admin/maintenance/category/categories')->with('success', 'Mechanic added!');
+        }
     }
 
     /**

@@ -21,7 +21,7 @@ class ServicesController extends Controller
             ->get();
         $specializations = Category::all();
         return view('admin.maintenance.service.index-service', ['services' => $services, 
-                  'specializations' => $specializations]);;
+                  'specializations' => $specializations]);
     }
 
     /**
