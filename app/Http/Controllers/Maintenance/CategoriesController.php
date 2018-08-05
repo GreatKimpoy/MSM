@@ -17,12 +17,13 @@ class CategoriesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::all();
-
-        return view( $this->viewBasePath . '.category.index')
-                ->with('categories', $categories);
+        if( $request->ajax() ) {
+            $categories = Category::all();
+            return datatables($categories)->toJson();
+        }
+        return view( $this->viewBasePath . '.category.index');
     }
 
     /**
@@ -32,6 +33,7 @@ class CategoriesController extends Controller
      */
     public function create()
     {
+        return view( $this->viewBasePath . '.category.create');
     }
 
     /**
@@ -40,21 +42,28 @@ class CategoriesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Category $category)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'strDescription' => 'nullable',
-         
-        ]);
-  
-        // Save to database
-        $service_categories = new service_category;
-        $service_categories->strCategoryName = $request->input('strCategoryName');
-        $service_categories->strDescription = $request->input('strDescription');
-        if ($service_categories->save()) {
-          return redirect('admin/maintenance/category/categories')->with('success', 'Mechanic added!');
+        $name = filter_var($request->get('name'), FILTER_SANITIZE_STRING);
+        $description = filter_var($request->get('description'), FILTER_SANITIZE_STRING);
+
+        $validator = Validator::make( $request->all(), $category->rules());
+        if($validator->fails()) {
+            return back()->withInput()->withErrors($validator);
         }
+
+        $category = new Category;
+        $category->name = $name;
+        $category->description = $description;
+        $category->save();
+
+		session()->flash('notification', [
+            'title' => 'Success!',
+            'message' => 'You have created your category',
+            'type' => 'success'
+        ]);
+
+        return redirect('category');
     }
 
     /**
@@ -65,7 +74,11 @@ class CategoriesController extends Controller
      */
     public function show($id)
     {
-        //
+        $id = filter_var( $id, FILTER_VALIDATE_INT);
+        $category = Category::where('id', '=', $id)->first();
+
+        return view( $this->viewBasePath . '.category.show')
+                ->with('category', $category);
     }
 
     /**
@@ -76,7 +89,11 @@ class CategoriesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $id = filter_var( $id, FILTER_VALIDATE_INT);
+        $category = Category::where('id', '=', $id)->first();
+
+        return view( $this->viewBasePath . '.category.edit')
+                ->with('category', $category);
     }
 
     /**
@@ -88,7 +105,35 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $id = filter_var( $id, FILTER_VALIDATE_INT);
+        $name = filter_var($request->get('name'), FILTER_SANITIZE_STRING);
+        $description = filter_var($request->get('description'), FILTER_SANITIZE_STRING);
+        $category = new Category;
+
+        $category->name = $name;
+
+        $validator = Validator::make([
+            'name' => $name,
+            'description' => $description,
+            'category' => $id
+        ], $category->updateRules());
+
+        if($validator->fails()) {
+            return back()->withInput()->withErrors($validator);
+        }
+
+        $category = Category::find($id);
+        $category->name = $name;
+        $category->description = $description;
+        $category->save();
+
+		session()->flash('notification', [
+            'title' => 'Success!',
+            'message' => 'You have successfully updated a category',
+            'type' => 'success'
+        ]);
+
+        return redirect('category');
     }
 
     /**
@@ -97,8 +142,42 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $name = filter_var($request->get('name'), FILTER_SANITIZE_STRING);
+        $description = filter_var($request->get('description'), FILTER_SANITIZE_STRING);
+        $category = new Category;
+
+        $validator = Validator::make([
+            'category' => $id
+        ], $category->checkIfCategoryExists());
+
+        if($validator->fails()) {
+            
+            if( $request->ajax() ) {
+                return response()->json([
+                    'title' => 'Error',
+                    'message' => 'Error occured while updating a category',
+                    'status' => 'ok',
+                    'others' => '',
+                ], 500);
+            }
+            return back()->withInput()->withErrors($validator);
+        }
+
+        $category = Category::find($id);
+        $category->delete();
+
+        if( $request->ajax() ) {
+            return response()->json([
+                'title' => 'Success',
+                'message' => 'Category successfully removed',
+                'status' => 'ok',
+                'others' => '',
+            ], 200);
+        }
+
+        session()->flush('success', 'Category successfully removed');
+        return redirect('category');
     }
 }
