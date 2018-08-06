@@ -45,12 +45,12 @@
           </li> <!-- Customers -->
           <!-- Vehicles -->
           <li class="nav-item">
-            <a href="{{ url('vehicles') }}" class="nav-link">
+            <a href="{{ url('vehicle') }}" class="nav-link">
                 <i class="nav-icon fa plus-square"></i> Vehicles
             </a>
           </li> <!-- Vehicles --> 
           <li class="nav-item">
-            <a href="{{ url('parts') }}" class="nav-link">
+            <a href="{{ url('part') }}" class="nav-link">
               <i class="nav-icon fa plus-square"></i> Parts
             </a>
           </li>  
