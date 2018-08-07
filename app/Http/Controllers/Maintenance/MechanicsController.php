@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Maintenance;
 
+use DB;
 use Validator;
 use App\Person;
+use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class CategoriesController extends Controller
+class MechanicsController extends Controller
 {
 
     public $viewBasePath = 'admin.maintenance';
@@ -19,8 +21,8 @@ class CategoriesController extends Controller
     public function index(Request $request)
     {
         if( $request->ajax() ) {
-            $categories = Person::mechanic()->get();
-            return datatables($categories)->toJson();
+            $mechanics = Person::mechanic()->get();
+            return datatables($mechanics)->toJson();
         }
         return view( $this->viewBasePath . '.mechanic.index');
     }
@@ -32,7 +34,9 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        return view( $this->viewBasePath . '.category.create');
+        $categories = Category::all();
+        return view( $this->viewBasePath . '.mechanic.create')
+                ->with('categories', $categories);
     }
 
     /**
@@ -41,28 +45,49 @@ class CategoriesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Category $category)
+    public function store(Request $request)
     {
-        $name = filter_var($request->get('name'), FILTER_SANITIZE_STRING);
-        $description = filter_var($request->get('description'), FILTER_SANITIZE_STRING);
+        $lastname = filter_var($request->get('lastname'), FILTER_SANITIZE_STRING);
+        $firstname = filter_var($request->get('firstname'), FILTER_SANITIZE_STRING);
+        $middlename = filter_var($request->get('middlename'), FILTER_SANITIZE_STRING);
+        $street = filter_var($request->get('street'), FILTER_SANITIZE_STRING);
+        $barangay = filter_var($request->get('barangay'), FILTER_SANITIZE_STRING);
+        $city = filter_var($request->get('city'), FILTER_SANITIZE_STRING);
+        $birthdate = filter_var($request->get('birthdate'), FILTER_SANITIZE_STRING);
+        $contact = filter_var($request->get('contact'), FILTER_SANITIZE_STRING);
+        $email = filter_var($request->get('email'), FILTER_SANITIZE_STRING);
+        $type = filter_var($request->get('type'), FILTER_SANITIZE_STRING);
+        $specializations = $request->get('specializations');
+        $mechanic = new Person;
 
-        $validator = Validator::make( $request->all(), $category->rules());
+        $validator = Validator::make( $request->all(), $mechanic->mechanicRules());
         if($validator->fails()) {
             return back()->withInput()->withErrors($validator);
         }
 
-        $category = new Category;
-        $category->name = $name;
-        $category->description = $description;
-        $category->save();
+        $mechanic->lastname = $lastname;
+        $mechanic->firstname = $firstname;
+        $mechanic->middlename = $middlename;
+        $mechanic->barangay = $barangay;
+        $mechanic->city = $city;
+        $mechanic->street = $street;
+        $mechanic->birthdate = $birthdate;
+        $mechanic->contact = $contact;
+        $mechanic->email = $email;
+        $mechanic->type = $type;
+
+        DB::beginTransaction();
+        $mechanic->save();
+        $mechanic->categories()->attach($specializations);
+        DB::commit();
 
 		session()->flash('notification', [
             'title' => 'Success!',
-            'message' => 'You have created your category',
+            'message' => 'You have created a user information',
             'type' => 'success'
         ]);
 
-        return redirect('category');
+        return redirect('mechanic');
     }
 
     /**
@@ -74,10 +99,10 @@ class CategoriesController extends Controller
     public function show($id)
     {
         $id = filter_var( $id, FILTER_VALIDATE_INT);
-        $category = Category::where('id', '=', $id)->first();
+        $mechanic = Person::mechanic()->where('id', '=', $id)->first();
 
-        return view( $this->viewBasePath . '.category.show')
-                ->with('category', $category);
+        return view( $this->viewBasePath . '.mechanic.show')
+                ->with('mechanic', $mechanic);
     }
 
     /**
@@ -89,10 +114,12 @@ class CategoriesController extends Controller
     public function edit($id)
     {
         $id = filter_var( $id, FILTER_VALIDATE_INT);
-        $category = Category::where('id', '=', $id)->first();
+        $mechanic = Person::mechanic()->where('id', '=', $id)->first();
 
-        return view( $this->viewBasePath . '.category.edit')
-                ->with('category', $category);
+        $categories = Category::all();
+        return view( $this->viewBasePath . '.mechanic.edit')
+                ->with('mechanic', $mechanic)
+                ->with('categories', $categories);
     }
 
     /**
@@ -105,34 +132,47 @@ class CategoriesController extends Controller
     public function update(Request $request, $id)
     {
         $id = filter_var( $id, FILTER_VALIDATE_INT);
-        $name = filter_var($request->get('name'), FILTER_SANITIZE_STRING);
-        $description = filter_var($request->get('description'), FILTER_SANITIZE_STRING);
-        $category = new Category;
+        $lastname = filter_var($request->get('lastname'), FILTER_SANITIZE_STRING);
+        $firstname = filter_var($request->get('firstname'), FILTER_SANITIZE_STRING);
+        $middlename = filter_var($request->get('middlename'), FILTER_SANITIZE_STRING);
+        $street = filter_var($request->get('street'), FILTER_SANITIZE_STRING);
+        $barangay = filter_var($request->get('barangay'), FILTER_SANITIZE_STRING);
+        $city = filter_var($request->get('city'), FILTER_SANITIZE_STRING);
+        $birthdate = filter_var($request->get('birthdate'), FILTER_SANITIZE_STRING);
+        $contact = filter_var($request->get('contact'), FILTER_SANITIZE_STRING);
+        $email = filter_var($request->get('email'), FILTER_SANITIZE_STRING);
+        $type = filter_var($request->get('type'), FILTER_SANITIZE_STRING);
+        $specializations = $request->get('specializations');
+        $mechanic = Person::find($id);
 
-        $category->name = $name;
-
-        $validator = Validator::make([
-            'name' => $name,
-            'description' => $description,
-            'category' => $id
-        ], $category->updateRules());
-
+        $validator = Validator::make( $request->all() + [ 'mechanic' => $id ], $mechanic->mechanicUpdateRules());
         if($validator->fails()) {
             return back()->withInput()->withErrors($validator);
         }
 
-        $category = Category::find($id);
-        $category->name = $name;
-        $category->description = $description;
-        $category->save();
+        $mechanic->lastname = $lastname;
+        $mechanic->firstname = $firstname;
+        $mechanic->middlename = $middlename;
+        $mechanic->barangay = $barangay;
+        $mechanic->city = $city;
+        $mechanic->street = $street;
+        $mechanic->birthdate = $birthdate;
+        $mechanic->contact = $contact;
+        $mechanic->email = $email;
+        $mechanic->type = $type;
 
-		session()->flash('notification', [
+        DB::beginTransaction();
+        $mechanic->save();
+        $mechanic->categories()->sync($specializations);
+        DB::commit();
+
+        session()->flash('notification', [
             'title' => 'Success!',
-            'message' => 'You have successfully updated a category',
+            'message' => 'You have update a mechanics information',
             'type' => 'success'
         ]);
 
-        return redirect('category');
+        return redirect('mechanic');
     }
 
     /**
@@ -170,13 +210,13 @@ class CategoriesController extends Controller
         if( $request->ajax() ) {
             return response()->json([
                 'title' => 'Success',
-                'message' => 'Category successfully removed',
+                'message' => 'Mechanic successfully removed',
                 'status' => 'ok',
                 'others' => '',
             ], 200);
         }
 
-        session()->flush('success', 'Category successfully removed');
+        session()->flush('success', 'Mechanic successfully removed');
         return redirect('category');
     }
 }

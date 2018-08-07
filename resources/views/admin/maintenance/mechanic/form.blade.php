@@ -1,60 +1,142 @@
 <div class="form-group">
-    <label for="name">Name</label><span>*</span>
+    <label for="lastname">Firstname</label><span>*</span>
     <input 
         class="form-control align-center" 
-        placeholder="Name" 
+        placeholder="Firstname" 
         maxlength="50" 
         required 
-        name="name" 
+        name="lastname" 
         type="text"
-        id="name"
-        value="{{ isset($service->name) ? $service->name : old('name') }}">
+        id="lastname"
+        value="{{ isset($mechanic->lastname) ? $mechanic->lastname : old('lastname') }}">
 </div>
 
 <div class="form-group">
-    <label for="description">Description</label><span>*</span>
-    <textarea 
+    <label for="firstname">Firstname</label><span>*</span>
+    <input 
         class="form-control align-center" 
-        placeholder="Description"
-        maxlength="100" 
-        name="description"
-        cols="50"
-        id="description"
-        rows="10">{{ isset($service->description) ? $service->description : old('description') }}</textarea>
+        placeholder="Firstname" 
+        maxlength="50" 
+        required 
+        name="firstname" 
+        type="text"
+        id="firstname"
+        value="{{ isset($mechanic->firstname) ? $mechanic->firstname : old('firstname') }}">
 </div>
 
 <div class="form-group">
-    <label for="category">Category</label><span>*</span>
-    <select name="category" class="form-control" required>
-    @foreach($categories as $category)
+    <label for="middlename">Middlename</label><span>*</span>
+    <input 
+        class="form-control align-center" 
+        placeholder="Middlename" 
+        maxlength="50" 
+        required 
+        name="middlename" 
+        type="text"
+        id="middlename"
+        value="{{ isset($mechanic->middlename) ? $mechanic->middlename : old('middlename') }}">
+</div>
+
+<div class="form-group">
+    <label for="street">Street</label><span>*</span>
+    <input 
+        class="form-control align-center" 
+        placeholder="Street" 
+        maxlength="50" 
+        required 
+        name="street" 
+        type="text"
+        id="street"
+        value="{{ isset($mechanic->street) ? $mechanic->street : old('street') }}">
+</div>
+
+<div class="form-group">
+    <label for="barangay">Barangay</label><span>*</span>
+    <input 
+        class="form-control align-center" 
+        placeholder="Barangay" 
+        maxlength="50" 
+        required 
+        name="barangay" 
+        type="text"
+        id="barangay"
+        value="{{ isset($mechanic->barangay) ? $mechanic->barangay : old('barangay') }}">
+</div>
+
+<div class="form-group">
+    <label for="city">City</label><span>*</span>
+    <input 
+        class="form-control align-center" 
+        placeholder="City" 
+        maxlength="50" 
+        required 
+        name="city" 
+        type="text"
+        id="city"
+        value="{{ isset($mechanic->city) ? $mechanic->city : old('city') }}">
+</div>
+
+<div class="form-group">
+    <label for="birthdate">Birthdate</label><span>*</span>
+    <input 
+        class="form-control align-center" 
+        placeholder="Birthdate" 
+        maxlength="50" 
+        required 
+        name="birthdate" 
+        type="date"
+        id="birthdate"
+        value="{{ isset($mechanic->birthdate) ? $mechanic->birthdate : old('birthdate') }}">
+</div>
+
+<div class="form-group">
+    <label for="contact">Contact Number</label><span>*</span>
+    <input 
+        class="form-control align-center" 
+        placeholder="Contact Number" 
+        maxlength="50" 
+        required 
+        name="contact" 
+        type="text"
+        id="contact"
+        value="{{ isset($mechanic->contact) ? $mechanic->contact : old('contact') }}">
+</div>
+
+<div class="form-group">
+    <label for="specializations">Specialization</label><span>*</span>
+    <select 
+        name="specializations[]" 
+        class="form-control"
+        multiple>
+        @foreach($categories as $category)
         <option
             value="{{ $category->id }}"
-            {{ ( old('category') == $category->id || ( isset( $service->category_id ) && $category->id == $service->category_id ) ) ? 'selected' : "" }}>{{ $category->name }}</option>
-    @endforeach
+            @if( old('specializations') )
+                @if( in_array( $category->id, old('specializations') ) )
+                selected
+                @endif    
+            @elseif(
+                isset( $mechanic->specializations_id ) && 
+                count( $mechanic->specializations_id ) > 0 && 
+                in_array( $category->id, $mechanic->specializations_id ) )
+                selected
+            @endif
+            >
+            {{ $category->name }}
+        </option>
+        @endforeach
     </select>
 </div>
 
 <div class="form-group">
-    <label for="warranty">Warranty</label><span>*</span>
+    <label for="email">Email Address</label><span>*</span>
     <input 
         class="form-control align-center" 
-        placeholder="Number of Months Warranty" 
-        required 
-        name="warranty" 
-        type="text"
-        id="warranty"
-        value="{{ isset($service->warranty) ? $service->warranty : old('warranty') }}">
-</div>
-
-<div class="form-group">
-    <label for="price">Price</label><span>*</span>
-    <input 
-        class="form-control align-center" 
-        placeholder="Price" 
+        placeholder="Email Address" 
         maxlength="50" 
         required 
-        name="price" 
-        type="text"
-        id="price"
-        value="{{ isset($service->price) ? $service->price : old('price') }}">
+        name="email" 
+        type="email"
+        id="email"
+        value="{{ isset($mechanic->email) ? $mechanic->email : old('email') }}">
 </div>

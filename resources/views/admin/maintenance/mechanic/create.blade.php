@@ -23,6 +23,7 @@
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             @include('errors.alert')
             @include('admin.maintenance.mechanic.form')
+            <input type="hidden" name="type" value="mechanic" />
             <div class="form-group">
                 <button type="submit" class="btn btn-primary btn-block">Save</button>
             </div>

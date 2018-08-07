@@ -58,12 +58,12 @@
       serverSide: true,
       ajax: "{{ url('mechanic') }}",
       columns: [
-          { data: "firstname" + "middlename" +"lastname" },
-          { data: "street" + "barangay" + "city" },
+          { data: "id" },
+          { data: "full_name" },
+          { data: "full_address" },
           { data: "contact" },
           { data: "email" },
-          { data: "mechanic" },
-          { data: "price" },
+          { data: "specializations" },
           { data: function(callback){
             return `
               <a href="{{ url("mechanic") }}` + '/' + callback.id + `/edit" class="btn btn-warning">Edit</a>
