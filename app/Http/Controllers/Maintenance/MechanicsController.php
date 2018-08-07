@@ -185,11 +185,11 @@ class MechanicsController extends Controller
     {
         $name = filter_var($request->get('name'), FILTER_SANITIZE_STRING);
         $description = filter_var($request->get('description'), FILTER_SANITIZE_STRING);
-        $category = new Category;
+        $category = new Person;
 
         $validator = Validator::make([
-            'category' => $id
-        ], $category->checkIfCategoryExists());
+            'person' => $id
+        ], $category->checkIfPersonExists());
 
         if($validator->fails()) {
             
@@ -204,7 +204,7 @@ class MechanicsController extends Controller
             return back()->withInput()->withErrors($validator);
         }
 
-        $category = Category::find($id);
+        $category = Person::mechanic()->where('id', '=', $id)->first();
         $category->delete();
 
         if( $request->ajax() ) {

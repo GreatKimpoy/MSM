@@ -68,10 +68,10 @@ class Person extends Model
         ];
     }
 
-    public function checkIfCategoryExists()
+    public function checkIfPersonExists()
     {
         return [
-            'category' => "required|exists:$this->table,id"
+            'person' => "required|exists:$this->table,id"
         ];
     }
 
