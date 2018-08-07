@@ -1,8 +1,8 @@
 <div class="form-group">
-    <label for="lastname">Firstname</label><span>*</span>
+    <label for="lastname">Lastname</label><span>*</span>
     <input 
         class="form-control align-center" 
-        placeholder="Firstname" 
+        placeholder="Lastname" 
         maxlength="50" 
         required 
         name="lastname" 
