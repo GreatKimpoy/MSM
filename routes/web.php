@@ -46,6 +46,7 @@ Route::namespace('Maintenance')->group(function() {
     
     //CUSTOMER MAINTENANCE
     Route::resource('customer', 'CustomersController');
+
     
 });
 
@@ -54,5 +55,8 @@ Route::namespace('Transaction')->group(function(){
     
     //Inspection Transaction
     Route::resource('inspection', 'InspectionController');
+
+    //Appointment Transaction
+    Route::resource('appointments', 'AppointmentController');
 
 });
