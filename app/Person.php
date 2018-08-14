@@ -21,11 +21,10 @@ class Person extends Model
     
     public function updateRules()
     {
-        $name = $this->name;
         return [
-            'name' => "required|min:5|max:30|unique:categories,name,$name,name",
+            'name' => 'required|min:5|max:30|unique:' . $this->table . ',name,' . $this->name . ',name',
             'description' => 'nullable|min:10|max:50',
-            'category' => "required|exists:$this->table,id"
+            'category' => "required|exists:categories,id"
         ];
     }
 

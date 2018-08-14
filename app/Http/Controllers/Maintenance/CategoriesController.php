@@ -109,9 +109,7 @@ class CategoriesController extends Controller
         $id = filter_var( $id, FILTER_VALIDATE_INT);
         $name = filter_var($request->get('name'), FILTER_SANITIZE_STRING);
         $description = filter_var($request->get('description'), FILTER_SANITIZE_STRING);
-        $category = new Category;
-
-        $category->name = $name;
+        $category = Category::find($id);
 
         $validator = Validator::make([
             'name' => $name,
@@ -147,7 +145,7 @@ class CategoriesController extends Controller
     {
         $name = filter_var($request->get('name'), FILTER_SANITIZE_STRING);
         $description = filter_var($request->get('description'), FILTER_SANITIZE_STRING);
-        $category = new Category;
+        $category = Category::find($id);
 
         $validator = Validator::make([
             'category' => $id

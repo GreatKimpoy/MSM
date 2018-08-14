@@ -20,23 +20,22 @@ class Category extends Model
     
     public function updateRules()
     {
-        $name = $this->name;
         return [
-            'name' => "required|min:5|max:30|unique:categories,name,$name,name",
+            'name' => 'required|min:5|max:30|unique:' . $this->table . ',name,' . $this->name . ',name',
             'description' => 'nullable|min:10|max:50',
-            'category' => "required|exists:$this->table,id"
+            'category' => 'required|exists:' . $this->table . ',id',
         ];
     }
 
     public function checkIfCategoryExists()
     {
         return [
-            'category' => "required|exists:$this->table,id"
+            'category' => 'required|exists: ' . $this->table . ',id',
         ];
     }
 
     public function services()
     {
-        return $this->hasMany('App\Service', 'category_id', 'id');
+        return $this->hasMany( __NAMESPACE__ . '\\Service', 'category_id', 'id');
     }
 }
