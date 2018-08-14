@@ -17,8 +17,8 @@ class CreateJobOrdersTable extends Migration
             $table->increments('id');
             $table->integer('person_id')->unsigned();
             $table->integer('vehicle_id')->unsigned();
-            $table->integer('inspection_id')->unsigned();
-            $table->integer('appointment_id')->unsigned();
+            $table->integer('inspection_id')->unsigned()->nullable();
+            $table->integer('appointment_id')->unsigned()->nullable();
             $table->date('date_received');
             $table->time('time_started');
             $table->time('time_finished');
