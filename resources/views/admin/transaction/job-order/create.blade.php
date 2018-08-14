@@ -19,11 +19,24 @@
   <div class="container-fluid">
     <div class="card col-sm-12 mt-3">
       <div class="card-block pt-3">
-        <form method="post" action="{{ url('customer') }}" class="form-horizontal">
+        <form method="post" action="{{ url('job-order') }}" class="form-horizontal">
             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-            <input type="hidden" name="type" value="customer" />
             @include('errors.alert')
-            @include('admin.maintenance.customer.form')
+            <section id="customer-information-form">
+            <!-- include a customer information form -->
+            <!-- options to choose from existing customer -->
+            <!-- or add a new customer form -->
+            </section>
+            <section id="vehicle-information-form">
+            <!-- include also a vehicle form -->
+            <!-- choose from existing vehicle -->
+            <!-- or add a new vehicle -->
+            </section>
+            <section id="starting-point-form">
+            <!-- select option for starting point -->
+            <!-- a select option with the following choices: -->
+            <!-- inspection, appointment, or directly job order -->
+            </section>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary btn-block">Save</button>
             </div>
