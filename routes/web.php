@@ -43,5 +43,16 @@ Route::namespace('Maintenance')->group(function() {
     //PARTS MAINTENANCE
     Route::resource('part', 'PartsController');
     // Route::get('/part/parts', 'MaintenanceController@maintainParts');
+    
+    //CUSTOMER MAINTENANCE
+    Route::resource('customer', 'CustomersController');
+    
+});
+
+
+Route::namespace('Transaction')->group(function(){
+    
+    //Inspection Transaction
+    Route::resource('inspection', 'InspectionController');
 
 });

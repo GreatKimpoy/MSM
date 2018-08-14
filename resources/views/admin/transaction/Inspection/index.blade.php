@@ -1,17 +1,16 @@
 @extends('admin.layouts.app')
 
 @section('content-header')
-
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-          <h1 class="float-left">Vehicle Maintenance</h1>
-          <ol class="breadcrumb float-right">
-            <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">Home</a></li>
-            <li class="breadcrumb-item active">Vehicle</li>
-          </ol>
-      </div><!-- /.container-fluid -->
-    </section>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+      <h1 class="float-left">Inspection</h1>
+      <ol class="breadcrumb float-right">
+        <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">Home</a></li>
+        <li class="breadcrumb-item active">Inspection</li>
+      </ol>
+  </div><!-- /.container-fluid -->
+</section>
 @endsection
 
 @section('content-body')
@@ -73,7 +72,7 @@
           } );
 
       	 	$("div.toolbar").html(`
-       			<a type="button" id="new" href="{{ url('vehicle/create') }}"  class="btn btn-primary btn-sm float-right">
+       			<a type="button" id="new" href="{{ url('inspection/create') }}"  class="btn btn-primary btn-sm float-right">
               <i class="fa fa-plus"></i> <strong> CREATE </strong>  
             </a>
       		`);

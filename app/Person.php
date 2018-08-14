@@ -33,7 +33,7 @@ class Person extends Model
     {
         return [
             'lastname' => 'required|min:2|max:60|string',
-            'middlename' => 'min:2|max:60|string',
+            'middlename' => 'nullable|min:2|max:60|string',
             'firstname' => 'required|min:2|max:60|string',
             'street' => 'required|min:2|max:60',
             'barangay' => 'required|min:2|max:60',
@@ -122,4 +122,66 @@ class Person extends Model
     {
         return $this->belongsToMany('App\Category', 'category_person', 'person_id', 'category_id');
     }
+
+
+    //CUSTOMERS
+
+    public function customerRules() 
+    {
+        return [
+            'lastname' => 'required|min:2|max:60|string',
+            'middlename' => 'nullable|min:2|max:60|string',
+            'firstname' => 'required|min:2|max:60|string',
+            'street' => 'required|min:2|max:60',
+            'barangay' => 'required|min:2|max:60',
+            'city' => 'required|min:2|max:60',
+            'birthdate' => 'required|date',
+            'contact' => 'required|min:2|max:60',
+            'email' => 'required|email',
+            'type' => [
+                'required',
+                Rule::in(['customer']),
+            ],
+        ];
+    }
+
+    public function customerUpdateRules() 
+    {
+        return [
+            'lastname' => 'required|min:2|max:60|string',
+            'middlename' => 'min:2|max:60|string',
+            'firstname' => 'required|min:2|max:60|string',
+            'street' => 'required|min:2|max:60',
+            'barangay' => 'required|min:2|max:60',
+            'city' => 'required|min:2|max:60',
+            'birthdate' => 'required|date',
+            'contact' => 'required|min:2|max:60',
+            'email' => 'required|email',
+            'type' => [
+                'required',
+                Rule::in(['customer']),
+            ],
+            'customer' => "required|exists:$this->table,id"
+        ];
+    }
+
+    public function scopeCustomer( $query )
+    {
+        return $query->where('type', '=', 'customer');
+    }
+
+    public function getVehiclesIdAttribute()
+    {
+        $vehicles = $this->vehicles->pluck('id');
+        if( count($vehicles->toArray() ) > 0 ) {
+            return $vehicles->toArray();
+        }
+    }
+
+    public function vehicles()
+    {
+        return $this->belongsToMany('App\Vehicle', 'vehicle_person', 'person_id', 'vehicle_id');
+    }
+
 }
+

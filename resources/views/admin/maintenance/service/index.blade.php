@@ -66,16 +66,16 @@
           { data: "price" },
           { data: function(callback){
             return `
-              <a href="{{ url("service") }}` + '/' + callback.id + `/edit" class="btn btn-warning">Edit</a>
-              <button type="button" data-id='` + callback.id + `"' class="btn-remove btn btn-danger">Remove</button>
+              <a href="{{ url("service") }}` + '/' + callback.id + `/edit" class="btn btn-warning"><i class="fa fa-edit"></i><strong>Edit</strong></a>
+              <button type="button" data-id='` + callback.id + `"' class="btn-remove btn btn-danger">></i><strong>Remove</strong></button>
             `
           } },
       ],
     } );
 
 	 	$("div.toolbar").html(`
- 			<a type="button" id="new" href="{{ url('service/create') }}"  class="btn btn-primary btn-sm">
-        <span class="glyphicon glyphicon-plus"></span>  Create
+ 			<a type="button" id="new" href="{{ url('service/create') }}"  class="btn btn-primary btn-sm float-right">
+        <i class="fa fa-plus"></i> <strong> CREATE </strong>  
       </a>
 		`);
 
