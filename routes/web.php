@@ -57,7 +57,11 @@ Route::namespace('Transaction')->group(function(){
     Route::resource('inspection', 'InspectionController');
 
     //Appointment Transaction
+<<<<<<< Updated upstream
     Route::resource('appointments', 'AppointmentsController');
     
+=======
+    Route::resource('appointment', 'AppointmentsController');
+>>>>>>> Stashed changes
 
 });

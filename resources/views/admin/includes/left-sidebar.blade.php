@@ -100,7 +100,7 @@
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ url('appointment')}}" class="nav-link">
               <p>Appointments</p>
             </a>
           </li>
