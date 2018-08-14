@@ -36,4 +36,5 @@ Route::namespace('Maintenance')->group(function() {
 Route::namespace('Transaction')->group(function(){
     Route::resource('inspection', 'InspectionController');
     Route::resource('appointments', 'AppointmentsController');
+    Route::resource('job-order', 'JobOrdersController');
 });
