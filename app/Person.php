@@ -79,6 +79,11 @@ class Person extends Model
         return $query->where('type', '=', 'mechanic');
     }
 
+    public function scopeCustomer( $query )
+    {
+        return $query->where('type', '=', 'customer');
+    }
+
     protected $appends = [
         'full_name', 'full_address', 'specializations', 'specializations_id'
     ];
