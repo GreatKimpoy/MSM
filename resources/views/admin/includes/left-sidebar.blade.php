@@ -39,7 +39,7 @@
         <ul class="nav nav-treeview">
           <!-- Customers -->
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ url('customer') }}" class="nav-link">
               <i class="nav-icon fa plus-square"></i> Customers
             </a>
           </li> <!-- Customers -->
@@ -110,8 +110,8 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <p>Check-ups</p>
+            <a href="{{ url('inspection') }}" class="nav-link">
+              <p>Inspection</p>
             </a>
           </li>
         </ul>

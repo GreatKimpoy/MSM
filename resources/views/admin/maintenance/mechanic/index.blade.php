@@ -4,10 +4,10 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <div class="container-fluid">
-      <h1 class="float-left">Mechanic Maintenance</h1>
+      <h1 class="float-left">Technician Maintenance</h1>
       <ol class="breadcrumb float-right">
         <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">Home</a></li>
-        <li class="breadcrumb-item active">Mechanic</li>
+        <li class="breadcrumb-item active">Technician</li>
       </ol>
   </div><!-- /.container-fluid -->
 </section>
@@ -66,15 +66,16 @@
           { data: "specializations" },
           { data: function(callback){
             return `
-              <a href="{{ url("mechanic") }}` + '/' + callback.id + `/edit" class="btn btn-warning">Edit</a>
+              <a href="{{ url("mechanic") }}` + '/' + callback.id + `/edit" class="btn btn-warning"><i class="fa fa-edit"></i><strong>Edit</strong></a>
+             
             `
           } },
       ],
     } );
 
 	 	$("div.toolbar").html(`
- 			<a type="button" id="new" href="{{ url('mechanic/create') }}"  class="btn btn-primary btn-sm">
-        <span class="glyphicon glyphicon-plus"></span>  Create
+ 			<a type="button" id="new" href="{{ url('mechanic/create') }}"  class="btn btn-primary btn-sm float-right">
+        <i class="fa fa-plus"></i> <strong> CREATE </strong>  
       </a>
 		`);
 

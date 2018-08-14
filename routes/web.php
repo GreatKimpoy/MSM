@@ -21,5 +21,14 @@ Route::namespace('Maintenance')->group(function() {
     Route::resource('category', 'CategoriesController');
     Route::resource('service', 'ServicesController');
     Route::resource('part', 'PartsController');
+    Route::resource('customer', 'CustomersController');
+    
+});
+
+
+Route::namespace('Transaction')->group(function(){
+    
+    //Inspection Transaction
+    Route::resource('inspection', 'InspectionController');
 
 });

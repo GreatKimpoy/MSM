@@ -74,8 +74,8 @@
     } );
 
 	 	$("div.toolbar").html(`
- 			<a type="button" id="new" href="{{ url('service/create') }}"  class="btn btn-primary btn-sm">
-        <span class="glyphicon glyphicon-plus"></span>  Create
+ 			<a type="button" id="new" href="{{ url('service/create') }}"  class="btn btn-primary btn-sm float-right">
+        <i class="fa fa-plus"></i> <strong> CREATE </strong>  
       </a>
 		`);
 
