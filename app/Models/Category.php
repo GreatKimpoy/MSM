@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -30,7 +30,7 @@ class Category extends Model
     public function checkIfCategoryExists()
     {
         return [
-            'category' => 'required|exists: ' . $this->table . ',id',
+            'category' => 'required|exists:' . $this->table . ',id',
         ];
     }
 

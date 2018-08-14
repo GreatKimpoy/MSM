@@ -15,15 +15,15 @@ class CreateMaterialsTable extends Migration
     {
         Schema::create('materials', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('part_id')->unsigned();
+            $table->integer('vehicle_part_id')->unsigned();
             $table->integer('step_id')->unsigned();
             $table->integer('job_order_id')->unsigned();
             $table->integer('quantity');
             $table->timestamps();
 
-            $table->foreign('part_id')
+            $table->foreign('vehicle_part_id')
             ->references('id')
-            ->on('parts')
+            ->on('vehicle_parts')
             ->onUpdate('cascade')
             ->onDelete('restrict');
 
@@ -35,7 +35,7 @@ class CreateMaterialsTable extends Migration
 
             $table->foreign('job_order_id')
             ->references('id')
-            ->on('joborders')
+            ->on('job_orders')
             ->onUpdate('cascade')
             ->onDelete('restrict');
 

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateJobordersTable extends Migration
+class CreateJobOrdersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateJobordersTable extends Migration
      */
     public function up()
     {
-        Schema::create('joborders', function (Blueprint $table) {
+        Schema::create('job_orders', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('person_id')->unsigned();
-            $table->integer('vehicle_person_id')->unsigned();
+            $table->integer('vehicle_id')->unsigned();
             $table->integer('inspection_id')->unsigned();
             $table->integer('appointment_id')->unsigned();
             $table->date('date_received');
@@ -26,16 +26,15 @@ class CreateJobordersTable extends Migration
             $table->text('remarks');
             $table->timestamps();
 
-
             $table->foreign('person_id')
             ->references('id')
             ->on('persons')
             ->onUpdate('cascade')
             ->onDelete('restrict'); 
 
-            $table->foreign('vehicle_person_id')
+            $table->foreign('vehicle_id')
             ->references('id')
-            ->on('vehicle_person')
+            ->on('vehicles')
             ->onUpdate('cascade')
             ->onDelete('restrict');
 
@@ -61,6 +60,6 @@ class CreateJobordersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('joborders');
+        Schema::dropIfExists('job_orders');
     }
 }

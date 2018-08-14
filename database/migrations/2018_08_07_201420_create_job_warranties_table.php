@@ -16,18 +16,18 @@ class CreateJobWarrantiesTable extends Migration
         Schema::create('job_warranties', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('job_order_id')->unsigned();
-            $table->integer('part_id')->unsigned();
+            $table->integer('vehicle_part_id')->unsigned();
             $table->timestamps();
 
             $table->foreign('job_order_id')
             ->references('id')
-            ->on('joborders')
+            ->on('job_orders')
             ->onUpdate('cascade')
             ->onDelete('restrict');
 
-            $table->foreign('part_id')
+            $table->foreign('vehicle_part_id')
             ->references('id')
-            ->on('parts')
+            ->on('vehicle_parts')
             ->onUpdate('cascade')
             ->onDelete('restrict');
 

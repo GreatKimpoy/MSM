@@ -19,8 +19,6 @@ class CreateAppointmentsTable extends Migration
             $table->integer('person_id')->unsigned();
             $table->date('appointment_date');
             $table->date('production_date');
-            
-
             $table->timestamps();
 
             $table->foreign('person_id')

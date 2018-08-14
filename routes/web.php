@@ -11,15 +11,21 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'DashboardController@index');
 
 Route::namespace('Maintenance')->group(function() {
     Route::resource('mechanic', 'MechanicsController');
-    Route::resource('vehicle', 'VehiclesController');
-    Route::resource('category', 'CategoriesController');
-    Route::resource('service', 'ServicesController');
+
+    Route::prefix('vehicle')->group(function(){
+        Route::resource('category', 'VehicleCategoriesController');
+        Route::resource('/', 'VehiclesController');
+    });
+    
+    Route::prefix('service')->group(function(){
+        Route::resource('category', 'ServiceCategoriesController');
+        Route::resource('/', 'ServicesController');
+    });
+    
     Route::resource('part', 'PartsController');
     Route::resource('customer', 'CustomersController');
     
@@ -27,7 +33,6 @@ Route::namespace('Maintenance')->group(function() {
 
 
 Route::namespace('Transaction')->group(function(){
-    
     //Inspection Transaction
     Route::resource('inspection', 'InspectionController');
 

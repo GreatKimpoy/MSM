@@ -3,15 +3,16 @@
 namespace App\Http\Controllers\Maintenance;
 
 use Validator;
-use App\Service;
-use App\Category;
+use App\Models\Service;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class CategoriesController extends Controller
+class ServiceCategoriesController extends Controller
 {
 
-    public $viewBasePath = 'admin.maintenance';
+    public $viewBasePath = 'admin.maintenance.service.category';
+    public $baseUrl = 'service/category';
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +25,7 @@ class CategoriesController extends Controller
             return datatables($categories)->toJson();
         }
         
-        return view( $this->viewBasePath . '.category.index');
+        return view( $this->viewBasePath . '.index');
     }
 
     /**
@@ -34,7 +35,7 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        return view( $this->viewBasePath . '.category.create');
+        return view( $this->viewBasePath . '.create');
     }
 
     /**
@@ -64,7 +65,7 @@ class CategoriesController extends Controller
             'type' => 'success'
         ]);
 
-        return redirect('category');
+        return redirect($this->baseUrl);
     }
 
     /**
@@ -78,7 +79,7 @@ class CategoriesController extends Controller
         $id = filter_var( $id, FILTER_VALIDATE_INT);
         $category = Category::where('id', '=', $id)->first();
 
-        return view( $this->viewBasePath . '.category.show')
+        return view( $this->viewBasePath . '.show')
                 ->with('category', $category);
     }
 
@@ -93,7 +94,7 @@ class CategoriesController extends Controller
         $id = filter_var( $id, FILTER_VALIDATE_INT);
         $category = Category::where('id', '=', $id)->first();
 
-        return view( $this->viewBasePath . '.category.edit')
+        return view( $this->viewBasePath . '.edit')
                 ->with('category', $category);
     }
 
@@ -132,7 +133,7 @@ class CategoriesController extends Controller
             'type' => 'success'
         ]);
 
-        return redirect('category');
+        return redirect($this->baseUrl);
     }
 
     /**
@@ -163,8 +164,6 @@ class CategoriesController extends Controller
             }
             return back()->withInput()->withErrors($validator);
         }
-
-        $category = Category::find($id);
         $category->delete();
 
         if( $request->ajax() ) {
@@ -177,6 +176,6 @@ class CategoriesController extends Controller
         }
 
         session()->flush('success', 'Category successfully removed');
-        return redirect('category');
+        return redirect($this->baseUrl);
     }
 }

@@ -37,18 +37,6 @@
 </div>
 
 <div class="form-group">
-    <label for="platenumber">Plate Number</label><span></span>
-    <input 
-        class="form-control align-center" 
-        placeholder="plate_number" 
-        maxlength="50" 
-        name="plate_number" 
-        type="text"
-        id="plate_number"
-        value="{{ isset($person_vehicle->plate_number) ? $person_vehicle->plate_number : old('person_number') }}">
-</div>
-
-<div class="form-group">
     <label for="street">Street</label><span>*</span>
     <input 
         class="form-control align-center" 

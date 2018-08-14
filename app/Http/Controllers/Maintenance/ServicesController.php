@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Maintenance;
 
 use Validator;
-use App\Service;
-use App\Category;
+use App\Models\Service;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 

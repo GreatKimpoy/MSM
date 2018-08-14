@@ -21,7 +21,7 @@ class CreatePersonsTable extends Migration
             $table->text('street')->nullable();
             $table->text('barangay')->nullable();
             $table->text('city')->nullable();
-            $table->date('birthdate')->nullable;
+            $table->date('birthdate')->nullable();
             $table->string('contact', 30);
             $table->string('email')->nullable();
             $table->text('image')->nullable();

@@ -20,7 +20,8 @@
     <div class="card col-sm-12 mt-3">
       <div class="card-block pt-3">
         <form method="post" action="{{ url('customer') }}" class="form-horizontal">
-            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+            <input type="hidden" name="type" value="customer" />
             @include('errors.alert')
             @include('admin.maintenance.customer.form')
             <div class="form-group">

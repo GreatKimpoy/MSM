@@ -22,12 +22,11 @@
         <table id="customersTable" class="table table-bordered table-hover">
           <thead>
             <tr> 
+                <th>ID</th>
                 <th>Name</th>
                 <th>Address</th>
                 <th>Contact</th>
                 <th>Email</th>
-                <th>Type</th>
-                <th>Plate No.</th>
                 <th></th>
             </tr>
           </thead>
@@ -63,7 +62,6 @@
           { data: "full_address" },
           { data: "contact" },
           { data: "email" },
-          { data: "plate_number" },
           { data: function(callback){
             return `
               <a href="{{ url("customer") }}` + '/' + callback.id + `/edit" class="btn btn-warning">Edit</a>

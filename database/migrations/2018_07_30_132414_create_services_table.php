@@ -20,16 +20,12 @@ class CreateServicesTable extends Migration
             $table->integer('warranty');
             $table->text('description');
             $table->double('price', 8,2);
-
-
            
-                $table->foreign('category_id')
-                  ->references('id')
-                  ->on('categories')
-                  ->onUpdate('cascade')
-                  ->onDelete('restrict');
-           
-
+            $table->foreign('category_id')
+                ->references('id')
+                ->on('categories')
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
         });
     }
 

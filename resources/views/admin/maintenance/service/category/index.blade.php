@@ -7,7 +7,8 @@
       <h1 class="float-left">Service Category Maintenance</h1>
       <ol class="breadcrumb float-right">
         <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">Home</a></li>
-        <li class="breadcrumb-item active">Service Category</li>
+        <li class="breadcrumb-item"><a href="{{ url('service') }}">Service</a></li>
+        <li class="breadcrumb-item active">Category</li>
       </ol>
   </div><!-- /.container-fluid -->
 </section>
@@ -53,14 +54,14 @@
 						    "<'row'<'col-sm-5'i><'col-sm-7'p>>",
 			"processing": true,
       serverSide: true,
-      ajax: "{{ url('category') }}",
+      ajax: "{{ url('service/category') }}",
       columns: [
           { data: "id" },
           { data: "name" },
           { data: "description" },
           { data: function(callback){
             return `
-              <a href="{{ url("category") }}` + '/' + callback.id + `/edit" class="btn btn-warning">Edit</a>
+              <a href="{{ url("service/category") }}` + '/' + callback.id + `/edit" class="btn btn-warning">Edit</a>
               <button type="button" data-id='` + callback.id + `' class="btn-remove btn btn-danger">Remove</button>
             `
           } },
@@ -68,7 +69,7 @@
     } );
 
 	 	$("div.toolbar").html(`
- 			<a type="button" id="new" href="{{ url('category/create') }}"  class="btn btn-primary btn-sm float-right">
+ 			<a type="button" id="new" href="{{ url('service/category/create') }}"  class="btn btn-primary btn-sm float-right">
               <i class="fa fa-plus"></i> <strong> CREATE </strong>  
       </a>
 		`);
@@ -96,7 +97,7 @@
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
               },
               type: 'delete',
-              url: '{{ url("category/") }}' + "/" + id,
+              url: '{{ url("service/category/") }}' + "/" + id,
               data: {
                 'id': id
               },

@@ -16,7 +16,7 @@ class CreateInspectionsTable extends Migration
         Schema::create('inspections', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('customer_id')->unsigned();
-            $table->integer('vehicle_person_id')->unsigned();
+            $table->integer('vehicle_id')->unsigned();
             $table->integer('appointment_id')->unsigned();
             $table->date('date_received');
             $table->text('items');
@@ -29,9 +29,9 @@ class CreateInspectionsTable extends Migration
             ->onUpdate('cascade')
             ->onDelete('restrict'); 
 
-            $table->foreign('vehicle_person_id')
+            $table->foreign('vehicle_id')
             ->references('id')
-            ->on('vehicle_person')
+            ->on('vehicles')
             ->onUpdate('cascade')
             ->onDelete('restrict');
 
