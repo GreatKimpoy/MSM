@@ -43,17 +43,39 @@
               <i class="nav-icon fa plus-square"></i> Customers
             </a>
           </li> <!-- Customers -->
-          <!-- Vehicles -->
-          <li class="nav-item">
-            <a href="{{ url('vehicle') }}" class="nav-link">
-                <i class="nav-icon fa plus-square"></i> Vehicles
+          <!-- Service -->
+          <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fa plus-square"></i>
+              <p>
+                Vehicles
+                <i class="right fa fa-angle-left"></i>
+              </p>
             </a>
-          </li> <!-- Vehicles --> 
-          <li class="nav-item">
-            <a href="{{ url('part') }}" class="nav-link">
-              <i class="nav-icon fa plus-square"></i> Parts
-            </a>
-          </li>  
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url('vehicle') }}" class="nav-link">
+                  <i class="nav-icon fa plus-square"></i>
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('vehicle/part') }}" class="nav-link">
+                  <i class="nav-icon fa plus-square"></i>
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Parts</p>
+                </a>
+              </li> 
+              <li class="nav-item">
+                <a href="{{ url('vehicle/category') }}" class="nav-link">
+                  <i class="nav-icon fa plus-square"></i>
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Categories</p>
+                </a>
+              </li>
+            </ul>
+          </li> <!-- Service -->
           <!-- Service -->
           <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link">
@@ -72,7 +94,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ url('category') }}" class="nav-link">
+                <a href="{{ url('service/category') }}" class="nav-link">
                   <i class="nav-icon fa plus-square"></i>
                   <i class="fa fa-circle-o nav-icon"></i>
                   <p>Categories</p>

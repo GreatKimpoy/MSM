@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Transaction;
 
-use Illuminate\Http\Request;
-use App\Inspection;
-use Validator;
 use DB;
+use Validator;
+use App\Person;
+use App\Inspection;
+use App\VehiclePerson;
+use App\InspectionItem;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class InspectionController extends Controller
@@ -19,8 +22,6 @@ class InspectionController extends Controller
      */
     public function index()
     {
- 
-        
         return view( $this->viewBasePath . '.inspection.index');
     }
 
@@ -31,10 +32,9 @@ class InspectionController extends Controller
      */
     public function create()
     {
-        //
         $inspection_items = InspectionItem::all();
         return view( $this->viewBasePath . '.inspection.create')
-        ->with('inspection_items', $inspection_items);
+                ->with('inspection_items', $inspection_items);
     }
 
     /**
@@ -43,9 +43,19 @@ class InspectionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store( Request $request, inspection $inspection)
+    public function store( Request $request, Inspection $inspection)
     {
-        //
+        return $request->all();
+
+        DB::beginTransaction();
+        $customer = Person::addCustomer($request->all());
+        $customer = VehiclePerson::addVehicle($request->all());
+
+        $inspection = new Inspection;
+        $inspection->save();
+
+        $inspection->items->attach();
+        DB::commit();
     }
 
     /**

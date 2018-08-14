@@ -4,11 +4,11 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <div class="container-fluid">
-      <h1 class="float-left">Customer Maintenance</h1>
+      <h1 class="float-left">Parts Maintenance</h1>
       <ol class="breadcrumb float-right">
         <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">Home</a></li>
-        <li class="breadcrumb-item">Customer</li>
-        <li class="breadcrumb-item active">Create</li>
+        <li class="breadcrumb-item">Part</li>
+        <li class="breadcrumb-item active">{{ $part->number }}</li>
       </ol>
   </div><!-- /.container-fluid -->
 </section>
@@ -19,13 +19,13 @@
   <div class="container-fluid">
     <div class="card col-sm-12 mt-3">
       <div class="card-block pt-3">
-        <form method="post" action="{{ url('customer') }}" class="form-horizontal">
-            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-            <input type="hidden" name="type" value="customer" />
+        <form method="post" action="{{ url("vehicle/part/$part->id") }}" class="form-horizontal">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="_method" value="PUT">
             @include('errors.alert')
-            @include('admin.maintenance.customer.form')
+            @include('admin.maintenance.vehicle.part.form')
             <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block">Save</button>
+                <button type="submit" class="btn btn-primary btn-block">Update</button>
             </div>
         </form>
       </div>

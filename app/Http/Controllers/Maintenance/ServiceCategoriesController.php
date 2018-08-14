@@ -8,12 +8,11 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class ServicesController extends Controller
+class ServiceCategoriesController extends Controller
 {
 
-    public $viewBasePath = 'admin.maintenance.service';
-    public $baseUrl = 'service';
-    
+    public $viewBasePath = 'admin.maintenance.service.category';
+    public $baseUrl = 'service/category';
     /**
      * Display a listing of the resource.
      *
@@ -22,8 +21,8 @@ class ServicesController extends Controller
     public function index(Request $request)
     {
         if( $request->ajax() ) {
-            $services = Service::with('category')->get();
-            return datatables($services)->toJson();
+            $categories = Category::all();
+            return datatables($categories)->toJson();
         }
         
         return view( $this->viewBasePath . '.index');
@@ -36,9 +35,7 @@ class ServicesController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
-        return view( $this->viewBasePath . '.create')
-                ->with('categories', $categories);
+        return view( $this->viewBasePath . '.create');
     }
 
     /**
@@ -47,30 +44,24 @@ class ServicesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Service $service)
+    public function store(Request $request, Category $category)
     {
         $name = filter_var($request->get('name'), FILTER_SANITIZE_STRING);
         $description = filter_var($request->get('description'), FILTER_SANITIZE_STRING);
-        $category = filter_var($request->get('category'), FILTER_VALIDATE_INT);
-        $warranty = filter_var($request->get('warranty'), FILTER_VALIDATE_INT);
-        $price = filter_var($request->get('price'), FILTER_VALIDATE_FLOAT);
 
-        $validator = Validator::make( $request->all(), $service->rules());
+        $validator = Validator::make( $request->all(), $category->rules());
         if($validator->fails()) {
             return back()->withInput()->withErrors($validator);
         }
 
-        $service = new Service;
-        $service->name = $name;
-        $service->description = $description;
-        $service->category_id = $category;
-        $service->warranty = $warranty;
-        $service->price = $price;
-        $service->save();
+        $category = new Category;
+        $category->name = $name;
+        $category->description = $description;
+        $category->save();
 
 		session()->flash('notification', [
             'title' => 'Success!',
-            'message' => 'You have created your service',
+            'message' => 'You have created your category',
             'type' => 'success'
         ]);
 
@@ -101,12 +92,10 @@ class ServicesController extends Controller
     public function edit($id)
     {
         $id = filter_var( $id, FILTER_VALIDATE_INT);
-        $service = Service::where('id', '=', $id)->first();
-        $categories = Category::all();
+        $category = Category::where('id', '=', $id)->first();
 
         return view( $this->viewBasePath . '.edit')
-                ->with('service', $service)
-                ->with('categories', $categories);
+                ->with('category', $category);
     }
 
     /**
@@ -118,39 +107,29 @@ class ServicesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $id = filter_var( $id, FILTER_VALIDATE_INT);
         $name = filter_var($request->get('name'), FILTER_SANITIZE_STRING);
         $description = filter_var($request->get('description'), FILTER_SANITIZE_STRING);
-        $category = filter_var($request->get('category'), FILTER_VALIDATE_INT);
-        $warranty = filter_var($request->get('warranty'), FILTER_VALIDATE_INT);
-        $price = filter_var($request->get('price'), FILTER_VALIDATE_FLOAT);
-
-        $service = new Service;
-        $service->name = $name;
+        $category = Category::find($id);
 
         $validator = Validator::make([
             'name' => $name,
             'description' => $description,
-            'service' => $id,
-            'warranty' => $warranty,
-            'price' => $price,
-            'category' => $category
-        ], $service->updateRules());
+            'category' => $id
+        ], $category->updateRules());
 
         if($validator->fails()) {
             return back()->withInput()->withErrors($validator);
         }
 
-        $service = Service::find($id);
-        $service->name = $name;
-        $service->description = $description;
-        $service->category_id = $category;
-        $service->warranty = $warranty;
-        $service->price = $price;
-        $service->save();
+        $category = Category::find($id);
+        $category->name = $name;
+        $category->description = $description;
+        $category->save();
 
 		session()->flash('notification', [
             'title' => 'Success!',
-            'message' => 'You have successfully updated a service',
+            'message' => 'You have successfully updated a category',
             'type' => 'success'
         ]);
 
@@ -167,38 +146,36 @@ class ServicesController extends Controller
     {
         $name = filter_var($request->get('name'), FILTER_SANITIZE_STRING);
         $description = filter_var($request->get('description'), FILTER_SANITIZE_STRING);
-        $service = new Service;
+        $category = Category::find($id);
 
         $validator = Validator::make([
-            'service' => $id
-        ], $service->checkIfServiceExists());
+            'category' => $id
+        ], $category->checkIfCategoryExists());
 
         if($validator->fails()) {
             
             if( $request->ajax() ) {
                 return response()->json([
                     'title' => 'Error',
-                    'message' => 'Error occured while updating a service',
+                    'message' => 'Error occured while updating a category',
                     'status' => 'ok',
                     'others' => '',
                 ], 500);
             }
             return back()->withInput()->withErrors($validator);
         }
-
-        $service = Service::find($id);
-        $service->delete();
+        $category->delete();
 
         if( $request->ajax() ) {
             return response()->json([
                 'title' => 'Success',
-                'message' => 'Service successfully removed',
+                'message' => 'Category successfully removed',
                 'status' => 'ok',
                 'others' => '',
             ], 200);
         }
 
-        session()->flush('success', 'Service successfully removed');
+        session()->flush('success', 'Category successfully removed');
         return redirect($this->baseUrl);
     }
 }

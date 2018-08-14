@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\Maintenance;
 
 use Validator;
-use App\Models\Service;
-use App\Models\Category;
+use App\Models\Vehicle\Category;
+use App\Models\Vehicle\Part;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class ServicesController extends Controller
+class VehiclePartsController extends Controller
 {
 
-    public $viewBasePath = 'admin.maintenance.service';
-    public $baseUrl = 'service';
-    
+    public $viewBasePath = 'admin.maintenance.vehicle.part';
+    public $baseUrl = 'vehicle/part';
+
     /**
      * Display a listing of the resource.
      *
@@ -22,8 +22,8 @@ class ServicesController extends Controller
     public function index(Request $request)
     {
         if( $request->ajax() ) {
-            $services = Service::with('category')->get();
-            return datatables($services)->toJson();
+            $parts = Part::with('vehicle')->get();
+            return datatables($parts)->toJson();
         }
         
         return view( $this->viewBasePath . '.index');
@@ -36,9 +36,11 @@ class ServicesController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
+        $vehicles = Category::all();
+        $locations = Part::$locations;
         return view( $this->viewBasePath . '.create')
-                ->with('categories', $categories);
+                ->with('locations', $locations)
+                ->with('vehicles', $vehicles);
     }
 
     /**
@@ -47,30 +49,30 @@ class ServicesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Service $service)
+    public function store(Request $request, Part $part)
     {
-        $name = filter_var($request->get('name'), FILTER_SANITIZE_STRING);
+        $number = filter_var($request->get('number'), FILTER_SANITIZE_STRING);
+        $vehicle = filter_var($request->get('model'), FILTER_VALIDATE_INT);
+        $location = filter_var($request->get('location'), FILTER_SANITIZE_STRING);
         $description = filter_var($request->get('description'), FILTER_SANITIZE_STRING);
-        $category = filter_var($request->get('category'), FILTER_VALIDATE_INT);
-        $warranty = filter_var($request->get('warranty'), FILTER_VALIDATE_INT);
         $price = filter_var($request->get('price'), FILTER_VALIDATE_FLOAT);
 
-        $validator = Validator::make( $request->all(), $service->rules());
+        $validator = Validator::make( $request->all(), $part->rules());
         if($validator->fails()) {
             return back()->withInput()->withErrors($validator);
         }
 
-        $service = new Service;
-        $service->name = $name;
-        $service->description = $description;
-        $service->category_id = $category;
-        $service->warranty = $warranty;
-        $service->price = $price;
-        $service->save();
+        $part = new Part;
+        $part->number = $number;
+        $part->vehicle_id = $vehicle;
+        $part->location = $location;
+        $part->description = $description;
+        $part->price = $price;
+        $part->save();
 
 		session()->flash('notification', [
             'title' => 'Success!',
-            'message' => 'You have created your service',
+            'message' => 'You have added a vehicle part',
             'type' => 'success'
         ]);
 
@@ -86,10 +88,10 @@ class ServicesController extends Controller
     public function show($id)
     {
         $id = filter_var( $id, FILTER_VALIDATE_INT);
-        $category = Category::where('id', '=', $id)->first();
+        $vehicle = Vehicle::where('id', '=', $id)->first();
 
         return view( $this->viewBasePath . '.show')
-                ->with('category', $category);
+                ->with('vehicle', $vehicle);
     }
 
     /**
@@ -101,12 +103,14 @@ class ServicesController extends Controller
     public function edit($id)
     {
         $id = filter_var( $id, FILTER_VALIDATE_INT);
-        $service = Service::where('id', '=', $id)->first();
-        $categories = Category::all();
+        $part = Part::where('id', '=', $id)->first();
 
+        $vehicles = Category::all();
+        $locations = Part::$locations;
         return view( $this->viewBasePath . '.edit')
-                ->with('service', $service)
-                ->with('categories', $categories);
+                ->with('part', $part)
+                ->with('locations', $locations)
+                ->with('vehicles', $vehicles);
     }
 
     /**
@@ -118,39 +122,37 @@ class ServicesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $name = filter_var($request->get('name'), FILTER_SANITIZE_STRING);
+        $part_number = filter_var($request->get('part_number'), FILTER_SANITIZE_STRING);
+        $model = filter_var($request->get('model'), FILTER_VALIDATE_INT);
+        $part_location = filter_var($request->get('part_location'), FILTER_SANITIZE_STRING);
         $description = filter_var($request->get('description'), FILTER_SANITIZE_STRING);
-        $category = filter_var($request->get('category'), FILTER_VALIDATE_INT);
-        $warranty = filter_var($request->get('warranty'), FILTER_VALIDATE_INT);
         $price = filter_var($request->get('price'), FILTER_VALIDATE_FLOAT);
-
-        $service = new Service;
-        $service->name = $name;
+        $part = Part::find($id);
 
         $validator = Validator::make([
-            'name' => $name,
+            'part_number' => $part_number,
+            'part' => $id,
+            'model' => $model,
+            'part_location' => $part_location,
             'description' => $description,
-            'service' => $id,
-            'warranty' => $warranty,
-            'price' => $price,
-            'category' => $category
-        ], $service->updateRules());
+            'price' => $price
+
+        ], $part->updateRules());
 
         if($validator->fails()) {
             return back()->withInput()->withErrors($validator);
         }
 
-        $service = Service::find($id);
-        $service->name = $name;
-        $service->description = $description;
-        $service->category_id = $category;
-        $service->warranty = $warranty;
-        $service->price = $price;
-        $service->save();
+        $part->part_number = $part_number;
+        $part->vehicle_id = $model;
+        $part->part_location = $part_location;
+        $part->description = $description;
+        $part->price = $price;
+        $part->save();
 
 		session()->flash('notification', [
             'title' => 'Success!',
-            'message' => 'You have successfully updated a service',
+            'message' => 'You have successfully updated a Vehicle Part',
             'type' => 'success'
         ]);
 
@@ -165,20 +167,20 @@ class ServicesController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        $name = filter_var($request->get('name'), FILTER_SANITIZE_STRING);
+        $part_number = filter_var($request->get('part_number'), FILTER_SANITIZE_STRING);
         $description = filter_var($request->get('description'), FILTER_SANITIZE_STRING);
-        $service = new Service;
+        $part = Part::find($id);
 
         $validator = Validator::make([
-            'service' => $id
-        ], $service->checkIfServiceExists());
+            'part' => $id
+        ], $part->checkIfPartsExists());
 
         if($validator->fails()) {
             
             if( $request->ajax() ) {
                 return response()->json([
                     'title' => 'Error',
-                    'message' => 'Error occured while updating a service',
+                    'message' => 'Error occured while updating a part',
                     'status' => 'ok',
                     'others' => '',
                 ], 500);
@@ -186,19 +188,23 @@ class ServicesController extends Controller
             return back()->withInput()->withErrors($validator);
         }
 
-        $service = Service::find($id);
-        $service->delete();
+        $part->delete();
 
         if( $request->ajax() ) {
             return response()->json([
                 'title' => 'Success',
-                'message' => 'Service successfully removed',
+                'message' => 'Part successfully removed',
                 'status' => 'ok',
                 'others' => '',
             ], 200);
         }
 
-        session()->flush('success', 'Service successfully removed');
+		session()->flash('notification', [
+            'title' => 'Success!',
+            'message' => 'You have successfully removed a Vehicle Part',
+            'type' => 'success'
+        ]);
+        
         return redirect($this->baseUrl);
     }
 }

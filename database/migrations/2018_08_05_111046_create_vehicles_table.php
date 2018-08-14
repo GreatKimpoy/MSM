@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInspectionsTable extends Migration
+class CreateVehiclesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,15 @@ class CreateInspectionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('inspections', function (Blueprint $table) {
+        Schema::create('vehicles', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('customer_id')->unsigned();
+            $table->integer('owner_id')->unsigned();
             $table->integer('vehicle_id')->unsigned();
-            $table->integer('appointment_id')->unsigned();
-            $table->date('date_received');
-            $table->text('items');
-            $table->text('remarks');
+            $table->string('plate_number')->nullable()->unique();
             $table->timestamps();
 
-            $table->foreign('customer_id')
+
+            $table->foreign('owner_id')
             ->references('id')
             ->on('persons')
             ->onUpdate('cascade')
@@ -33,13 +31,9 @@ class CreateInspectionsTable extends Migration
             ->references('id')
             ->on('vehicles')
             ->onUpdate('cascade')
-            ->onDelete('restrict');
+            ->onDelete('restrict'); 
 
-            $table->foreign('appointment_id')
-            ->references('id')
-            ->on('appointments')
-            ->onUpdate('cascade')
-            ->onDelete('restrict');
+
         });
     }
 
@@ -50,6 +44,6 @@ class CreateInspectionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('inspections');
+        Schema::dropIfExists('vehicles');
     }
 }

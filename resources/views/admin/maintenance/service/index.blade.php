@@ -4,10 +4,10 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <div class="container-fluid">
-      <h1 class="float-left">Service Category Maintenance</h1>
+      <h1 class="float-left">Service Maintenance</h1>
       <ol class="breadcrumb float-right">
         <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">Home</a></li>
-        <li class="breadcrumb-item active">Service Category</li>
+        <li class="breadcrumb-item active">Service</li>
       </ol>
   </div><!-- /.container-fluid -->
 </section>
@@ -66,8 +66,8 @@
           { data: "price" },
           { data: function(callback){
             return `
-              <a href="{{ url("service") }}` + '/' + callback.id + `/edit" class="btn btn-warning"><i class="fa fa-edit"></i><strong>Edit</strong></a>
-              <button type="button" data-id='` + callback.id + `"' class="btn-remove btn btn-danger">></i><strong>Remove</strong></button>
+              <a href="{{ url("service") }}` + '/' + callback.id + `/edit" class="btn btn-warning">Edit</a>
+              <button type="button" data-id='` + callback.id + `' class="btn-remove btn btn-danger">Remove</button>
             `
           } },
       ],

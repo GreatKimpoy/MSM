@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Maintenance;
 
 use DB;
 use Validator;
-use App\Person;
-use App\Category;
-use App\Vehicle;
+use App\Models\Person;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -35,9 +33,7 @@ class CustomersController extends Controller
      */
     public function create()
     {
-        $vehicles = vehicle::all();
-        return view( $this->viewBasePath . '.customer.create')
-                ->with('vehicles', $vehicles);
+        return view( $this->viewBasePath . '.customer.create');
     }
 
     /**
@@ -61,6 +57,7 @@ class CustomersController extends Controller
         $customer = new Person;
 
         $validator = Validator::make( $request->all(), $customer->customerRules());
+
         if($validator->fails()) {
             return back()->withInput()->withErrors($validator);
         }
@@ -74,16 +71,12 @@ class CustomersController extends Controller
         $customer->birthdate = $birthdate;
         $customer->contact = $contact;
         $customer->email = $email;
-        $cutomer->type = $type;
-
-        DB::beginTransaction();
+        $customer->type = $type;
         $customer->save();
-        $customer->vehicles()->attach($plate_number);
-        DB::commit();
 
 		session()->flash('notification', [
             'title' => 'Success!',
-            'message' => 'You have created a user information',
+            'message' => 'You have created a customer information',
             'type' => 'success'
         ]);
 
@@ -114,12 +107,10 @@ class CustomersController extends Controller
     public function edit($id)
     {
         $id = filter_var( $id, FILTER_VALIDATE_INT);
-        $mechanic = Person::mechanic()->where('id', '=', $id)->first();
+        $customer = Person::customer()->where('id', '=', $id)->first();
 
-        $categories = Category::all();
-        return view( $this->viewBasePath . '.mechanic.edit')
-                ->with('mechanic', $mechanic)
-                ->with('categories', $categories);
+        return view( $this->viewBasePath . '.customer.edit')
+                ->with('customer', $customer);
     }
 
     /**
@@ -142,33 +133,31 @@ class CustomersController extends Controller
         $contact = filter_var($request->get('contact'), FILTER_SANITIZE_STRING);
         $email = filter_var($request->get('email'), FILTER_SANITIZE_STRING);
         $type = filter_var($request->get('type'), FILTER_SANITIZE_STRING);
-        $specializations = $request->get('specializations');
-        $mechanic = Person::find($id);
+        $customer = Person::find($id);
 
-        $validator = Validator::make( $request->all() + [ 'mechanic' => $id ], $mechanic->mechanicUpdateRules());
+        $validator = Validator::make( $request->all() + [ 'customer' => $id ], $customer->customerUpdateRules());
         if($validator->fails()) {
             return back()->withInput()->withErrors($validator);
         }
 
-        $mechanic->lastname = $lastname;
-        $mechanic->firstname = $firstname;
-        $mechanic->middlename = $middlename;
-        $mechanic->barangay = $barangay;
-        $mechanic->city = $city;
-        $mechanic->street = $street;
-        $mechanic->birthdate = $birthdate;
-        $mechanic->contact = $contact;
-        $mechanic->email = $email;
-        $mechanic->type = $type;
+        $customer->lastname = $lastname;
+        $customer->firstname = $firstname;
+        $customer->middlename = $middlename;
+        $customer->barangay = $barangay;
+        $customer->city = $city;
+        $customer->street = $street;
+        $customer->birthdate = $birthdate;
+        $customer->contact = $contact;
+        $customer->email = $email;
+        $customer->type = $type;
 
         DB::beginTransaction();
-        $mechanic->save();
-        $mechanic->categories()->sync($specializations);
+        $customer->save();
         DB::commit();
 
         session()->flash('notification', [
             'title' => 'Success!',
-            'message' => 'You have update a mechanics information',
+            'message' => 'You have update a customers information',
             'type' => 'success'
         ]);
 
@@ -204,7 +193,7 @@ class CustomersController extends Controller
             return back()->withInput()->withErrors($validator);
         }
 
-        $category = Person::mechanic()->where('id', '=', $id)->first();
+        $category = Person::customer()->where('id', '=', $id)->first();
         $category->delete();
 
         if( $request->ajax() ) {

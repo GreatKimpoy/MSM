@@ -21,7 +21,7 @@ class CreateJobMechanicsTable extends Migration
             
             $table->foreign('job_order_id')
             ->references('id')
-            ->on('joborders')
+            ->on('job_orders')
             ->onUpdate('cascade')
             ->onDelete('restrict');
 

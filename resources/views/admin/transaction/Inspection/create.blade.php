@@ -7,8 +7,8 @@
       <h1 class="float-left">Inspection</h1>
       <ol class="breadcrumb float-right">
         <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">Home</a></li>
-        <li class="breadcrumb-item">Inspection</li>
-        <li class="breadcrumb-item active">Inspection</li>
+        <li class="breadcrumb-item"><a href="{{ url('inspection') }}">Inspection</a></li>
+        <li class="breadcrumb-item active">Create</li>
       </ol>
   </div><!-- /.container-fluid -->
 </section>
