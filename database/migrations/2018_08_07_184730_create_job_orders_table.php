@@ -24,6 +24,7 @@ class CreateJobOrdersTable extends Migration
             $table->datetime('finished_at');
             $table->datetime('released_at');
             $table->text('remarks');
+            $table->string('status');
             $table->timestamps();
 
             $table->foreign('person_id')
