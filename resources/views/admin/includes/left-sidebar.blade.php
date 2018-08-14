@@ -61,7 +61,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ url('part') }}" class="nav-link">
+                <a href="{{ url('vehicle/part') }}" class="nav-link">
                   <i class="nav-icon fa plus-square"></i>
                   <i class="fa fa-circle-o nav-icon"></i>
                   <p>Parts</p>

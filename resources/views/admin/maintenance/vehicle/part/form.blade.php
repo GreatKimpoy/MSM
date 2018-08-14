@@ -7,10 +7,6 @@
         margin-bottom: 20px;
     }
 </style>
-
-
-
-
 <div class="row">
     <div class="col-md-4">
         <label for="Part Number">Part Number</label><span class="asterisks"><strong>*</strong></span>
@@ -25,8 +21,8 @@
                 required 
                 name="part_number" 
                 type="text"
-                id="part_number"
-                value="{{ isset($part->part_number) ? $part->part_number : old('part_number') }}">
+                id="number"
+                value="{{ isset($part->number) ? $part->number : old('number') }}">
         </div>
     </div>
 
@@ -45,20 +41,13 @@
 
     <div class="col-md-4">
         <label for="location">Location</label><span class="asterisks"><strong>*</strong></span>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fa fa-wrench"></i></span>
-            </div>
-            <input 
-                class="form-control align-center" 
-                placeholder="Part Location" 
-                maxlength="50" 
-                required 
-                name="part_location" 
-                type="text"
-                id="part_location"
-                value="{{ isset($part->part_location) ? $part->part_location : old('part_location') }}">
-        </div>
+            <select name="location" class="form-control" required>
+            @foreach($locations as $location)
+                <option
+                    value="{{ $location }}"
+                    {{ ( old('location') == $location || ( isset( $part->location ) && $location == $part->location ) ) ? 'selected' : "" }}>{{ $location }}</option>
+            @endforeach
+            </select>
     </div>
 </div>
 

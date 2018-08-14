@@ -18,22 +18,20 @@ Route::namespace('Maintenance')->group(function() {
 
     Route::prefix('vehicle')->group(function(){
         Route::resource('category', 'VehicleCategoriesController');
-        Route::resource('/', 'VehiclesController');
+        Route::resource('part', 'VehiclePartsController');
     });
+    Route::resource('vehicle', 'VehiclesController');
     
     Route::prefix('service')->group(function(){
         Route::resource('category', 'ServiceCategoriesController');
-        Route::resource('/', 'ServicesController');
     });
+    Route::resource('service', 'ServicesController');
     
-    Route::resource('part', 'PartsController');
     Route::resource('customer', 'CustomersController');
     
 });
 
 
 Route::namespace('Transaction')->group(function(){
-    //Inspection Transaction
     Route::resource('inspection', 'InspectionController');
-
 });

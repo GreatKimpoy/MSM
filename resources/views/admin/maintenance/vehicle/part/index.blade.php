@@ -4,9 +4,10 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <div class="container-fluid">
-      <h1 class="float-left">Parts Maintenance</h1>
+      <h1 class="float-left">Vehicle Parts Maintenance</h1>
       <ol class="breadcrumb float-right">
         <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">Home</a></li>
+        <li class="breadcrumb-item">Vehicle</li>
         <li class="breadcrumb-item active">Parts</li>
       </ol>
   </div><!-- /.container-fluid -->
@@ -55,7 +56,7 @@
 						    "<'row'<'col-sm-5'i><'col-sm-7'p>>",
 			"processing": true,
       serverSide: true,
-      ajax: "{{ url('part') }}",
+      ajax: "{{ url('vehicle/part') }}",
       columns: [
           { data: "part_number" },
           { data: "vehicle.model" },
@@ -64,7 +65,7 @@
           { data: "price" },
           { data: function(callback){
             return `
-              <a href="{{ url("part") }}` + '/' + callback.id + `/edit" class="btn btn-warning"><i class="fa fa-edit"></i><strong>Edit</strong></a>
+              <a href="{{ url("vehicle/part") }}` + '/' + callback.id + `/edit" class="btn btn-warning"><i class="fa fa-edit"></i><strong>Edit</strong></a>
               <button type="button" data-id='` + callback.id + `"' class="btn-remove btn btn-danger"><i class= "fa fa-ban"></i><strong>Remove</strong></button>
             `
           } },
@@ -72,7 +73,7 @@
     } );
 
 	 	$("div.toolbar").html(`
- 			<a type="button" id="new" href="{{ url('part/create') }}"  class="btn btn-primary btn-sm float-right">
+ 			<a type="button" id="new" href="{{ url('vehicle/part/create') }}"  class="btn btn-primary btn-sm float-right">
         <i class="fa fa-plus"></i> <strong> CREATE </strong>
       </a>
 		`);
@@ -100,7 +101,7 @@
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
               },
               type: 'delete',
-              url: '{{ url("part") }}' + "/" + id,
+              url: '{{ url("vehicle/part") }}' + "/" + id,
               data: {
                 'id': id
               },

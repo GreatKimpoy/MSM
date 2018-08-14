@@ -3,15 +3,17 @@
 namespace App\Http\Controllers\Maintenance;
 
 use Validator;
-use App\Part;
-use App\Vehicle;
+use App\Models\Vehicle\Category;
+use App\Models\Vehicle\Part;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class PartsController extends Controller
+class VehiclePartsController extends Controller
 {
 
-    public $viewBasePath = 'admin.maintenance';
+    public $viewBasePath = 'admin.maintenance.vehicle.part';
+    public $baseUrl = 'vehicle/part';
+
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +26,7 @@ class PartsController extends Controller
             return datatables($parts)->toJson();
         }
         
-        return view( $this->viewBasePath . '.part.index');
+        return view( $this->viewBasePath . '.index');
     }
 
     /**
@@ -34,8 +36,10 @@ class PartsController extends Controller
      */
     public function create()
     {
-        $vehicles = Vehicle::all();
-        return view( $this->viewBasePath . '.part.create')
+        $vehicles = Category::all();
+        $locations = Part::$locations;
+        return view( $this->viewBasePath . '.create')
+                ->with('locations', $locations)
                 ->with('vehicles', $vehicles);
     }
 
@@ -47,9 +51,9 @@ class PartsController extends Controller
      */
     public function store(Request $request, Part $part)
     {
-        $part_number = filter_var($request->get('part_number'), FILTER_SANITIZE_STRING);
-        $model = filter_var($request->get('model'), FILTER_VALIDATE_INT);
-        $part_location = filter_var($request->get('part_location'), FILTER_SANITIZE_STRING);
+        $number = filter_var($request->get('number'), FILTER_SANITIZE_STRING);
+        $vehicle = filter_var($request->get('model'), FILTER_VALIDATE_INT);
+        $location = filter_var($request->get('location'), FILTER_SANITIZE_STRING);
         $description = filter_var($request->get('description'), FILTER_SANITIZE_STRING);
         $price = filter_var($request->get('price'), FILTER_VALIDATE_FLOAT);
 
@@ -59,20 +63,20 @@ class PartsController extends Controller
         }
 
         $part = new Part;
-        $part->part_number = $part_number;
-        $part->vehicle_id = $model;
-        $part->part_location = $part_location;
+        $part->number = $number;
+        $part->vehicle_id = $vehicle;
+        $part->location = $location;
         $part->description = $description;
         $part->price = $price;
         $part->save();
 
 		session()->flash('notification', [
             'title' => 'Success!',
-            'message' => 'You have added a part_number',
+            'message' => 'You have added a vehicle part',
             'type' => 'success'
         ]);
 
-        return redirect('part');
+        return redirect($this->baseUrl);
     }
 
     /**
@@ -86,7 +90,7 @@ class PartsController extends Controller
         $id = filter_var( $id, FILTER_VALIDATE_INT);
         $vehicle = Vehicle::where('id', '=', $id)->first();
 
-        return view( $this->viewBasePath . '.vehicle.show')
+        return view( $this->viewBasePath . '.show')
                 ->with('vehicle', $vehicle);
     }
 
@@ -100,10 +104,12 @@ class PartsController extends Controller
     {
         $id = filter_var( $id, FILTER_VALIDATE_INT);
         $part = Part::where('id', '=', $id)->first();
-        $vehicles = Vehicle::all();
 
-        return view( $this->viewBasePath . '.part.edit')
+        $vehicles = Category::all();
+        $locations = Part::$locations;
+        return view( $this->viewBasePath . '.edit')
                 ->with('part', $part)
+                ->with('locations', $locations)
                 ->with('vehicles', $vehicles);
     }
 
@@ -121,9 +127,7 @@ class PartsController extends Controller
         $part_location = filter_var($request->get('part_location'), FILTER_SANITIZE_STRING);
         $description = filter_var($request->get('description'), FILTER_SANITIZE_STRING);
         $price = filter_var($request->get('price'), FILTER_VALIDATE_FLOAT);
-
-        $part = new part;
-        $part->part_number = $part_number;
+        $part = Part::find($id);
 
         $validator = Validator::make([
             'part_number' => $part_number,
@@ -139,7 +143,6 @@ class PartsController extends Controller
             return back()->withInput()->withErrors($validator);
         }
 
-        $part = Part::find($id);
         $part->part_number = $part_number;
         $part->vehicle_id = $model;
         $part->part_location = $part_location;
@@ -149,11 +152,11 @@ class PartsController extends Controller
 
 		session()->flash('notification', [
             'title' => 'Success!',
-            'message' => 'You have successfully updated a Part Number',
+            'message' => 'You have successfully updated a Vehicle Part',
             'type' => 'success'
         ]);
 
-        return redirect('part');
+        return redirect($this->baseUrl);
     }
 
     /**
@@ -166,7 +169,7 @@ class PartsController extends Controller
     {
         $part_number = filter_var($request->get('part_number'), FILTER_SANITIZE_STRING);
         $description = filter_var($request->get('description'), FILTER_SANITIZE_STRING);
-        $part = new Part;
+        $part = Part::find($id);
 
         $validator = Validator::make([
             'part' => $id
@@ -185,7 +188,6 @@ class PartsController extends Controller
             return back()->withInput()->withErrors($validator);
         }
 
-        $part = part::find($id);
         $part->delete();
 
         if( $request->ajax() ) {
@@ -197,7 +199,12 @@ class PartsController extends Controller
             ], 200);
         }
 
-        session()->flush('part number', 'Service successfully removed');
-        return redirect('part');
+		session()->flash('notification', [
+            'title' => 'Success!',
+            'message' => 'You have successfully removed a Vehicle Part',
+            'type' => 'success'
+        ]);
+        
+        return redirect($this->baseUrl);
     }
 }

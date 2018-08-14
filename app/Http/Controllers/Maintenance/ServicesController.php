@@ -11,7 +11,9 @@ use App\Http\Controllers\Controller;
 class ServicesController extends Controller
 {
 
-    public $viewBasePath = 'admin.maintenance';
+    public $viewBasePath = 'admin.maintenance.service';
+    public $baseUrl = 'service';
+    
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +26,7 @@ class ServicesController extends Controller
             return datatables($services)->toJson();
         }
         
-        return view( $this->viewBasePath . '.service.index');
+        return view( $this->viewBasePath . '.index');
     }
 
     /**
@@ -35,7 +37,7 @@ class ServicesController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view( $this->viewBasePath . '.service.create')
+        return view( $this->viewBasePath . '.create')
                 ->with('categories', $categories);
     }
 
@@ -72,7 +74,7 @@ class ServicesController extends Controller
             'type' => 'success'
         ]);
 
-        return redirect('service');
+        return redirect($this->baseUrl);
     }
 
     /**
@@ -86,7 +88,7 @@ class ServicesController extends Controller
         $id = filter_var( $id, FILTER_VALIDATE_INT);
         $category = Category::where('id', '=', $id)->first();
 
-        return view( $this->viewBasePath . '.category.show')
+        return view( $this->viewBasePath . '.show')
                 ->with('category', $category);
     }
 
@@ -102,7 +104,7 @@ class ServicesController extends Controller
         $service = Service::where('id', '=', $id)->first();
         $categories = Category::all();
 
-        return view( $this->viewBasePath . '.service.edit')
+        return view( $this->viewBasePath . '.edit')
                 ->with('service', $service)
                 ->with('categories', $categories);
     }
@@ -152,7 +154,7 @@ class ServicesController extends Controller
             'type' => 'success'
         ]);
 
-        return redirect('service');
+        return redirect($this->baseUrl);
     }
 
     /**
@@ -197,6 +199,6 @@ class ServicesController extends Controller
         }
 
         session()->flush('success', 'Service successfully removed');
-        return redirect('service');
+        return redirect($this->baseUrl);
     }
 }

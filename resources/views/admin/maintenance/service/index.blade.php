@@ -4,10 +4,10 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <div class="container-fluid">
-      <h1 class="float-left">Service Category Maintenance</h1>
+      <h1 class="float-left">Service Maintenance</h1>
       <ol class="breadcrumb float-right">
         <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">Home</a></li>
-        <li class="breadcrumb-item active">Service Category</li>
+        <li class="breadcrumb-item active">Service</li>
       </ol>
   </div><!-- /.container-fluid -->
 </section>
