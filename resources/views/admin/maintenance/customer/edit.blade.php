@@ -4,19 +4,11 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <div class="container-fluid">
-<<<<<<< HEAD
-      <h1 class="float-left">Service Category Maintenance</h1>
-      <ol class="breadcrumb float-right">
-        <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">Home</a></li>
-        <li class="breadcrumb-item">Service Category</li>
-        <li class="breadcrumb-item active">{{ $category->name }}</li>
-=======
       <h1 class="float-left">Mechanic Maintenance</h1>
       <ol class="breadcrumb float-right">
         <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">Home</a></li>
         <li class="breadcrumb-item">Mechanic</li>
         <li class="breadcrumb-item active">{{ $mechanic->name }}</li>
->>>>>>> 2c46f32e8e75771e8eeb51307c3614d51447a080
       </ol>
   </div><!-- /.container-fluid -->
 </section>
