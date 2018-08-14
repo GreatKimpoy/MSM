@@ -66,15 +66,15 @@
           { data: "plate_number" },
           { data: function(callback){
             return `
-              <a href="{{ url("customer") }}` + '/' + callback.id + `/edit" class="btn btn-warning">Edit</a>
+              <a href="{{ url("customer") }}` + '/' + callback.id + `/edit"  class="btn btn-warning"><i class="fa fa-edit"></i><strong>Edit</strong></a>
             `
           } },
       ],
     } );
 
 	 	$("div.toolbar").html(`
- 			<a type="button" id="new" href="{{ url('customer/create') }}"  class="btn btn-primary btn-sm">
-        <span class="glyphicon glyphicon-plus"></span>  Create
+ 			<a type="button" id="new" href="{{ url('customer/create') }}" class="btn btn-primary btn-sm float-right">
+        <i class="fa fa-plus"></i> <strong> CREATE </strong>
       </a>
 		`);
 
