@@ -58,9 +58,9 @@
       serverSide: true,
       ajax: "{{ url('vehicle/part') }}",
       columns: [
-          { data: "part_number" },
-          { data: "vehicle.model" },
-          { data: "part_location" },
+          { data: "number" },
+          { data: "category.model" },
+          { data: "location" },
           { data: "description" },
           { data: "price" },
           { data: function(callback){

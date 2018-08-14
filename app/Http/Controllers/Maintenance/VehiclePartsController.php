@@ -22,7 +22,7 @@ class VehiclePartsController extends Controller
     public function index(Request $request)
     {
         if( $request->ajax() ) {
-            $parts = Part::with('vehicle')->get();
+            $parts = Part::with('category')->get();
             return datatables($parts)->toJson();
         }
         
@@ -49,20 +49,20 @@ class VehiclePartsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Part $part)
+    public function store(Request $request)
     {
         $number = filter_var($request->get('number'), FILTER_SANITIZE_STRING);
         $vehicle = filter_var($request->get('model'), FILTER_VALIDATE_INT);
         $location = filter_var($request->get('location'), FILTER_SANITIZE_STRING);
         $description = filter_var($request->get('description'), FILTER_SANITIZE_STRING);
         $price = filter_var($request->get('price'), FILTER_VALIDATE_FLOAT);
+        $part = new Part;
 
-        $validator = Validator::make( $request->all(), $part->rules());
+        $validator = Validator::make($request->all(), $part->rules());
         if($validator->fails()) {
             return back()->withInput()->withErrors($validator);
         }
 
-        $part = new Part;
         $part->number = $number;
         $part->vehicle_id = $vehicle;
         $part->location = $location;
@@ -122,18 +122,18 @@ class VehiclePartsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $part_number = filter_var($request->get('part_number'), FILTER_SANITIZE_STRING);
+        $number = filter_var($request->get('number'), FILTER_SANITIZE_STRING);
         $model = filter_var($request->get('model'), FILTER_VALIDATE_INT);
-        $part_location = filter_var($request->get('part_location'), FILTER_SANITIZE_STRING);
+        $location = filter_var($request->get('location'), FILTER_SANITIZE_STRING);
         $description = filter_var($request->get('description'), FILTER_SANITIZE_STRING);
         $price = filter_var($request->get('price'), FILTER_VALIDATE_FLOAT);
         $part = Part::find($id);
 
         $validator = Validator::make([
-            'part_number' => $part_number,
+            'number' => $number,
             'part' => $id,
             'model' => $model,
-            'part_location' => $part_location,
+            'location' => $location,
             'description' => $description,
             'price' => $price
 
@@ -143,9 +143,9 @@ class VehiclePartsController extends Controller
             return back()->withInput()->withErrors($validator);
         }
 
-        $part->part_number = $part_number;
+        $part->number = $number;
         $part->vehicle_id = $model;
-        $part->part_location = $part_location;
+        $part->location = $location;
         $part->description = $description;
         $part->price = $price;
         $part->save();
@@ -173,7 +173,7 @@ class VehiclePartsController extends Controller
 
         $validator = Validator::make([
             'part' => $id
-        ], $part->checkIfPartsExists());
+        ], $part->checkIfPartExists());
 
         if($validator->fails()) {
             
