@@ -28,10 +28,12 @@ Route::namespace('Maintenance')->group(function() {
     Route::resource('service', 'ServicesController');
     
     Route::resource('customer', 'CustomersController');
+
     
 });
 
 
 Route::namespace('Transaction')->group(function(){
     Route::resource('inspection', 'InspectionController');
+    Route::resource('appointments', 'AppointmentsController');
 });
