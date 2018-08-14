@@ -19,7 +19,7 @@
                 placeholder="Part Number" 
                 maxlength="50" 
                 required 
-                name="part_number" 
+                name="number" 
                 type="text"
                 id="number"
                 value="{{ isset($part->number) ? $part->number : old('number') }}">

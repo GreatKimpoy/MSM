@@ -17,13 +17,14 @@ class CreateJobOrdersTable extends Migration
             $table->increments('id');
             $table->integer('person_id')->unsigned();
             $table->integer('vehicle_id')->unsigned();
-            $table->integer('inspection_id')->unsigned();
-            $table->integer('appointment_id')->unsigned();
-            $table->date('date_received');
-            $table->time('time_started');
-            $table->time('time_finished');
-            $table->date('date_released');
+            $table->integer('inspection_id')->unsigned()->nullable();
+            $table->integer('appointment_id')->unsigned()->nullable();
+            $table->datetime('received_at');
+            $table->datetime('started_at');
+            $table->datetime('finished_at');
+            $table->datetime('released_at');
             $table->text('remarks');
+            $table->string('status');
             $table->timestamps();
 
             $table->foreign('person_id')

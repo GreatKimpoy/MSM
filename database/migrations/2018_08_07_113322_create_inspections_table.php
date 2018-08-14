@@ -17,29 +17,19 @@ class CreateInspectionsTable extends Migration
             $table->increments('id');
             $table->integer('customer_id')->unsigned();
             $table->integer('vehicle_id')->unsigned();
-            $table->integer('appointment_id')->unsigned();
-            $table->date('date_received');
-            $table->text('items');
-            $table->text('remarks');
+            $table->datetime('finished_at')->nullable();
+            $table->text('additional_remarks')->nullable();
             $table->timestamps();
-
             $table->foreign('customer_id')
-            ->references('id')
-            ->on('persons')
-            ->onUpdate('cascade')
-            ->onDelete('restrict'); 
-
+                ->references('id')
+                ->on('persons')
+                ->onUpdate('cascade')
+                ->onDelete('restrict'); 
             $table->foreign('vehicle_id')
-            ->references('id')
-            ->on('vehicles')
-            ->onUpdate('cascade')
-            ->onDelete('restrict');
-
-            $table->foreign('appointment_id')
-            ->references('id')
-            ->on('appointments')
-            ->onUpdate('cascade')
-            ->onDelete('restrict');
+                ->references('id')
+                ->on('vehicles')
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
         });
     }
 

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Maintenance;
 
 use Validator;
-use App\Vehicle;
-use App\Category;
+use App\Model\Vehicle;
+use App\Model\Vehicle\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -12,6 +12,7 @@ class VehiclesController extends Controller
 {
 
   public $viewBasePath = 'admin.maintenance.vehicle';
+  public $baseUrl = 'vehicle/category';
 
   /**
    * Display a listing of the resource.
@@ -21,11 +22,11 @@ class VehiclesController extends Controller
   public function index(Request $request)
   {
       if( $request->ajax() ) {
-          $vehicles = Category::all();
+          $vehicles = Vehicle::with('categories')->get();
           return datatables($vehicles)->toJson();
       }
       
-      return view( $this->viewBasePath . '.category.index');
+      return view( $this->viewBasePath . '.index');
   }
 
   /**
@@ -35,8 +36,8 @@ class VehiclesController extends Controller
    */
   public function create()
   {
-      return view( $this->viewBasePath . '.category.create')
-          ->with('transmission_types', Category::$transmission_types);
+      return view( $this->viewBasePath . '.create')
+                ->with('transmission_types', Category::$transmission_types);
   }
 
   /**
@@ -73,7 +74,7 @@ class VehiclesController extends Controller
           'type' => 'success'
       ]);
 
-      return redirect('vehicle/category');
+      return redirect($this->baseUrl);
   }
 
   /**
@@ -87,7 +88,7 @@ class VehiclesController extends Controller
       $id = filter_var( $id, FILTER_VALIDATE_INT);
       $category = Categroy::where('id', '=', $id)->first();
 
-      return view( $this->viewBasePath . '.category.show')
+      return view( $this->viewBasePath . '.show')
               ->with('category', $category);
   }
 
@@ -102,7 +103,7 @@ class VehiclesController extends Controller
       $id = filter_var( $id, FILTER_VALIDATE_INT);
       $category = Category::where('id', '=', $id)->first();
 
-      return view( $this->viewBasePath . '.category.edit')
+      return view( $this->viewBasePath . '.edit')
               ->with('category', $category)
               ->with('transmission_types', Category::$transmission_types);
   }
@@ -142,13 +143,13 @@ class VehiclesController extends Controller
       $category->transmission_type = $transmission;
       $category->save();
 
-  session()->flash('notification', [
+    session()->flash('notification', [
           'title' => 'Success!',
           'message' => 'You have successfully updated a vehicle category',
           'type' => 'success'
       ]);
 
-      return redirect('vehicle/category');
+      return redirect($this->baseUrl);
   }
 
   /**
@@ -192,6 +193,6 @@ class VehiclesController extends Controller
       }
 
       session()->flush('success', 'Category successfully removed');
-      return redirect('vehicle');
+      return redirect($this->baseUrl);
   }
 }

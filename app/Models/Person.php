@@ -183,7 +183,7 @@ class Person extends Model
 
     public function categories()
     {
-        return $this->belongsToMany( __NAMESPACE__ . '\\Category', 'category_person', 'category_id', 'person_id');
+        return $this->belongsToMany( __NAMESPACE__ . '\\Category', 'category_person', 'person_id', 'category_id');
     }
 
     public function vehicles()

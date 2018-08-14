@@ -22,10 +22,10 @@ class CreateAppointmentsTable extends Migration
             $table->timestamps();
 
             $table->foreign('person_id')
-            ->references('id')
-            ->on('persons')
-            ->onUpdate('cascade')
-            ->onDelete('restrict'); 
+                ->references('id')
+                ->on('persons')
+                ->onUpdate('cascade')
+                ->onDelete('restrict'); 
 
 
         });

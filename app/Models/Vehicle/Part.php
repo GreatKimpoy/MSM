@@ -18,19 +18,34 @@ class Part extends Model
     {
         return [
             'number' => "required|min:5|max:30|unique:$this->table,number",
-            'description' => 'nullable|min:10|max:50',
-            'price' => 'nullable|min:10|max:50',
-            'model' => 'nullable|min:10|max:50',
-            'location' => 'nullable|min:10|max:50',
+            'model' => 'required|exists:vehicle_categories,id',
+            'location' => 'required',
+            'description' => 'required',
+            'price' => 'required'
         ];
     }
     
     public function updateRules()
     {
         return [
-            'name' => 'required|min:5|max:30|unique:' . $this->table . ',name,' . $this->name . ',name',
-            'description' => 'nullable|min:10|max:50',
-            'category' => 'required|exists:' . $this->table . ',id',
+            'number' => 'required|min:5|max:30|unique:' . $this->table . ',number,' . $this->number . ',number',
+            'model' => 'required|exists:vehicle_categories,id',
+            'location' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'part' => "required|exists:$this->table,id",
+        ];
+    }
+
+    public function category()
+    {
+        return $this->belongsTo( __NAMESPACE__ . '\\Category', 'vehicle_id', 'id');
+    }
+
+    public function checkIfPartExists()
+    {
+        return [
+            'part' => "required|exists:$this->table,id"
         ];
     }
 }

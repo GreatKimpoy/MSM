@@ -4,15 +4,17 @@ namespace App\Http\Controllers\Maintenance;
 
 use DB;
 use Validator;
-use App\Person;
-use App\Category;
+use App\Models\Person;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class MechanicsController extends Controller
 {
 
-    public $viewBasePath = 'admin.maintenance';
+    public $viewBasePath = 'admin.maintenance.mechanic';
+    public $baseUrl = 'mechanic';
+
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +26,7 @@ class MechanicsController extends Controller
             $mechanics = Person::mechanic()->get();
             return datatables($mechanics)->toJson();
         }
-        return view( $this->viewBasePath . '.mechanic.index');
+        return view( $this->viewBasePath . '.index');
     }
 
     /**
@@ -35,7 +37,7 @@ class MechanicsController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view( $this->viewBasePath . '.mechanic.create')
+        return view( $this->viewBasePath . '.create')
                 ->with('categories', $categories);
     }
 
@@ -87,7 +89,7 @@ class MechanicsController extends Controller
             'type' => 'success'
         ]);
 
-        return redirect('mechanic');
+        return redirect($this->baseUrl);
     }
 
     /**
@@ -101,7 +103,7 @@ class MechanicsController extends Controller
         $id = filter_var( $id, FILTER_VALIDATE_INT);
         $mechanic = Person::mechanic()->where('id', '=', $id)->first();
 
-        return view( $this->viewBasePath . '.mechanic.show')
+        return view( $this->viewBasePath . '.show')
                 ->with('mechanic', $mechanic);
     }
 
@@ -117,7 +119,7 @@ class MechanicsController extends Controller
         $mechanic = Person::mechanic()->where('id', '=', $id)->first();
 
         $categories = Category::all();
-        return view( $this->viewBasePath . '.mechanic.edit')
+        return view( $this->viewBasePath . '.edit')
                 ->with('mechanic', $mechanic)
                 ->with('categories', $categories);
     }
@@ -172,7 +174,7 @@ class MechanicsController extends Controller
             'type' => 'success'
         ]);
 
-        return redirect('mechanic');
+        return redirect($this->baseUrl);
     }
 
     /**
@@ -217,6 +219,6 @@ class MechanicsController extends Controller
         }
 
         session()->flush('success', 'Mechanic successfully removed');
-        return redirect('category');
+        return redirect($this->baseUrl);
     }
 }
