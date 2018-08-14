@@ -57,6 +57,7 @@ Route::namespace('Transaction')->group(function(){
     Route::resource('inspection', 'InspectionController');
 
     //Appointment Transaction
-    Route::resource('appointments', 'AppointmentController');
+    Route::resource('appointments', 'AppointmentsController');
+    
 
 });

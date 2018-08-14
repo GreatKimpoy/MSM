@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Transaction;
 
 use Illuminate\Http\Request;
 use App\Inspection;
+use App\InspectionItem;
 use Validator;
 use DB;
 use App\Http\Controllers\Controller;
