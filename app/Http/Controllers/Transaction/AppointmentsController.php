@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Maintenance;
+namespace App\Http\Controllers\Transaction;
 
 use App\Appointments;
 use Validator;
@@ -12,7 +12,7 @@ use Calendar;
 
 class AppointmentsController extends Controller
 {
-    public $viewBasePath = 'admin.maintenance';
+    public $viewBasePath = 'admin.transaction';
     /**
      * Display a listing of the resource.
      *
