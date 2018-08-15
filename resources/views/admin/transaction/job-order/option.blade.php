@@ -32,81 +32,23 @@
 <section class="content-header">
 	<div class="container-fluid">
 		<div class="card card-success col-sm-12" id="card1">
-			<div class="card-header">
-				<h4><strong>CUSTOMER INFORMATION</strong></h4>
-			</div>
-			<div class="card-body">
-				<div class="row">
-					<div class="col-md-6">
-						<div class="form-group">
-							<label>CHOOSE EXISTING CUSTOMER</label>
-							<select name="customer" class="form-control">
-								<option>
-									
-								</option>
-							</select>
-						</div>
-					</div>
+			<div class="card-block pt-3">
 
-					<div class="col-md-6">
-						<a href="{{ url('job-order/create') }}" class="btn btn-primary" type="button" name="customer"><i class="fa fa-plus"></i> Create New Customer Record</a>
-					</div>
+				<div class="card-header card-success">
+					<h4>JOB ORDER INFORMATION</h4>
 				</div>
-			</div>
-		</div>
 
-		<div class="card card-danger col-sm-12" id="card1">
-			<div class="card-header">
-				<h4><strong>VEHICLE INFORMATION</strong></h4>
-			</div>
-			<div class="card-body">
-				<div class="row">
-					<div class="col-md-4">
-						<div class="form-group">
-							<label>CHOOSE EXISTING VEHICLE</label>
-							<select name="vehicle" class="form-control">
-								<option>
-									
-								</option>
-							</select>
-						</div>
-					</div>
+				<form method="post" action="{{ url('job-order') }}" class="form-horizontal">
+		            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+		            <input type="hidden" name="type" value="JO" />
+		            @include('errors.alert')
+		            @include('admin.transaction.job-order.optionForm')
+		            <div class="form-group">
+		                <button type="submit" class="btn btn-primary btn-block"><strong>PROCEED</strong></button>
+		            </div>
+		        </form>
 
-					<div class="col-md-4">
-						<div class="form-group">
-							<label>CHOOSE EXISTING MODEL</label>
-							<select name="vehicle" class="form-control">
-								<option>
-									
-								</option>
-							</select>
-						</div>
-					</div>
 
-					<div class="col-md-4">
-						<a href="{{ url('job-order/vehicle-create') }}" class="btn btn-primary" type="button" name="vehicle"><i class="fa fa-plus"></i> Create New Vehicle Record</a>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="card card-warning col-sm-12" id="card1">
-			<div class="card-header">
-				<h4><strong>JOB ORDER ACTIVITY</strong></h4>
-			</div>
-			<div class="card-body">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="form-group">
-							<label>CHOOSE JOB ORDER ACTIVITY</label>
-							<select name="activity" class="form-control">
-								<option>
-									
-								</option>
-							</select>
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
 

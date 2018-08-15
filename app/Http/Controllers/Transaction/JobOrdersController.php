@@ -30,8 +30,7 @@ class JobOrdersController extends Controller
     public function show()
     {
         //
-        return view($this->viewBasePath . '.option');
 
-        return view($this->viewBasePath . '.vehicle-create');
+        return view($this->viewBasePath . '.option');
     }
 }

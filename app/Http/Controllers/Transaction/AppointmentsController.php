@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Transaction;
 
-use App\Appointments;
+use App\Models\Appointment;
 use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -22,7 +22,7 @@ class AppointmentsController extends Controller
     {
         //
         if( $request->ajax() ) {
-            $appointments =  Appointments::all();
+            $appointments =  Appointment::all();
             return datatables($appointments)->toJson();
         }
 
@@ -38,7 +38,7 @@ class AppointmentsController extends Controller
     {
         //
 
-        $appointments = Appointments::all();
+        $appointments = Appointment::all();
         $appointment_list= [];
         foreach ($appointments as $key => $appointment) {
             # code...
@@ -63,7 +63,7 @@ class AppointmentsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Appointments $appointments)
+    public function store(Request $request, Appointment $appointments)
     {
         //
         $appointment_name = filter_var($request->get('appointment_name'), FILTER_SANITIZE_STRING);
@@ -82,7 +82,7 @@ class AppointmentsController extends Controller
         }
 
 
-        $appointment = new Appointments;
+        $appointment = new Appointment;
         $appointment->appointment_name = $appointment_name;
         $appointment->appointment_startDate= $appointment_start;
         $appointment->appointment_endDate= $appointment_End;
@@ -150,7 +150,7 @@ class AppointmentsController extends Controller
         $appointment_start= filter_var($request->get('appointment_start'), FILTER_SANITIZE_STRING);
         $appointment_End= filter_var($request->get('appointment_end'), FILTER_SANITIZE_STRING);
 
-        $appointment = new Appointments;
+        $appointment = new Appointment;
 
         $validator = Validator::make([
             'appointments' => $id
@@ -169,7 +169,7 @@ class AppointmentsController extends Controller
             return back()->withInput()->withErrors($validator);
         }
 
-        $appointment = Appointments::find($id);
+        $appointment = Appointment::find($id);
         $appointment->delete();
 
         if( $request->ajax() ) {

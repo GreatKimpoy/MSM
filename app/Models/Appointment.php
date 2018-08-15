@@ -22,16 +22,6 @@ class Appointment extends Model
               
         ];
     }
-
-    public function customerRules(){
-        return[
-            'lastname' => 'required|max:30|string',
-            'firstname' => 'required|max:30|string',
-            'middlename' => 'required|max:30',
-            'contact' => 'required|min:2|max:60',
-            'email' => 'required|email'
-        ];
-    }
     
     public function checkIfAppointmentExists()
     {
