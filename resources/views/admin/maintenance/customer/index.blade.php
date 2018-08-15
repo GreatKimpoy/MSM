@@ -22,11 +22,12 @@
         <table id="customersTable" class="table table-bordered table-hover">
           <thead>
             <tr> 
-                <th>ID</th>
                 <th>Name</th>
                 <th>Address</th>
                 <th>Contact</th>
                 <th>Email</th>
+                <th>Type</th>
+                <th>Plate No.</th>
                 <th></th>
             </tr>
           </thead>
@@ -39,21 +40,21 @@
 
 @section('scripts-include')
 <script type="text/javascript">
-	$(document).ready(function() {
-		var table = $('#customersTable').DataTable( {
-	  		select: {
-	  			style: 'single'
-	  		},
-		    language: {
-		        searchPlaceholder: "Search..."
-		    },
-	    	columnDefs:[
-				{ targets: 'no-sort', orderable: false },
-	    	],
-	    	"dom": "<'row'<'col-sm-3'l><'col-sm-6'<'toolbar'>><'col-sm-3'f>>" +
-						    "<'row'<'col-sm-12'tr>>" +
-						    "<'row'<'col-sm-5'i><'col-sm-7'p>>",
-			"processing": true,
+  $(document).ready(function() {
+    var table = $('#customersTable').DataTable( {
+        select: {
+          style: 'single'
+        },
+        language: {
+            searchPlaceholder: "Search..."
+        },
+        columnDefs:[
+        { targets: 'no-sort', orderable: false },
+        ],
+        "dom": "<'row'<'col-sm-3'l><'col-sm-6'<'toolbar'>><'col-sm-3'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+      "processing": true,
       serverSide: true,
       ajax: "{{ url('customer') }}",
       columns: [
@@ -62,22 +63,23 @@
           { data: "full_address" },
           { data: "contact" },
           { data: "email" },
+          { data: "plate_number" },
           { data: function(callback){
             return `
-              <a href="{{ url("customer") }}` + '/' + callback.id + `/edit" class="btn btn-warning">Edit</a>
+              <a href="{{ url("customer") }}` + '/' + callback.id + `/edit"  class="btn btn-warning"><i class="fa fa-edit"></i><strong>Edit</strong></a>
             `
           } },
       ],
     } );
 
-	 	$("div.toolbar").html(`
- 			<a type="button" id="new" href="{{ url('customer/create') }}"  class="btn btn-primary btn-sm">
-        <span class="glyphicon glyphicon-plus"></span>  Create
+    $("div.toolbar").html(`
+      <a type="button" id="new" href="{{ url('customer/create') }}" class="btn btn-primary btn-sm float-right">
+        <i class="fa fa-plus"></i> <strong> CREATE </strong>
       </a>
-		`);
+    `);
 
     $('#customersTable').on('click', '.btn-remove', function(){
-				id = $(this).data('id');
+        id = $(this).data('id');
         var $this = $(this);
         var loadingText = '<i class="fa fa-circle-o-notch fa-spin"></i> Loading...';
         if ($(this).html() !== loadingText) {
@@ -120,7 +122,7 @@
             swal("Cancelled", "Operation Cancelled", "error");
           }
         });
-	    });
+      });
 
   });
 </script>

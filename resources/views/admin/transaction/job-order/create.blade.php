@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+ @extends('admin.layouts.app')
 
 @section('content-header')
 <!-- Content Header (Page header) -->
@@ -37,6 +37,12 @@
             <!-- a select option with the following choices: -->
             <!-- inspection, appointment, or directly job order -->
             </section>
+
+            <div class="card-header">
+              <h5><strong>Customer Form</strong></h5>
+            </div>
+             @include('admin.transaction.job-order.form')
+
             <div class="form-group">
                 <button type="submit" class="btn btn-primary btn-block">Save</button>
             </div>

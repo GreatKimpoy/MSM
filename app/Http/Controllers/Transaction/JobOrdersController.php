@@ -22,6 +22,16 @@ class JobOrdersController extends Controller
 
     public function create()
     {
+
     	return view($this->viewBasePath . '.create');
+
+    }   
+
+    public function show()
+    {
+        //
+        return view($this->viewBasePath . '.option');
+
+        return view($this->viewBasePath . '.vehicle-create');
     }
 }
