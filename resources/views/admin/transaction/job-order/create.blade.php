@@ -7,7 +7,7 @@
       <h1 class="float-left">Job Orders</h1>
       <ol class="breadcrumb float-right">
         <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">Home</a></li>
-        <li class="breadcrumb-item">Job Orders</li>
+        <li class="breadcrumb-item"><a href="{{ url('job-order') }}">Job Order</a></li>
         <li class="breadcrumb-item active">Create</li>
       </ol>
   </div><!-- /.container-fluid -->

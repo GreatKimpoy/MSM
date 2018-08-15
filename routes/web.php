@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'DashboardController@index');
+Route::get('dashboard', 'DashboardController@index');
 
 Route::namespace('Maintenance')->group(function() {
     Route::resource('mechanic', 'MechanicsController');

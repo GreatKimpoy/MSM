@@ -127,7 +127,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ url('job-order') }}" class="nav-link">
               <p>Job Orders</p>
             </a>
           </li>
