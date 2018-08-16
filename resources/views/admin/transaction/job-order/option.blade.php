@@ -31,7 +31,7 @@
 
 <section class="content-header">
 	<div class="container-fluid">
-		<div class="card card-success col-sm-12" id="card1">
+		<div class="card card-danger col-sm-12" id="card1">
 			<div class="card-block pt-3">
 
 				<div class="card-header card-success">

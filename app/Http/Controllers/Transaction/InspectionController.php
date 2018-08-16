@@ -20,8 +20,13 @@ class InspectionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+          if( $request->ajax() ) {
+            $inspection_items =  Item::all();
+            return datatables($inspection_items)->toJson();
+        }
+
         return view( $this->viewBasePath . '.index');
     }
 

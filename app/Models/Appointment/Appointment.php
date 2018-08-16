@@ -18,7 +18,7 @@ class Appointment extends Model
         return [
             'appointment_name' => "required|min:5|max:30|unique:$this->table,appointment_name",
             'appointment_start' => 'required|date|After:Yesterday',
-          	'appointment_end' => 'required|date|After:Yesterday'
+          	'appointment_end' => 'required|date'
               
         ];
     }

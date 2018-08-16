@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Transaction;
 
-use App\Models\Appointment;
+use App\Models\Appointment\Appointment;
 use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -45,8 +45,8 @@ class AppointmentsController extends Controller
             $appointment_list[] = Calendar::event( 
                 $appointment->appointment_name,
                 true,
-                new \DateTime($appointment->appointment_startDate),
-                new \DateTime($appointment->appointment_endDate.'+1 day')
+                new \Date($appointment->appointment_start),
+                new \Date($appointment->appointment_end.'+1 day')
             );
                 
         }
@@ -68,7 +68,7 @@ class AppointmentsController extends Controller
         //
         $appointment_name = filter_var($request->get('appointment_name'), FILTER_SANITIZE_STRING);
         $appointment_start= filter_var($request->get('appointment_start'), FILTER_SANITIZE_STRING);
-        $appointment_End= filter_var($request->get('appointment_end'), FILTER_SANITIZE_STRING);
+        $appointment_end= filter_var($request->get('appointment_end'), FILTER_SANITIZE_STRING);
 
         $validator = Validator::make( $request->all(), $appointments->rules());
         if($validator->fails()) {
@@ -84,8 +84,8 @@ class AppointmentsController extends Controller
 
         $appointment = new Appointment;
         $appointment->appointment_name = $appointment_name;
-        $appointment->appointment_startDate= $appointment_start;
-        $appointment->appointment_endDate= $appointment_End;
+        $appointment->appointment_start= $appointment_start;
+        $appointment->appointment_end= $appointment_end;
         $appointment->save();
 
 

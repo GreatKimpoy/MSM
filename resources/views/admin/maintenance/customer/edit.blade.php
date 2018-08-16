@@ -17,7 +17,7 @@
 @section('content-body')
 <section class="content-header">
   <div class="container-fluid">
-    <div class="card col-sm-12 mt-3">
+    <div class="card col-sm-12">
       <div class="card-block pt-3">
         <form method="post" action="{{ url("customer/$customer->id") }}" class="form-horizontal">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">

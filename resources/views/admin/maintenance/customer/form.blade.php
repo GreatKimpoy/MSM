@@ -8,9 +8,12 @@
     }
 
     .labely{
-        margin-top: 10px;
+        margin-top: 20px;
     }
 
+    .label{
+        margin-top: 20px;
+    }
 
     #plate{
         margin-left: 250px;
@@ -25,7 +28,7 @@
 <div class="row">
 
     <div class="col-md-4">
-        <label for="lastname">Lastname</label><span class="asterisks"><strong>*</strong></span>
+        <label for="lastname" class="label" >Lastname</label><span class="asterisks"><strong>*</strong></span>
         <div class="input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fa fa-user"></i></span>
@@ -43,7 +46,7 @@
     </div>
 
     <div class="col-md-4">
-        <label for="firstname">Firstname</label><span class="asterisks"><strong>*</strong></span>
+        <label for="firstname" class="label">Firstname</label><span class="asterisks"><strong>*</strong></span>
         <div class="input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fa fa-user"></i></span>
@@ -61,7 +64,7 @@
     </div>
 
     <div class="col-md-4">
-        <label for="middlename">Middlename</label><span class="asterisks"><strong>*</strong></span>
+        <label for="middlename" class="label">Middlename</label><span class="asterisks"><strong>*</strong></span>
         <div class="input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fa fa-user"></i></span>

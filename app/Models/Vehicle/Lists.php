@@ -4,9 +4,9 @@ namespace App\Models\Vehicle;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class List extends Model
 {
-    protected $table = 'vehicle_categories';
+    protected $table = 'vehicle_lists';
 	public $primaryKey = 'id';
     public $timestamps = false;
     public static $transmission_types = [
@@ -38,7 +38,7 @@ class Category extends Model
     }
 
     
-    public function checkIfCategoryExists()
+    public function checkIfListExists()
     {
         return [
             'category' => "required|exists:$this->table,id"
