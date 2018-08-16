@@ -45,6 +45,30 @@
 <script src="{{ asset('material/plugins/input-mask/jquery.inputmask.js')}}"></script>
 <script src="{{ asset('material/plugins/input-mask/jquery.inputmask.date.extensions.js')}}"></script>
 <script src="{{ asset('material/plugins/input-mask/jquery.inputmask.extensions.js')}} "></script>
+
+
+<!---FullCalendar-->
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.js"></script>
+
+
+
+
+<script>
+  
+    $('#calendar').fullCalendar({
+    eventLimit: true, // for all non-agenda views
+    views: {
+      agenda: {
+        eventLimit: 6 // adjust to 6 only for agendaWeek/agendaDay
+      }
+    }
+  });
+
+    
+</script>
+
+
   <script>
      $('.select2').select2();
 

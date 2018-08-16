@@ -34,6 +34,9 @@
 <link rel="stylesheet" href="{{ asset('material/plugins/datatables/dataTables.bootstrap4.css') }}" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 
+<!--FullCalendar-->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
+
 <!---SELECT-->
 <link rel="stylesheet" href="{{ asset('material/plugins/bootstrap-select/css/bootstrap-select.css') }}" />
 

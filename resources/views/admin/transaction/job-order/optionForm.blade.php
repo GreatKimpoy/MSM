@@ -24,7 +24,7 @@
 						<option>
 									
 						</option>
-				</select>
+					</select>
 			</div>
 		</div>
 
@@ -43,7 +43,7 @@
 		<div class="col-md-6" >
 			<div class="form-group" id="forms">
 				<label class="labely">CHOOSE EXISTING VEHICLE</label>
-					<select name="vehicle" class="form-control select2" data-live-search="true">
+					<select name="vehicle" class="form-control select2">
 						<option>
 									
 						</option>

@@ -24,7 +24,7 @@
         	<form method="post" action="{{ url('appointments') }}" class="form-horizontal">
 	            <input type="hidden" name="_token" value="{{ csrf_token() }}">
 	            @include('errors.alert')
-	            @include('admin.maintenance.appointments.form')
+	            @include('admin.transaction.appointments.form')
 	            <div class="form-group">
 	                <button type="submit" class="btn btn-success btn-block">Save</button>
 	            </div>
