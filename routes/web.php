@@ -17,7 +17,7 @@ Route::namespace('Maintenance')->group(function() {
     Route::resource('mechanic', 'MechanicsController');
 
     Route::prefix('vehicle')->group(function(){
-        Route::resource('list', 'VehicleListController');
+        Route::resource('category', 'VehicleCategoryController');
         Route::resource('part', 'VehiclePartsController');
     });
     

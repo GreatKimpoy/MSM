@@ -8,7 +8,7 @@ use App\Models\Person;
 use App\Models\Vehicle;
 use App\Models\Inspection;
 use Illuminate\Http\Request;
-use App\Models\Inspection\Item;
+use App\Models\Inspection\Items;
 use App\Http\Controllers\Controller;
 
 class InspectionController extends Controller
@@ -23,7 +23,7 @@ class InspectionController extends Controller
     public function index(Request $request)
     {
           if( $request->ajax() ) {
-            $inspection_items =  Item::all();
+            $inspection_items =  Items::all();
             return datatables($inspection_items)->toJson();
         }
 
@@ -37,7 +37,7 @@ class InspectionController extends Controller
      */
     public function create()
     {
-        $inspection_items = Item::all();
+        $inspection_items = Items::all();
         return view( $this->viewBasePath . '.create')
                 ->with('inspection_items', $inspection_items);
     }

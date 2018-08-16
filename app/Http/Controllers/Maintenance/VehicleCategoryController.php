@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Maintenance;
 
 use Validator;
 use Illuminate\Http\Request;
-use App\Models\Vehicle\Lists;
+use App\Models\Vehicle\Category;
 use App\Http\Controllers\Controller;
 
-class VehicleListController extends Controller
+class VehicleCategoryController extends Controller
 {
 
-    public $viewBasePath = 'admin.maintenance.vehicle.list';
+    public $viewBasePath = 'admin.maintenance.vehicle.category';
 
     /**
      * Display a listing of the resource.
@@ -20,7 +20,7 @@ class VehicleListController extends Controller
     public function index(Request $request)
     {
         if( $request->ajax() ) {
-            $vehicles = Lists::all();
+            $vehicles = Category::all();
             return datatables($vehicles)->toJson();
         }
         
@@ -35,7 +35,7 @@ class VehicleListController extends Controller
     public function create()
     {
         return view( $this->viewBasePath . '.create')
-            ->with('transmission_types', Lists::$transmission_types);
+            ->with('transmission_types', Category::$transmission_types);
     }
 
     /**
@@ -44,7 +44,7 @@ class VehicleListController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Lists $vehicle)
+    public function store(Request $request, Category $vehicle)
     {
         
         $brand = filter_var($request->get('brand'), FILTER_SANITIZE_STRING);
@@ -58,7 +58,7 @@ class VehicleListController extends Controller
             return back()->withInput()->withErrors($validator);
         }
 
-        $vehicle = new Lists;
+        $vehicle = new Category;
         $vehicle->brand = $brand;
         $vehicle->model = $model;
         $vehicle->year_made = $year_made;
@@ -72,7 +72,7 @@ class VehicleListController extends Controller
             'type' => 'success'
         ]);
 
-        return redirect('vehicle/list');
+        return redirect('vehicle/category');
     }
 
     /**
@@ -84,10 +84,10 @@ class VehicleListController extends Controller
     public function show($id)
     {
         $id = filter_var( $id, FILTER_VALIDATE_INT);
-        $list = Lists::where('id', '=', $id)->first();
+        $category = category::where('id', '=', $id)->first();
 
         return view( $this->viewBasePath . '.show')
-                ->with('list', $list);
+                ->with('category', $category);
     }
 
     /**
@@ -99,11 +99,11 @@ class VehicleListController extends Controller
     public function edit($id)
     {
         $id = filter_var( $id, FILTER_VALIDATE_INT);
-        $list = Lists::where('id', '=', $id)->first();
+        $category = Category::where('id', '=', $id)->first();
 
         return view( $this->viewBasePath . '.edit')
-                ->with('list', $list)
-                ->with('transmission_types', Lists::$transmission_types);
+                ->with('category', $category)
+                ->with('transmission_types', Category::$transmission_types);
     }
 
     /**
@@ -120,7 +120,7 @@ class VehicleListController extends Controller
         $year_made = filter_var($request->get('year_made'), FILTER_SANITIZE_STRING);
         $size = filter_var($request->get('size'), FILTER_SANITIZE_STRING);
         $transmission = filter_var($request->get('transmission'), FILTER_SANITIZE_STRING);
-        $list = Lists::find($id);
+        $category = category::find($id);
 
         $validator = Validator::make([
             'brand' => $brand,
@@ -128,18 +128,18 @@ class VehicleListController extends Controller
             'year_made' => $year_made,
             'size' => $size,
             'transmission' => $transmission
-        ], $list->updateRules());
+        ], $category->updateRules());
 
         if($validator->fails()) {
             return back()->withInput()->withErrors($validator);
         }
 
-        $list->brand = $brand;
-        $list->model = $model;
-        $list->year_made = $year_made;
-        $list->size = $size;
-        $list->transmission_type = $transmission;
-        $list->save();
+        $category->brand = $brand;
+        $category->model = $model;
+        $category->year_made = $year_made;
+        $category->size = $size;
+        $category->transmission_type = $transmission;
+        $category->save();
 
 		session()->flash('notification', [
             'title' => 'Success!',
@@ -147,7 +147,7 @@ class VehicleListController extends Controller
             'type' => 'success'
         ]);
 
-        return redirect('vehicle/list');
+        return redirect('vehicle/category');
     }
 
     /**
@@ -160,11 +160,11 @@ class VehicleListController extends Controller
     {
         $brand = filter_var($request->get('brand'), FILTER_SANITIZE_STRING);
         $model = filter_var($request->get('model'), FILTER_SANITIZE_STRING);
-        $vehicle = Lists::find($id);
+        $vehicle = Category::find($id);
 
         $validator = Validator::make([
-            'list' => $id
-        ], $vehicle->checkIfListExists());
+            'category' => $id
+        ], $vehicle->checkIfCategoryExists());
 
         if($validator->fails()) {
             
@@ -184,13 +184,13 @@ class VehicleListController extends Controller
         if( $request->ajax() ) {
             return response()->json([
                 'title' => 'Success',
-                'message' => 'Category List successfully removed',
+                'message' => 'Category Category successfully removed',
                 'status' => 'ok',
                 'others' => '',
             ], 200);
         }
 
-        session()->flush('success', 'Category List successfully removed');
+        session()->flush('success', 'Category  successfully removed');
         return redirect('vehicle');
     }
 }
