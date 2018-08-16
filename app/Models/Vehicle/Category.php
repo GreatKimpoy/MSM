@@ -4,11 +4,9 @@ namespace App\Models\Vehicle;
 
 use Illuminate\Database\Eloquent\Model;
 
-<<<<<<< Updated upstream:app/Models/Vehicle/Category.php
+
 class Category extends Model
-=======
-class Lists extends Model
->>>>>>> Stashed changes:app/Models/Vehicle/Lists.php
+
 {
     protected $table = 'vehicle_categories';
 	public $primaryKey = 'id';
@@ -50,5 +48,3 @@ class Lists extends Model
     }
 
 }
-
-

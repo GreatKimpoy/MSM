@@ -121,17 +121,6 @@
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-<<<<<<< Updated upstream
-            <a href="{{url('appointments')}}" class="nav-link">
-              <i class="nav-icon fa plus-square"></i>
-              <p><i class="nav-icon fa fa-calendar-check"></i>Appointments</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{url('job-order')}}" class="nav-link">
-              <i class="nav-icon fa plus-square"></i>
-              <p><i class="nav-icon fa fa-briefcase"></i>Job Orders</p>
-=======
             <a href="#" class="nav-link">
               <p>Appointments</p>
             </a>
@@ -139,7 +128,6 @@
           <li class="nav-item">
             <a href="#" class="nav-link">
               <p>Job Orders</p>
->>>>>>> Stashed changes
             </a>
           </li>
           <li class="nav-item">
