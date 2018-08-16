@@ -17,8 +17,9 @@ class CreateAppointmentsTable extends Migration
 
             $table->increments('id');
             $table->integer('person_id')->unsigned();
-            $table->date('appointment_date');
-            $table->date('production_date');
+            $table->date('appointment_name');
+            $table->date('appointment_startDate');
+            $table->date('production_endDate');
             $table->timestamps();
 
             $table->foreign('person_id')
