@@ -4,7 +4,9 @@ namespace App\Models\Vehicle;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class Category extends Model
+
 {
     protected $table = 'vehicle_categories';
 	public $primaryKey = 'id';
@@ -46,5 +48,3 @@ class Category extends Model
     }
 
 }
-
-
