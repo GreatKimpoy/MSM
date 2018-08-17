@@ -19,6 +19,9 @@
   <div class="container-fluid">
     <div class="card col-sm-12 mt-3">
       <div class="card-block pt-3">
+        <div class="card-header bg-primary"><strong>Mechanic Form</strong></div>
+      </div>
+      <div class="card-body">
         <form method="post" action="{{ url('mechanic') }}" class="form-horizontal">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             @include('errors.alert')

@@ -195,7 +195,7 @@
             <label for="specializations" class="labely">Specialization</label><span class="asterisks"><strong>*</strong></span>
             <select 
                 name="specializations[]" 
-                class="form-control"
+                class="form-control select2"
                 id="form" 
                 multiple>
                 @foreach($categories as $category)

@@ -38,6 +38,9 @@
 					<h4>JOB ORDER INFORMATION</h4>
 				</div>
 
+			</div>
+
+			<div class="card-body">
 				<form method="post" action="{{ url('job-order') }}" class="form-horizontal">
 		            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 		            <input type="hidden" name="type" value="JO" />
@@ -47,9 +50,8 @@
 		                <button type="submit" class="btn btn-primary btn-block"><strong>PROCEED</strong></button>
 		            </div>
 		        </form>
-
-
 			</div>
+
 		</div>
 
 	</div>
