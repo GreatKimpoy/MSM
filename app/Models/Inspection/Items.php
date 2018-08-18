@@ -4,7 +4,7 @@ namespace App\Models\Inspection;
 
 use Illuminate\Database\Eloquent\Model;
 
-class InspectionItem extends Model
+class Items extends Model
 {
     //
     protected $table = 'inspection_items';

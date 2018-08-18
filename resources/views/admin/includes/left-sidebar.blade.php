@@ -23,7 +23,10 @@
       <!-- Dashboard -->
       <li class="nav-item">
         <a href="{{ url('dashboard') }}" class="nav-link">
-          <p>Dashboard</p>
+          <p>
+            <i class="nav-icon fa fa-tachometer-alt"></i> 
+            Dashboard
+          </p>
         </a>
       </li> <!-- Dashboard -->
 
@@ -31,6 +34,7 @@
       <li class="nav-item menu-open">
         <a href="#" class="nav-link">
           <p>
+            <i class="nav-icon fa fa-palette"></i>
             Maintenance
             <i class="right fa fa-angle-left"></i>
           </p>
@@ -40,38 +44,36 @@
           <!-- Customers -->
           <li class="nav-item">
             <a href="{{ url('customer') }}" class="nav-link">
-              <i class="nav-icon fa plus-square"></i> Customers
+              <i class="nav-icon fa plus-square"></i>
+              <i class="nav-icon fa fa-user-alt"></i> Customers
             </a>
           </li> <!-- Customers -->
           <!-- Service -->
           <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link">
-              <i class="nav-icon fa plus-square"></i>
               <p>
+                <i class="nav-icon fa fa-car-side"></i>
                 Vehicles
                 <i class="right fa fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ url('vehicle') }}" class="nav-link">
+                <a href="{{ url('vehicle/category') }}" class="nav-link">
                   <i class="nav-icon fa plus-square"></i>
-                  <i class="fa fa-circle-o nav-icon"></i>
-                  <p>List</p>
+                  <p><i class="nav-icon fa fa-car-alt"></i>List</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{ url('vehicle/part') }}" class="nav-link">
                   <i class="nav-icon fa plus-square"></i>
-                  <i class="fa fa-circle-o nav-icon"></i>
-                  <p>Parts</p>
+                  <p><i class="nav-icon fa fa-car-alt"></i>Parts</p>
                 </a>
               </li> 
               <li class="nav-item">
                 <a href="{{ url('vehicle/category') }}" class="nav-link">
                   <i class="nav-icon fa plus-square"></i>
-                  <i class="fa fa-circle-o nav-icon"></i>
-                  <p>Categories</p>
+                  <p><i class="nav-icon fa fa-car-alt"></i>Category</p>
                 </a>
               </li>
             </ul>
@@ -79,8 +81,8 @@
           <!-- Service -->
           <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link">
-              <i class="nav-icon fa plus-square"></i>
               <p>
+                <i class="nav-icon fa fa-server"></i>
                 Services
                 <i class="right fa fa-angle-left"></i>
               </p>
@@ -89,22 +91,19 @@
               <li class="nav-item">
                 <a href="{{ url('service') }}" class="nav-link">
                   <i class="nav-icon fa plus-square"></i>
-                  <i class="fa fa-circle-o nav-icon"></i>
-                  <p>List</p>
+                  <p><i class="nav-icon fa fa-car-alt"></i>List</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{ url('service/category') }}" class="nav-link">
                   <i class="nav-icon fa plus-square"></i>
-                  <i class="fa fa-circle-o nav-icon"></i>
-                  <p>Categories</p>
+                  <p><i class="nav-icon fa fa-car-alt"></i>Categories</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{ url('mechanic') }}" class="nav-link">
                   <i class="nav-icon fa plus-square"></i>
-                  <i class="fa fa-circle-o nav-icon"></i>
-                  <p>Technicians</p>
+                  <p><i class="nav-icon fa fa-user-alt"></i>Technicians</p>
                 </a>
               </li>
             </ul>
@@ -114,15 +113,15 @@
       <!-- Transactions -->
       <li class="nav-item  menu-open">
         <a href="#" class="nav-link">
-            <i class="fa fa-exchange-alt"></i>
             <p>
+              <i class="nav-icon fa fa-money-check"></i>
               Transactions
               <i class="right fa fa-angle-left"></i>
             </p>
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="#" class="nav-link">
+              <a href="{{url ('appointments')}}" class="nav-link">
               <p>Appointments</p>
             </a>
           </li>
@@ -133,7 +132,8 @@
           </li>
           <li class="nav-item">
             <a href="{{ url('inspection') }}" class="nav-link">
-              <p>Inspection</p>
+              <i class="nav-icon fa plus-square"></i>
+              <p><i class="nav-icon fa fa-eye"></i>Inspection</p>
             </a>
           </li>
         </ul>

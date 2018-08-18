@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+ @extends('admin.layouts.app')
 
 @section('content-header')
 <!-- Content Header (Page header) -->
@@ -19,6 +19,11 @@
   <div class="container-fluid">
     <div class="card col-sm-12 mt-3">
       <div class="card-block pt-3">
+          <div class="card-header bg-primary">
+              <strong>Customer Form</strong>
+          </div>
+      </div>
+      <div class="card-body">
         <form method="post" action="{{ url('job-order') }}" class="form-horizontal">
             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
             @include('errors.alert')
@@ -37,6 +42,9 @@
             <!-- a select option with the following choices: -->
             <!-- inspection, appointment, or directly job order -->
             </section>
+
+             @include('admin.transaction.job-order.form')
+
             <div class="form-group">
                 <button type="submit" class="btn btn-primary btn-block">Save</button>
             </div>

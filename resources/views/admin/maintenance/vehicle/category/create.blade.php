@@ -4,12 +4,12 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <div class="container-fluid">
-      <h1 class="float-left">Vehicle Categories</h1>
+      <h1 class="float-left">Vehicle List</h1>
       <ol class="breadcrumb float-right">
         <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">Home</a></li>
         <li class="breadcrumb-item"><a href="{{ url('vehicle') }}">Vehicle</a></li>
-        <li class="breadcrumb-item">Category</li>
-        <li class="breadcrumb-item active"></li>
+        <li class="breadcrumb-item">List</li>
+        <li class="breadcrumb-item">Form</li>
       </ol>
   </div><!-- /.container-fluid -->
 </section>
@@ -20,6 +20,9 @@
   <div class="container-fluid">
     <div class="card col-sm-12 mt-3">
       <div class="card-block pt-3">
+        <div class="card-header bg-primary"><strong>Vehicle Information Form</strong></div>
+      </div>
+      <div class="card-body">
         <form method="post" action="{{ url('vehicle/category') }}" class="form-horizontal">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             @include('errors.alert')

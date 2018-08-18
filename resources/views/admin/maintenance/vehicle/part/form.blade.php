@@ -1,15 +1,24 @@
 
 <style>
+
     .asterisks{
         color: red;
     }
     #forms {
         margin-bottom: 20px;
     }
+
+    .labely{
+        margin-top: 20px;
+    }
+
+    .label{
+        margin-top: 15px;
+    }
 </style>
 <div class="row">
-    <div class="col-md-4">
-        <label for="Part Number">Part Number</label><span class="asterisks"><strong>*</strong></span>
+    <div class="col-md-4" id="labely">
+        <label for="Part Number" class="labely">Part Number</label><span class="asterisks"><strong>*</strong></span>
         <div class="input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fa fa-wrench"></i></span>
@@ -28,7 +37,7 @@
 
     <div class="col-md-4">
         <div class="form-group">
-            <label for="model">Model</label><span class="asterisks"><strong>*</strong></span>
+            <label for="model" class="labely">Model</label><span class="asterisks"><strong>*</strong></span>
             <select name="model" class="form-control" required>
             @foreach($vehicles as $vehicle)
                 <option
@@ -40,7 +49,7 @@
     </div>
 
     <div class="col-md-4">
-        <label for="location">Location</label><span class="asterisks"><strong>*</strong></span>
+        <label for="location" class="labely">Location</label><span class="asterisks"><strong>*</strong></span>
             <select name="location" class="form-control" required>
             @foreach($locations as $location)
                 <option
@@ -53,7 +62,7 @@
 
 <div class="row">
     <div class="col-md-8">
-        <label for="description">Description</label><span class="asterisks"><strong>*</strong></span>
+        <label for="description" class="label">Description</label><span class="asterisks"><strong>*</strong></span>
         <div class="input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fa fa-wrench"></i></span>
@@ -69,7 +78,7 @@
         </div>
     </div>
     <div class="col-md-4">
-        <label for="price">Price</label><span class="asterisks"><strong>*</strong></span>
+        <label for="price" class="label">Price</label><span class="asterisks"><strong>*</strong></span>
          <div class="input-group" id="forms">
             <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fa fa-money"></i></span>

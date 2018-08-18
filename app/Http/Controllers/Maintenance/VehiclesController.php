@@ -11,7 +11,7 @@ use App\Http\Controllers\Controller;
 class VehiclesController extends Controller
 {
 
-  public $viewBasePath = 'admin.maintenance.vehicle';
+  public $viewBasePath = 'admin.maintenance.vehicle.category';
   public $baseUrl = 'vehicle/category';
 
   /**
@@ -22,7 +22,7 @@ class VehiclesController extends Controller
   public function index(Request $request)
   {
       if( $request->ajax() ) {
-          $vehicles = Vehicle::with('categories')->get();
+          $vehicles = Vehicle::with('vehicles')->get();
           return datatables($vehicles)->toJson();
       }
       

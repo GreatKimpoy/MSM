@@ -7,10 +7,10 @@ use Illuminate\Http\Request;
 use App\Models\Vehicle\Category;
 use App\Http\Controllers\Controller;
 
-class VehicleCategoriesController extends Controller
+class VehicleCategoryController extends Controller
 {
 
-    public $viewBasePath = 'admin.maintenance.vehicle';
+    public $viewBasePath = 'admin.maintenance.vehicle.category';
 
     /**
      * Display a listing of the resource.
@@ -24,7 +24,7 @@ class VehicleCategoriesController extends Controller
             return datatables($vehicles)->toJson();
         }
         
-        return view( $this->viewBasePath . '.category.index');
+        return view( $this->viewBasePath . '.index');
     }
 
     /**
@@ -34,7 +34,7 @@ class VehicleCategoriesController extends Controller
      */
     public function create()
     {
-        return view( $this->viewBasePath . '.category.create')
+        return view( $this->viewBasePath . '.create')
             ->with('transmission_types', Category::$transmission_types);
     }
 
@@ -84,9 +84,9 @@ class VehicleCategoriesController extends Controller
     public function show($id)
     {
         $id = filter_var( $id, FILTER_VALIDATE_INT);
-        $category = Categroy::where('id', '=', $id)->first();
+        $category = category::where('id', '=', $id)->first();
 
-        return view( $this->viewBasePath . '.category.show')
+        return view( $this->viewBasePath . '.show')
                 ->with('category', $category);
     }
 
@@ -101,7 +101,7 @@ class VehicleCategoriesController extends Controller
         $id = filter_var( $id, FILTER_VALIDATE_INT);
         $category = Category::where('id', '=', $id)->first();
 
-        return view( $this->viewBasePath . '.category.edit')
+        return view( $this->viewBasePath . '.edit')
                 ->with('category', $category)
                 ->with('transmission_types', Category::$transmission_types);
     }
@@ -120,7 +120,7 @@ class VehicleCategoriesController extends Controller
         $year_made = filter_var($request->get('year_made'), FILTER_SANITIZE_STRING);
         $size = filter_var($request->get('size'), FILTER_SANITIZE_STRING);
         $transmission = filter_var($request->get('transmission'), FILTER_SANITIZE_STRING);
-        $category = Category::find($id);
+        $category = category::find($id);
 
         $validator = Validator::make([
             'brand' => $brand,
@@ -184,13 +184,13 @@ class VehicleCategoriesController extends Controller
         if( $request->ajax() ) {
             return response()->json([
                 'title' => 'Success',
-                'message' => 'Category successfully removed',
+                'message' => 'Category Category successfully removed',
                 'status' => 'ok',
                 'others' => '',
             ], 200);
         }
 
-        session()->flush('success', 'Category successfully removed');
+        session()->flush('success', 'Category  successfully removed');
         return redirect('vehicle');
     }
 }

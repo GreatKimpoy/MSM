@@ -5,11 +5,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
-          <h1 class="float-left">Vehicle Categories</h1>
+          <h1 class="float-left">Vehicle Category</h1>
           <ol class="breadcrumb float-right">
             <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">Home</a></li>
             <li class="breadcrumb-item active">Vehicle</li>
-            <li class="breadcrumb-item active">Categories</li>
+            <li class="breadcrumb-item active">category</li>
           </ol>
       </div><!-- /.container-fluid -->
     </section>
@@ -21,7 +21,7 @@
         <div class="card col-sm-12 mt-3">
           <div class="card-block pt-3">
             @include('notification.alert')
-            <table id="vehicle-category-table" class="table table-bordered table-hover">
+            <table id="vehicle-categories-table" class="table table-bordered table-hover">
               <thead>
                 <tr> 
                     <th>Brand</th>
@@ -42,7 +42,7 @@
 @section('scripts-include')
 <script type="text/javascript">
   $(document).ready(function() {
-    var table = $('#vehicle-category-table').DataTable( {
+    var table = $('#vehicle-categories-table').DataTable( {
         select: {
           style: 'single'
         },
@@ -74,12 +74,12 @@
     } );
 
     $("div.toolbar").html(`
-      <a type="button" id="new" href="{{ url('vehicle/category/create') }}"  class="btn btn-primary btn-sm">
-        <i class="fa fa-plus"></i> <strong> Create </strong>  
+      <a type="button" id="new" href="{{ url('vehicle/category/create') }}"  class="btn btn-primary btn-sm float-right">
+        <i class="fa fa-plus"></i> <strong> CREATE </strong>  
       </a>
     `);
 
-    $('#vehicle-category-table').on('click', '.btn-remove', function(){
+    $('#vehicle-categories-table').on('click', '.btn-remove', function(){
         id = $(this).data('id');
         var $this = $(this);
         var loadingText = '<i class="fa fa-circle-o-notch fa-spin"></i> Loading...';

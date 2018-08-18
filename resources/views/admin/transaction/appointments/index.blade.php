@@ -23,7 +23,6 @@
           <thead>
             <tr> 
                 <th>ID</th>
-                <th>Customer ID</th>
                 <th>Appointment Name</th>
                 <th>Start Date</th>
                 <th>End Date</th>
@@ -58,7 +57,6 @@
       ajax: "{{ url('appointments') }}",
       columns: [
           { data: "id" },
-          { data: "customerID" },
           { data: "appointment_name" },
           { data: "appointment_startDate" },
           { data: "appointment_endDate" },
@@ -74,7 +72,7 @@
 	 	$("div.toolbar").html(`
       </a>
  			<a type="button" id="new" href="{{ url('appointments/create') }}"  class="btn btn-primary btn-sm float-right">
-              <i class="fa fa-plus"></i> <strong> CREATE APPOINTMENT</strong>  
+              <i class="fa fa-calendar-plus"></i> <strong> CREATE APPOINTMENT</strong>  
       </a>
 		`);
 

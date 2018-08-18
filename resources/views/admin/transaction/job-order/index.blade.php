@@ -73,8 +73,8 @@
     } );
 
 	 	$("div.toolbar").html(`
- 			<a type="button" id="new" href="{{ url('job-order/create') }}"  class="btn btn-primary">
-        <span class="glyphicon glyphicon-plus"></span>  Start Transaction
+ 			<a type="button" id="new" href="{{ url('job-order/option') }}"  class="btn btn-primary btn-sm float-right">
+            <i class="fa fa-plus"></i> <strong> START TRANSACTION</strong>  
       </a>
 		`);
 
