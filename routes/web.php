@@ -19,6 +19,7 @@ Route::namespace('Maintenance')->group(function() {
     Route::prefix('vehicle')->group(function(){
         Route::resource('category', 'VehicleCategoryController');
         Route::resource('part', 'VehiclePartsController');
+        Route::resource('inspect', 'VehicleInspectionController');
     });
     
     Route::prefix('service')->group(function(){
@@ -31,9 +32,11 @@ Route::namespace('Maintenance')->group(function() {
     
 });
 
+//PDF
+Route::get('inspection/pdf/{id}','PdfController@inspect');
 
 Route::namespace('Transaction')->group(function(){
     Route::resource('inspection', 'InspectionController');
     Route::resource('appointments', 'AppointmentsController');
-    Route::resource('job-order', 'JobOrdersController');
+    Route::resource('joborder', 'JobOrdersController');
 });

@@ -49,7 +49,6 @@ class VehicleCategoryController extends Controller
         
         $brand = filter_var($request->get('brand'), FILTER_SANITIZE_STRING);
         $model = filter_var($request->get('model'), FILTER_SANITIZE_STRING);
-        $year_made = filter_var($request->get('year_made'), FILTER_SANITIZE_STRING);
         $size = filter_var($request->get('size'), FILTER_SANITIZE_STRING);
         $transmission = filter_var($request->get('transmission'), FILTER_SANITIZE_STRING);
 
@@ -61,7 +60,6 @@ class VehicleCategoryController extends Controller
         $vehicle = new Category;
         $vehicle->brand = $brand;
         $vehicle->model = $model;
-        $vehicle->year_made = $year_made;
         $vehicle->size = $size;
         $vehicle->transmission_type = $transmission;
         $vehicle->save();
@@ -117,7 +115,6 @@ class VehicleCategoryController extends Controller
     {
         $brand = filter_var($request->get('brand'), FILTER_SANITIZE_STRING);
         $model = filter_var($request->get('model'), FILTER_SANITIZE_STRING);
-        $year_made = filter_var($request->get('year_made'), FILTER_SANITIZE_STRING);
         $size = filter_var($request->get('size'), FILTER_SANITIZE_STRING);
         $transmission = filter_var($request->get('transmission'), FILTER_SANITIZE_STRING);
         $category = category::find($id);
@@ -125,7 +122,6 @@ class VehicleCategoryController extends Controller
         $validator = Validator::make([
             'brand' => $brand,
             'model' => $model,
-            'year_made' => $year_made,
             'size' => $size,
             'transmission' => $transmission
         ], $category->updateRules());
@@ -136,7 +132,6 @@ class VehicleCategoryController extends Controller
 
         $category->brand = $brand;
         $category->model = $model;
-        $category->year_made = $year_made;
         $category->size = $size;
         $category->transmission_type = $transmission;
         $category->save();

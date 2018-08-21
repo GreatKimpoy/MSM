@@ -20,13 +20,17 @@
       <div class="container-fluid">
         <div class="card col-sm-12 mt-3">
           <div class="card-block pt-3">
+            <div class="card-body">
+              <a type="button" id="new" href="{{ url('vehicle/category/create') }}"  class="btn btn-success btn-sm float-right">
+                <i class="fa fa-plus"></i> <strong> NEW RECORD </strong>  
+              </a>
+            </div>
             @include('notification.alert')
             <table id="vehicle-categories-table" class="table table-bordered table-hover">
               <thead>
                 <tr> 
                     <th>Brand</th>
                     <th>Model</th>
-                    <th>Year Made</th>
                     <th>Size</th>
                     <th>Transmission Type</th>
                     <th></th>
@@ -61,7 +65,6 @@
       columns: [
           { data: "brand" },
           { data: "model" },
-          { data: "year_made" },
           { data: "size" },
           { data: "transmission_type" },
           { data: function(callback){
@@ -73,11 +76,6 @@
       ],
     } );
 
-    $("div.toolbar").html(`
-      <a type="button" id="new" href="{{ url('vehicle/category/create') }}"  class="btn btn-primary btn-sm float-right">
-        <i class="fa fa-plus"></i> <strong> CREATE </strong>  
-      </a>
-    `);
 
     $('#vehicle-categories-table').on('click', '.btn-remove', function(){
         id = $(this).data('id');

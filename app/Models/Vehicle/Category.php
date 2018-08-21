@@ -8,19 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 
 {
-    protected $table = 'vehicle_categories';
+    protected $table = 'vehicle_models';
 	public $primaryKey = 'id';
     public $timestamps = false;
     public static $transmission_types = [
-        'Automatic', 'Manual', 'Both'
+        'Automatic', 'Manual', 'AT/MT'
     ];
     
     public function rules()
     {
         return [
             'brand' => "required|min:1|max:30",
-            'model' => "required|min:3|max:50",
-            'year_made' => "required",
+            'model' => "required|min:3|max:50|unique:$this->table,model",
             'size' => "required",
             'transmission' => "required",
            
@@ -33,7 +32,6 @@ class Category extends Model
         return [
             'brand' => 'required|min:1|max:30',
             'model' => 'nullable|min:3|max:50',
-            'year_made' => 'required',
             'size' => 'required',
             'transmission' => 'required',
         ];

@@ -50,9 +50,10 @@ class AppointmentsController extends Controller
             );
                 
         }
+        
         $calendar_details = Calendar::addEvents($appointment_list);
 
-        return view( $this->viewBasePath . '.appointments.create', compact('calendar_details'));
+        return view($this->viewBasePath . '.appointments.create', compact('calendar_details'));
 
 
     }

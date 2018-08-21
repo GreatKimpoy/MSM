@@ -16,15 +16,15 @@ class CreateAppointmentsTable extends Migration
         Schema::create('appointments', function (Blueprint $table) {
 
             $table->increments('id');
-            $table->integer('person_id')->unsigned();
+            $table->integer('customer_id')->unsigned();
             $table->date('appointment_name');
             $table->date('appointment_startDate');
             $table->date('production_endDate');
             $table->timestamps();
 
-            $table->foreign('person_id')
+            $table->foreign('customer_id')
                 ->references('id')
-                ->on('persons')
+                ->on('customers')
                 ->onUpdate('cascade')
                 ->onDelete('restrict'); 
 

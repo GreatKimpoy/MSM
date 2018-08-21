@@ -22,7 +22,7 @@ class CreateInspectionsTable extends Migration
             $table->timestamps();
             $table->foreign('customer_id')
                 ->references('id')
-                ->on('persons')
+                ->on('customers')
                 ->onUpdate('cascade')
                 ->onDelete('restrict'); 
             $table->foreign('vehicle_id')

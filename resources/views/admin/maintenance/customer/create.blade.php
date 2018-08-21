@@ -17,6 +17,7 @@
 @section('content-body')
 <section class="content-header">
   <div class="container-fluid">
+<<<<<<< HEAD
     <div class="card col-sm-12">
       <div class="card-block pt-3">
         <div class="card-header bg-primary"><strong>Customer Information Form</strong></div>
@@ -31,8 +32,25 @@
                 <button type="submit" class="btn btn-primary btn-block">Save</button>
             </div>
         </form>
+=======
+    <div class="card col-sm-12" id="card">
+      <div class="card-block pt-3" id="card">
+        <div class="card-header bg-primary" id="card"><strong>Customer Information Form</strong>
+        </div>
+          <div class="card-body" id="card">
+            <form method="post" action="{{ url('customer') }}" class="form-horizontal">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                <input type="hidden" name="type" value="customer" />
+                @include('errors.alert')
+                @include('admin.maintenance.customer.form')
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">Save</button>
+                </div>
+            </form>
+          </div>
+>>>>>>> 1.0
       </div>
-    </div>
+    </div>  
   </div>
 </section>
 @endsection

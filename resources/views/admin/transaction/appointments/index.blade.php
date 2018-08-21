@@ -18,8 +18,15 @@
   <div class="container-fluid">
     <div class="card col-sm-12 mt-3">
       <div class="card-block pt-3">
+
+         <div class="card-body">
+              <a type="button" id="new" href="{{ url('appointments/create') }}"  class="btn btn-success btn-sm float-right">
+                <i class="fa fa-plus"></i> <strong> NEW RECORD </strong>  
+              </a>
+          </div>
+
         @include('notification.alert')
-        <table id="appointmentsTable" class="table table-bordered table-hover">
+        <table id="list" class="table table-bordered table-hover">
           <thead>
             <tr> 
                 <th>ID</th>
@@ -29,6 +36,9 @@
                 <th></th>
             </tr>
           </thead>
+          <tbody>
+            
+          </tbody>
         </table>
       </div>
     </div>
@@ -39,44 +49,9 @@
 @section('scripts-include')
 <script type="text/javascript">
 	$(document).ready(function() {
-		var table = $('#appointmentsTable').DataTable( {
-	  		select: {
-	  			style: 'single'
-	  		},
-		    language: {
-		        searchPlaceholder: "Search..."
-		    },
-	    	columnDefs:[
-				{ targets: 'no-sort', orderable: false },
-	    	],
-	    	"dom": "<'row'<'col-sm-3'l><'col-sm-6'<'toolbar'>><'col-sm-3'f>>" +
-						    "<'row'<'col-sm-12'tr>>" +
-						    "<'row'<'col-sm-5'i><'col-sm-7'p>>",
-			"processing": true,
-      serverSide: true,
-      ajax: "{{ url('appointments') }}",
-      columns: [
-          { data: "id" },
-          { data: "appointment_name" },
-          { data: "appointment_startDate" },
-          { data: "appointment_endDate" },
-          { data: function(callback){
-            return `
-              <button type="button" data-id='` + callback.id + `"' class="btn-proceed btn btn-success"><i class= "fa fa-arrow-circle-right"></i><strong>Proceed</strong></button>
-              <button type="button" data-id='` + callback.id + `"' class="btn-remove btn btn-danger"><i class= "fa fa-ban"></i><strong>Remove</strong></button>
-            `
-          } },
-      ],
-    } );
+		
 
-	 	$("div.toolbar").html(`
-      </a>
- 			<a type="button" id="new" href="{{ url('appointments/create') }}"  class="btn btn-primary btn-sm float-right">
-              <i class="fa fa-calendar-plus"></i> <strong> CREATE APPOINTMENT</strong>  
-      </a>
-		`);
-
-    $('#appointmentsTable').on('click', '.btn-remove', function(){
+    $('#list').on('click', '.btn-remove', function(){
 				id = $(this).data('id');
         var $this = $(this);
         var loadingText = '<i class="fa fa-circle-o-notch fa-spin"></i> Loading...';

@@ -14,10 +14,6 @@
 <div class="row">
     <div class="col-lg-12">
         <label for="name">Name</label><span class="asterisks"><strong>*</strong></span>
-        <div class="input-group">
-            <div class="input-group-append">
-                <span class="input-group-text"><i class="fa fa-wrench"></i></span>
-            </div>
             <input 
                 class="form-control align-center" 
                 placeholder="Name" 
@@ -27,7 +23,6 @@
                 type="text"
                 id="name"
                 value="{{ isset($service->name) ? $service->name : old('name') }}">
-        </div>
     </div>
 </div>
 
@@ -65,10 +60,6 @@
 <div class="row">
     <div class="col-lg-6">
         <label for="warranty">Warranty</label><span class="asterisks"><strong>*</strong></span>
-        <div class="input-group">
-            <div class="input-group-append">
-                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-            </div>
              <input 
                 class="form-control align-center" 
                 placeholder="Number of Months Warranty" 
@@ -78,14 +69,11 @@
                 type="text"
                 id="warranty"
                 value="{{ isset($service->warranty) ? $service->warranty : old('warranty') }}">
-        </div>
     </div>
 
     <div class="col-lg-6">
         <label for="price">Price</label><span class="asterisks"><strong>*</strong></span>
         <div class="input-group" id="form">
-            <div class="input-group-append">
-                <span class="input-group-text"><i class="fa fa-money"></i></span>
                 <input 
                     class="form-control align-center" 
                     placeholder="Price" 
@@ -95,7 +83,6 @@
                     type="text"
                     id="price"
                     value="{{ isset($service->price) ? $service->price : old('price') }}">
-            </div>
         </div>
     </div>
 </div>

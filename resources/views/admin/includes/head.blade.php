@@ -26,7 +26,7 @@
 <!-- Google Font: Source Sans Pro -->
 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet" />
 <!-- Select2 -->
-<link rel="stylesheet" href="{{asset('material/plugins/select2/select2.min.css')}}" />
+<link rel="stylesheet" href="{{ asset('material/plugins/select2/select2.min.css')}}" />
 <!-- iCheck for checkboxes and radio inputs -->
 <link rel="stylesheet" href="{{ asset('material/plugins/iCheck/all.css') }}" />
 <link rel="stylesheet" href="{{ asset('material/plugins/colorpicker/bootstrap-colorpicker.min.css') }}" />
@@ -34,11 +34,26 @@
 <link rel="stylesheet" href="{{ asset('material/plugins/datatables/dataTables.bootstrap4.css') }}" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 
+<link rel="stylesheet" href="{{asset ('material/panel/panel/css/lobipanel.min.css')}}"/>
+
+ <!-- fullCalendar 2.2.5-->
+ <link rel="stylesheet" href="{{ asset('material/plugins/fullcalendar/fullcalendar.min.css')}}">
+ <link rel="stylesheet" href="{{asset ('material/plugins/fullcalendar/fullcalendar.print.css')}}" media="print">
+
+
 <!--FullCalendar-->
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
 
 <!---SELECT-->
 <link rel="stylesheet" href="{{ asset('material/plugins/bootstrap-select/css/bootstrap-select.css') }}" />
+
+
+<!-- responsive dataformbuilder-->
+<link rel="stylesheet" type="text/css" href="{{asset('material/formbuilder/form-builder.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{asset('material/formbuilder/form-render.min.css') }}">
+
+
+
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 

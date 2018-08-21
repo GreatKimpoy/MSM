@@ -16,7 +16,6 @@ class CreateInspectionHeaderTable extends Migration
         Schema::create('inspection_header', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('inspection_id')->unsigned();
-            $table->integer('mechanic_id')->unsigned();
             $table->integer('item_id')->unsigned();
             $table->text('remarks');
             $table->timestamps();
@@ -24,12 +23,6 @@ class CreateInspectionHeaderTable extends Migration
             $table->foreign('inspection_id')
             ->references('id')
             ->on('inspections')
-            ->onUpdate('cascade')
-            ->onDelete('restrict');
-
-            $table->foreign('mechanic_id')
-            ->references('id')
-            ->on('persons')
             ->onUpdate('cascade')
             ->onDelete('restrict');
 

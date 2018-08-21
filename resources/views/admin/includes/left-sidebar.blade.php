@@ -59,9 +59,9 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ url('vehicle/category') }}" class="nav-link">
+                <a href="{{ url('vehicle/inspect') }}" class="nav-link">
                   <i class="nav-icon fa plus-square"></i>
-                  <p><i class="nav-icon fa fa-car-alt"></i>List</p>
+                  <p><i class="nav-icon fa fa-car-alt"></i>Inspection</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -122,12 +122,23 @@
         <ul class="nav nav-treeview">
           <li class="nav-item">
               <a href="{{url ('appointments')}}" class="nav-link">
+<<<<<<< HEAD
               <p>Appointments</p>
             </a>
           </li>
           <li class="nav-item">
             <a href="{{ url('job-order')}}" class="nav-link">
               <p>Job Orders</p>
+=======
+              <i class="nav-icon fa plus-square"></i>
+              <p><i class="nav-icon fa fa-calendar"></i>Appointments</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url('joborder')}}" class="nav-link">
+              <i class="nav-icon fa plus-square"></i>
+              <p><i class="nav-icon fa fa-briefcase"></i>Job Order</p>
+>>>>>>> 1.0
             </a>
           </li>
           <li class="nav-item">

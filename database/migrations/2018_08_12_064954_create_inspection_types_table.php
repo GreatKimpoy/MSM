@@ -15,7 +15,7 @@ class CreateInspectionTypesTable extends Migration
     {
         Schema::create('inspection_types', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('type');
             $table->timestamps();
         });
     }

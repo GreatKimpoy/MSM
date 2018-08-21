@@ -10,10 +10,28 @@ class inspection extends Model
 	public $primaryKey = 'id';
     public $timestamps = false;
 
-    public function item()
-    {
-        return $this->belongsToMany('App\InspectionItem', 'inspection_header', 'item_id', 'inspection_id');
-    }
+    protected $fillable = [
+    	'customer_id',
+        'vehicle_id',
+        'additional_remarks'
         
+    ];
+
+
+
+    public function inspection(){
+        return $this->hasMany('App\Models\InspectionHeader','inspection_id');
+    }
     
+    public function customer(){
+        return $this->belongsTo('App\Models\Customer','customer_id');
+    }
+    
+    public function vehicle(){
+        return $this->belongsTo('App\Models\Vehicle\Category','vehicle_id');
+    }
+    
+    public function technician(){
+        return $this->hasMany('App\InspectionTechnician','inspectionId')->where('isActive',1);
+    }
 }

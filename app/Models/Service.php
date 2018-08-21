@@ -44,6 +44,6 @@ class Service extends Model
     
     public function category()
     {
-        return $this->belongsTo( __NAMESPACE__ . '\\Category', 'category_id', 'id');
+        return $this->belongsTo('App\Models\Category', 'category_id', 'id');
     }
 }

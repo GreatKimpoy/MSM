@@ -15,13 +15,13 @@ class CreateCategoryPersonTable extends Migration
     {
         Schema::create('category_person', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('person_id')->unsigned();
+            $table->integer('technician_id')->unsigned();
             $table->integer('category_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('person_id')
+            $table->foreign('technician_id')
             ->references('id')
-            ->on('persons')
+            ->on('technicians')
             ->onUpdate('cascade')
             ->onDelete('restrict'); 
             

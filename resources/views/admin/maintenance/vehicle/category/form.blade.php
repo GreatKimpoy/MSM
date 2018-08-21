@@ -19,14 +19,14 @@
 
     #forms{
         margin-bottom: 20px;
-        padding-left: 20px;
+        margin-left: 10px;
     }
 
     #form{
         padding-left: 10px;
     }
 
-</style>
+</style>    
 
 
 
@@ -35,10 +35,6 @@
 
     <div class="col-md-6">
         <label for="brand" class="labely">Brand</label><span class="asterisks"><strong>*</strong></span>
-        <div class="input-group" id="form">
-            <div class="input-group-append">
-                <span class="input-group-text"><i class="fa fa-car-alt"></i></span>
-            </div>
              <input 
                 class="form-control align-center" 
                 placeholder="Brand" 
@@ -48,55 +44,29 @@
                 type="text"
                 id="brand"
                 value="{{ isset($category->brand) ? $category->brand : old('brand') }}">
-        </div>
     </div>
 
      <div class="col-md-6">
         <label for="model" class="labely">Model</label><span class="asterisks"><strong>*</strong></span>
-        <div class="input-group">
-            <div class="input-group-append">
-                <span class="input-group-text"><i class="fa fa-car-alt"></i></span>
-            </div>
              <input 
                 class="form-control align-center" 
-                placeholder="Model" 
+                placeholder="Model & Year" 
                 maxlength="50" 
                 required 
                 name="model" 
                 type="text"
                 id="model"
                 value="{{ isset($category->model) ? $category->model : old('model') }}">
-        </div>
     </div>
-
 </div>
 
 
 <div class="row">
 
-    <div class="col-md-4">
-        <label for="Year_made" class="label">Year Made</label><span class="asterisks"><strong>*</strong></span>
-        <div class="input-group" id="forms">
-            <div class="input-group-append">
-                <span class="input-group-text"><i class="fa fa-car-alt"></i></span>
-            </div>
-             <input 
-                class="form-control align-center" 
-                placeholder="Year Made" 
-                required 
-                name="year_made" 
-                type="text"
-                id="year_made"
-                value="{{ isset($category->year_made) ? $category->year_made : old('year_made') }}">
-        </div>
-    </div>
 
-    <div class="col-md-4">
+    <div class="col-md-6">
         <label for="size" class="label">Size</label><span class="asterisks"><strong>*</strong></span>
-        <div class="input-group" id="forms">
-            <div class="input-group-append">
-                <span class="input-group-text"><i class="fa fa-car-alt"></i></span>
-            </div>
+        <div id="forms">
             <input 
                 class="form-control align-center"
                 placeholder="Size" 
@@ -109,7 +79,7 @@
         </div>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-6">
         <label for="transmission" class="label">Transmission Type</label><span class="asterisks"><strong>*</strong></span>
              <div class="col-md-12">
                     @if(isset($transmission_types))
