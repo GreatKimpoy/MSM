@@ -16,7 +16,8 @@ class CreateInspectionItemsTable extends Migration
         Schema::create('inspection_items', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('type_id')->unsigned();
-            $table->string('items');
+            $table->string('name');
+            $table->text('form');
             $table->timestamps();
 
             $table->foreign('type_id')

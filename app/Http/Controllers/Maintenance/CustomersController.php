@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Maintenance;
 
 use DB;
 use Validator;
-use App\Models\Person;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -20,7 +20,7 @@ class CustomersController extends Controller
     public function index(Request $request)
     {
         if( $request->ajax() ) {
-            $customers = Person::customer()->get();
+            $customers = Customer::all();
             return datatables($customers)->toJson();
         }
         return view( $this->viewBasePath . '.customer.index');
@@ -52,9 +52,8 @@ class CustomersController extends Controller
         $city = filter_var($request->get('city'), FILTER_SANITIZE_STRING);
         $birthdate = filter_var($request->get('birthdate'), FILTER_SANITIZE_STRING);
         $contact = filter_var($request->get('contact'), FILTER_SANITIZE_STRING);
-        $email = filter_var($request->get('email'), FILTER_SANITIZE_STRING);
-        $type = filter_var($request->get('type'), FILTER_SANITIZE_STRING);
-        $customer = new Person;
+        $email = filter_var($request->get('email'), FILTER_SANITIZE_STRING);;
+        $customer = new Customer;
 
         $validator = Validator::make( $request->all(), $customer->customerRules());
 
@@ -71,7 +70,6 @@ class CustomersController extends Controller
         $customer->birthdate = $birthdate;
         $customer->contact = $contact;
         $customer->email = $email;
-        $customer->type = $type;
         $customer->save();
 
 		session()->flash('notification', [
@@ -92,7 +90,7 @@ class CustomersController extends Controller
     public function show($id)
     {
         $id = filter_var( $id, FILTER_VALIDATE_INT);
-        $customer = Person::customer()->where('id', '=', $id)->first();
+        $customer = Customer::all()->where('id', '=', $id)->first();
 
         return view( $this->viewBasePath . '.customer.show')
                 ->with('customer', $customer);
@@ -107,7 +105,7 @@ class CustomersController extends Controller
     public function edit($id)
     {
         $id = filter_var( $id, FILTER_VALIDATE_INT);
-        $customer = Person::customer()->where('id', '=', $id)->first();
+        $customer = Customer::all()->where('id', '=', $id)->first();
 
         return view( $this->viewBasePath . '.customer.edit')
                 ->with('customer', $customer);
@@ -132,8 +130,7 @@ class CustomersController extends Controller
         $birthdate = filter_var($request->get('birthdate'), FILTER_SANITIZE_STRING);
         $contact = filter_var($request->get('contact'), FILTER_SANITIZE_STRING);
         $email = filter_var($request->get('email'), FILTER_SANITIZE_STRING);
-        $type = filter_var($request->get('type'), FILTER_SANITIZE_STRING);
-        $customer = Person::find($id);
+        $customer = Customer::find($id);
 
         $validator = Validator::make( $request->all() + [ 'customer' => $id ], $customer->customerUpdateRules());
         if($validator->fails()) {
@@ -149,7 +146,7 @@ class CustomersController extends Controller
         $customer->birthdate = $birthdate;
         $customer->contact = $contact;
         $customer->email = $email;
-        $customer->type = $type;
+      
 
         DB::beginTransaction();
         $customer->save();
@@ -174,11 +171,11 @@ class CustomersController extends Controller
     {
         $name = filter_var($request->get('name'), FILTER_SANITIZE_STRING);
         $description = filter_var($request->get('description'), FILTER_SANITIZE_STRING);
-        $category = new Person;
+        $category = new Customer;
 
         $validator = Validator::make([
-            'person' => $id
-        ], $category->checkIfPersonExists());
+            'customer' => $id
+        ], $category->checkIfCustomerExists());
 
         if($validator->fails()) {
             
@@ -193,7 +190,7 @@ class CustomersController extends Controller
             return back()->withInput()->withErrors($validator);
         }
 
-        $category = Person::customer()->where('id', '=', $id)->first();
+        $category = Customer::customer()->where('id', '=', $id)->first();
         $category->delete();
 
         if( $request->ajax() ) {

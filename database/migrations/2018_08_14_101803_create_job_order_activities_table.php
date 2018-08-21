@@ -17,10 +17,10 @@ class CreateJobOrderActivitiesTable extends Migration
             $table->increments('id');
             $table->integer('job_order_id')->unsigned();
             $table->longtext('details');
-            $table->integer('person_id')->unsigned();
-            $table->foreign('person_id')
+            $table->integer('customer_id')->unsigned();
+            $table->foreign('customer_id')
             ->references('id')
-            ->on('persons')
+            ->on('customers')
             ->onUpdate('cascade')
             ->onDelete('restrict'); 
             $table->integer('created_by')->unsigned();

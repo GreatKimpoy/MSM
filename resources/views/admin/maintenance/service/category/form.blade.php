@@ -1,5 +1,17 @@
+
+<style>
+    .asterisks{
+        color: red;
+        font-size: 20px;
+    }
+</style>
+
+
+
+
+
 <div class="form-group">
-    <label for="name">Name</label><span>*</span>
+    <label for="name">Name</label><span class="asterisks"><strong>*</strong></span>
     <input 
         class="form-control align-center" 
         placeholder="Name" 
@@ -12,7 +24,7 @@
 </div>
 
 <div class="form-group">
-    <label for="description">Description</label><span>*</span>
+    <label for="description">Description</label><span class="asterisks"><strong>*</strong></span>
     <textarea 
         class="form-control align-center" 
         placeholder="Description"

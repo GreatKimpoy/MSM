@@ -20,14 +20,17 @@
   <div class="container-fluid">
     <div class="card col-sm-12 mt-3">
       <div class="card-block pt-3">
-        <form method="post" action="{{ url('service/category') }}" class="form-horizontal">
-            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            @include('errors.alert')
-            @include('admin.maintenance.service.category.form')
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block">Save</button>
-            </div>
-        </form>
+        <div class="card-header bg-primary"><strong>Category Form</strong></div>
+          <div class="card-body">
+            <form method="post" action="{{ url('service/category') }}" class="form-horizontal">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                @include('errors.alert')
+                @include('admin.maintenance.service.category.form')
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">Save</button>
+                </div>
+            </form>
+          </div>
       </div>
     </div>
   </div>

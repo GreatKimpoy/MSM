@@ -11,14 +11,14 @@
         margin-top: 20px;
     }
 
-    .label{
+    .labely{
         margin-top: 20px;
     }
 
-    #plate{
-        margin-left: 250px;
+    #forms{
         margin-bottom: 20px;
     }
+
 
 </style>
 
@@ -28,11 +28,7 @@
 <div class="row">
 
     <div class="col-md-4">
-        <label for="lastname" class="label" >Lastname</label><span class="asterisks"><strong>*</strong></span>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fa fa-user"></i></span>
-            </div>
+        <label for="lastname" class="labely" >Lastname</label><span class="asterisks"><strong>*</strong></span>
             <input 
                 class="form-control align-center" 
                 placeholder="Lastname" 
@@ -42,15 +38,10 @@
                 type="text"
                 id="lastname"
                 value="{{ isset($customer->lastname) ? $customer->lastname : old('lastname') }}">
-        </div>
     </div>
 
     <div class="col-md-4">
-        <label for="firstname" class="label">Firstname</label><span class="asterisks"><strong>*</strong></span>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fa fa-user"></i></span>
-            </div>
+        <label for="firstname" class="labely">Firstname</label><span class="asterisks"><strong>*</strong></span>
             <input 
                 class="form-control align-center" 
                 placeholder="Firstname" 
@@ -60,15 +51,10 @@
                 type="text"
                 id="firstname"
                 value="{{ isset($customer->firstname) ? $customer->firstname : old('firstname') }}">
-        </div>
     </div>
 
     <div class="col-md-4">
-        <label for="middlename" class="label">Middlename</label><span class="asterisks"><strong>*</strong></span>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fa fa-user"></i></span>
-            </div>
+        <label for="middlename" class="labely">Middlename</label><span class="asterisks"><strong>*</strong></span>
             <input 
                 class="form-control align-center" 
                 placeholder="Middlename" 
@@ -78,18 +64,12 @@
                 id="middlename"
                 value="{{ isset($customer->middlename) ? $customer->middlename : old('middlename') }}">
         </div>
-    </div>
-
 </div>
 
 <div class="row">
 
     <div class="col-md-4">
         <label for="birthdate" class="labely">Birthdate</label><span class="asterisks"><strong>*</strong></span>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-            </div>
             <input 
                 class="form-control align-center" 
                 placeholder="Birthdate" 
@@ -99,15 +79,10 @@
                 type="date"
                 id="birthdate"
                 value="{{ isset($customer->birthdate) ? $customer->birthdate : old('birthdate') }}">
-        </div>
     </div>
 
     <div class="col-md-4">
         <label for="contact" class="labely">Contact Number</label><span class="asterisks"><strong>*</strong></span>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fa fa-mobile"></i></span>
-            </div>
            <input 
                 class="form-control align-center" 
                 placeholder="Contact Number" 
@@ -117,15 +92,10 @@
                 type="text"
                 id="contact"
                 value="{{ isset($customer->contact) ? $customer->contact : old('contact') }}">
-        </div>
     </div>
 
     <div class="col-md-4">
         <label for="email" class="labely">Email Address</label><span class="asterisks"><strong>*</strong></span>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fa fa-at"></i></span>
-            </div>
             <input 
                 class="form-control align-center" 
                 placeholder="Email Address" 
@@ -133,21 +103,15 @@
                 required 
                 name="email" 
                 type="email"
-                id="email"
+                id="emails"
                 value="{{ isset($customer->email) ? $customer->email : old('email') }}">
-        </div>
     </div>
-
 </div>
 
 <div class="row">
 
     <div class="col-md-4">
         <label for="barangay" class="labely">Barangay</label><span class="asterisks"><strong>*</strong></span>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fa fa-map-marker-alt"></i></span>
-            </div>
             <input 
                 class="form-control align-center" 
                 placeholder="Barangay" 
@@ -157,15 +121,10 @@
                 type="text"
                 id="barangay"
                 value="{{ isset($customer->barangay) ? $customer->barangay : old('barangay') }}">
-        </div>
     </div>
 
     <div class="col-md-4">
         <label for="street" class="labely">Street</label><span class="asterisks"><strong>*</strong></span>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fa fa-map-marker-alt"></i></span>
-            </div>
             <input 
                 class="form-control align-center" 
                 placeholder="Street" 
@@ -175,15 +134,11 @@
                 type="text"
                 id="street"
                 value="{{ isset($customer->street) ? $customer->street : old('street') }}">
-        </div>
     </div>
 
     <div class="col-md-4">
         <label for="city" class="labely">City</label><span class="asterisks"><strong>*</strong></span>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fa fa-map-marker-alt"></i></span>
-            </div>
+        <div id="forms">
             <input 
                 class="form-control align-center" 
                 placeholder="City" 
@@ -195,24 +150,5 @@
                 value="{{ isset($customer->city) ? $customer->city : old('city') }}">
         </div>
     </div>
-
 </div>
 
-<div class="row">
-    <div class="col-md-6" id="plate">
-       <label for="platenumber" class="labely">Plate Number</label><span></span>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fa fa-car-side"></i></span>
-            </div>
-            <input 
-                class="form-control align-center" 
-                placeholder="Plate number" 
-                maxlength="50" 
-                name="plate_number" 
-                type="text"
-                id="plate_number"
-                value="{{ isset($person_vehicle->plate_number) ? $person_vehicle->plate_number : old('person_number') }}">
-        </div>
-    </div>
-</div>

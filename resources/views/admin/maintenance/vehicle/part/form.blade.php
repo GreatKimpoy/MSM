@@ -9,7 +9,7 @@
     }
 
     .labely{
-        margin-top: 20px;
+        margin-top: 40px;
     }
 
     .label{
@@ -17,12 +17,8 @@
     }
 </style>
 <div class="row">
-    <div class="col-md-4" id="labely">
+    <div class="col-md-4">
         <label for="Part Number" class="labely">Part Number</label><span class="asterisks"><strong>*</strong></span>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fa fa-wrench"></i></span>
-            </div>
             <input 
                 class="form-control align-center" 
                 placeholder="Part Number" 
@@ -32,7 +28,6 @@
                 type="text"
                 id="number"
                 value="{{ isset($part->number) ? $part->number : old('number') }}">
-        </div>
     </div>
 
     <div class="col-md-4">
@@ -63,10 +58,6 @@
 <div class="row">
     <div class="col-md-8">
         <label for="description" class="label">Description</label><span class="asterisks"><strong>*</strong></span>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fa fa-wrench"></i></span>
-            </div>
              <input 
                 class="form-control align-center" 
                 placeholder="Description" 
@@ -75,14 +66,10 @@
                 type="text"
                 id="description"
                 value="{{ isset($part->description) ? $part->description : old('description') }}">
-        </div>
     </div>
     <div class="col-md-4">
         <label for="price" class="label">Price</label><span class="asterisks"><strong>*</strong></span>
-         <div class="input-group" id="forms">
-            <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fa fa-money"></i></span>
-            </div>
+         <div id="forms">
             <input 
                 class="form-control align-center" 
                 placeholder="Price" 

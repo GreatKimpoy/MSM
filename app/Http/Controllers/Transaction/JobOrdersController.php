@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 
 class JobOrdersController extends Controller
 {
-	public $viewBasePath = 'admin.transaction.job-order';
+	public $viewBasePath = 'admin.transaction.joborder';
 
     public function index(Request $request)
     {

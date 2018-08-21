@@ -15,7 +15,7 @@ class CreateJobOrdersTable extends Migration
     {
         Schema::create('job_orders', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('person_id')->unsigned();
+            $table->integer('customer_id')->unsigned();
             $table->integer('vehicle_id')->unsigned();
             $table->integer('inspection_id')->unsigned()->nullable();
             $table->integer('appointment_id')->unsigned()->nullable();
@@ -27,9 +27,9 @@ class CreateJobOrdersTable extends Migration
             $table->string('status');
             $table->timestamps();
 
-            $table->foreign('person_id')
+            $table->foreign('customer_id')
             ->references('id')
-            ->on('persons')
+            ->on('customers')
             ->onUpdate('cascade')
             ->onDelete('restrict'); 
 

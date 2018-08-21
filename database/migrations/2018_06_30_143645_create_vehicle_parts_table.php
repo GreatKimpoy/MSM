@@ -23,7 +23,7 @@ class CreateVehiclePartsTable extends Migration
       
             $table->foreign('vehicle_id')
                 ->references('id')
-                ->on('vehicle_categories')
+                ->on('vehicle_models')
                 ->onUpdate('cascade')
                 ->onDelete('restrict');            
         });

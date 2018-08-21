@@ -163,6 +163,9 @@ return [
 
         MaddHatter\LaravelFullcalendar\ServiceProvider::class,
 
+        Barryvdh\Snappy\ServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
+
     ],
 
     /*
@@ -214,6 +217,8 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Calendar' => MaddHatter\LaravelFullcalendar\Facades\Calendar::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
+        'PDFSnappy' => Barryvdh\Snappy\Facades\SnappyPdf::class,
 
     ],
 

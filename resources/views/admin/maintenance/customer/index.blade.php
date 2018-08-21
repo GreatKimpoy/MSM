@@ -18,16 +18,19 @@
   <div class="container-fluid">
     <div class="card col-sm-12 mt-3">
       <div class="card-block pt-3">
+        <div class="card-body">
+          <a type="button" id="new" href="{{ url('customer/create') }}" class="btn btn-success btn-sm float-right">
+            <i class="fa fa-plus"></i> <strong> NEW RECORD </strong></a> 
+         </div>
         @include('notification.alert')
         <table id="customersTable" class="table table-bordered table-hover">
           <thead>
             <tr> 
+                <th>ID</th>
                 <th>Name</th>
                 <th>Address</th>
                 <th>Contact</th>
                 <th>Email</th>
-                <th>Type</th>
-                <th>Plate No.</th>
                 <th></th>
             </tr>
           </thead>
@@ -63,7 +66,6 @@
           { data: "full_address" },
           { data: "contact" },
           { data: "email" },
-          { data: "plate_number" },
           { data: function(callback){
             return `
               <a href="{{ url("customer") }}` + '/' + callback.id + `/edit"  class="btn btn-warning"><i class="fa fa-edit"></i><strong>Edit</strong></a>
@@ -72,11 +74,6 @@
       ],
     } );
 
-    $("div.toolbar").html(`
-      <a type="button" id="new" href="{{ url('customer/create') }}" class="btn btn-primary btn-sm float-right">
-        <i class="fa fa-plus"></i> <strong> CREATE </strong>
-      </a>
-    `);
 
     $('#customersTable').on('click', '.btn-remove', function(){
         id = $(this).data('id');

@@ -28,4 +28,8 @@
 
 		@yield('scripts-include')
 	</body>
+
+
+	<footer>
+	</footer>
 </html>

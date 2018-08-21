@@ -8,6 +8,7 @@
 </script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset('material/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+
 <!-- Morris.js charts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 <script src="{{ asset('material/plugins/morris/morris.min.js') }}"></script>
@@ -46,12 +47,19 @@
 <script src="{{ asset('material/plugins/input-mask/jquery.inputmask.date.extensions.js')}}"></script>
 <script src="{{ asset('material/plugins/input-mask/jquery.inputmask.extensions.js')}} "></script>
 
+<script src="{{ asset('material/panel/panel/js/lobipanel.min.js')}}"></script>
+
+<script>
+  $(function(){
+  $('.panel').lobiPanel();
+});
+
+</script>
+
 
 <!---FullCalendar-->
 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.js"></script>
-
-
 
 
 <script>
@@ -64,8 +72,42 @@
       }
     }
   });
+    
+</script>
+
+
+<!-- fullCalendar 2.2.5 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
+<script src="{{ asset('material/plugins/fullcalendar/fullcalendar.min.js')}}"></script>
+
+
+
+<!-- jQuery UI 1.11.4 -->
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+
+<script>
+  $(function () {
+
+    var date = new Date()
+    var d    = date.getDate(),
+        m    = date.getMonth(),
+        y    = date.getFullYear()
+    $('#calendars').fullCalendar({
+        header    : {
+        left  : 'prev,next today',
+        center: 'title',
+        right : 'month,agendaWeek,agendaDay'
+      },
+      buttonText: {
+        today: 'today',
+        month: 'month',
+        week : 'week',
+        day  : 'day'
+      },
+      })
 
     
+  })
 </script>
 
 
@@ -91,4 +133,42 @@
 
         
   </script>
+
+<script>
+
+
+$("#viewTable").click(function () {
+    $("#tabularTab").show();
+    $("#calendarTab").hide();
+});
+
+$("#viewCalendar").click(function () {
+    $("#tabularTab").hide();
+    $("#calendarTab").show();
+});
+
+$('#list').DataTable({
+
+});
+
+$('#job').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false
+
+    });
+
+</script> 
+
+
+<script src="{{ URL::asset('material/formbuilder/form-builder.min.js') }}"></script>
+<script src="{{ URL::asset('material/formbuilder/form-render.min.js') }}"></script>
+<script src="{{ URL::asset('js/inspection.js') }}"></script>
+<script src="{{ URL::asset('js/customer.js') }}"></script>
+<script src="{{ URL::asset('js/techList.js') }}"></script>
+<script src="{{ URL::asset('js/inspect.js') }}"></script>
+
 

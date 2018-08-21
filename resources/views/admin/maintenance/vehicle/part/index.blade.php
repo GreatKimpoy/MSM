@@ -19,6 +19,11 @@
   <div class="container-fluid">
     <div class="card col-sm-12 mt-3">
       <div class="card-block pt-3">
+        <div class="card-body">
+          <a type="button" id="new" href="{{ url('vehicle/part/create') }}"  class="btn btn-success btn-sm float-right">
+            <i class="fa fa-plus"></i> <strong> NEW RECORD </strong>
+          </a>
+        </div>
         @include('notification.alert')
         <table id="partsTable" class="table table-bordered table-hover">
           <thead>
@@ -71,12 +76,6 @@
           } },
       ],
     } );
-
-	 	$("div.toolbar").html(`
- 			<a type="button" id="new" href="{{ url('vehicle/part/create') }}"  class="btn btn-primary btn-sm float-right">
-        <i class="fa fa-plus"></i> <strong> CREATE </strong>
-      </a>
-		`);
 
     $('#partsTable').on('click', '.btn-remove', function(){
 				id = $(this).data('id');

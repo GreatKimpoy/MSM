@@ -13,39 +13,15 @@ class Vehicle extends Model
     // Timestamps
     public $timestamps = false;
     
-    public function rules()
-    {
-        return [
-            'brand' => "required|min:1|max:30",
-            'model' => "required|min:3|max:50",
-            'year_made' => "required",
-            'size' => "required",
-            'transmission' => "required",
-           
-        ];
-    }
-    
-    public function updateRules()
-    {
-        $brand = $this->brand;
-        return [
-            'brand' => 'required|min:1|max:30',
-            'model' => 'nullable|min:3|max:50',
-            'year_made' => 'required',
-            'size' => 'required',
-            'transmission' => 'required',
-        ];
-    }
+     public $fillable = [
+        'plate_number',
+        'vehicle_id'
+       
+    ];
 
-    
-    public function checkIfVehicleExists()
-    {
-        return [
-            'vehicle' => "required|exists:$this->table,id"
-        ];
+    public function model(){
+        return $this->belongsTo('App\Models\Vehicle\Category','vehicle_id');
     }
-
-
 }
 
 

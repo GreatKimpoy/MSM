@@ -15,21 +15,13 @@ class CreateVehiclesTable extends Migration
     {
         Schema::create('vehicles', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('owner_id')->unsigned();
             $table->integer('vehicle_id')->unsigned();
             $table->string('plate_number')->nullable()->unique();
             $table->timestamps();
 
-
-            $table->foreign('owner_id')
-            ->references('id')
-            ->on('persons')
-            ->onUpdate('cascade')
-            ->onDelete('restrict'); 
-
             $table->foreign('vehicle_id')
             ->references('id')
-            ->on('vehicles')
+            ->on('vehicle_models')
             ->onUpdate('cascade')
             ->onDelete('restrict'); 
 

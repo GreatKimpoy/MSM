@@ -18,11 +18,16 @@
   <div class="container-fluid">
     <div class="card col-sm-12 mt-3">
       <div class="card-block pt-3">
+        <div class="card-body">
+          <a type="button" id="new" href="{{ url('mechanic/create') }}"  class="btn btn-success btn-sm float-right">
+            <i class="fa fa-plus"></i> <strong> NEW RECORD </strong>  
+          </a>
+        </div>
         @include('notification.alert')
         <table id="mechanicsTable" class="table table-bordered table-hover">
           <thead>
             <tr> 
-                <th>ID</th>
+                <th>image</th>
                 <th>Name</th>
                 <th>Address</th>
                 <th>Contact</th>
@@ -58,7 +63,7 @@
       serverSide: true,
       ajax: "{{ url('mechanic') }}",
       columns: [
-          { data: "id" },
+          { data: "image" },
           { data: "full_name" },
           { data: "full_address" },
           { data: "contact" },
@@ -73,11 +78,6 @@
       ],
     } );
 
-	 	$("div.toolbar").html(`
- 			<a type="button" id="new" href="{{ url('mechanic/create') }}"  class="btn btn-primary btn-sm float-right">
-        <i class="fa fa-plus"></i> <strong> CREATE </strong>  
-      </a>
-		`);
 
     $('#mechanicsTable').on('click', '.btn-remove', function(){
 				id = $(this).data('id');
