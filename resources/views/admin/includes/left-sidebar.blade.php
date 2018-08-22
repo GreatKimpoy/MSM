@@ -122,14 +122,11 @@
         <ul class="nav nav-treeview">
           <li class="nav-item">
               <a href="{{url ('appointments')}}" class="nav-link">
-<<<<<<< HEAD
               <p>Appointments</p>
             </a>
           </li>
           <li class="nav-item">
             <a href="{{ url('job-order')}}" class="nav-link">
-              <p>Job Orders</p>
-=======
               <i class="nav-icon fa plus-square"></i>
               <p><i class="nav-icon fa fa-calendar"></i>Appointments</p>
             </a>
@@ -138,7 +135,6 @@
             <a href="{{ url('joborder')}}" class="nav-link">
               <i class="nav-icon fa plus-square"></i>
               <p><i class="nav-icon fa fa-briefcase"></i>Job Order</p>
->>>>>>> 1.0
             </a>
           </li>
           <li class="nav-item">
